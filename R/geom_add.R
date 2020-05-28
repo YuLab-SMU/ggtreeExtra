@@ -1,10 +1,10 @@
 ##' plot tree associated data in another method.
 ##'
 ##'
-##' 'geom_circ()' automatically re-arranges the input 'data' according to the tree structure,
+##' 'geom_add()' automatically re-arranges the input 'data' according to the tree structure,
 ##' visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping' and other parameters,
-##' and align the graph with the tree 'p' side by side. '
-##' @title geom_circ
+##' and align the graph with the tree 'p' side by side. 
+##' @title geom_add
 ##' @param mapping aes mapping for 'geom' 
 ##' @param data data to plot by 'geom', the column contained tree tip labels 
 ##' should be as y in mapping.

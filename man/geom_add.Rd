@@ -2,7 +2,7 @@
 % Please edit documentation in R/geom_add.R
 \name{geom_add}
 \alias{geom_add}
-\title{geom_circ}
+\title{geom_add}
 \usage{
 geom_add(mapping = NULL, data, geom, offset = 0, ...)
 }
@@ -25,9 +25,9 @@ ggplot objec
 plot tree associated data in another method.
 }
 \details{
-'geom_circ()' automatically re-arranges the input 'data' according to the tree structure,
+'geom_add()' automatically re-arranges the input 'data' according to the tree structure,
 visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping' and other parameters,
-and align the graph with the tree 'p' side by side. '
+and align the graph with the tree 'p' side by side.
 }
 \examples{
 library(ggtree)
