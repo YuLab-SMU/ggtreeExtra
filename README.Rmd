@@ -1,0 +1,47 @@
+---
+output: 
+  md_document:
+    variant: gfm
+html_preview: false
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+# ggadd: add layers which can be shifted horizontally or vertically.
+
+```{r, echo=FALSE, results="hide", message=FALSE}
+library(badger)
+```
+
+```{r, comment="", echo=FALSE, results='asis'}
+cat(packageDescription('ggadd')$Description)
+```
+
+# :writing_hand: Author
+
+[Shuangbin Xu](https://github.com/xiangpin)
+
+School of Basic Medical Sciences, Southern Medical University
+
+# :arrow_double_down: Installation
+
+The development version from `github`:
+
+```r
+if (!requireNamespace("devtools", quietly=TRUE))
+    install.packages("devtools")
+devtools::install_github("xiangpin/ggadd")
+```
+
+# :beginner: Usage
+
+to do
+
+# :book: Vignette
+
+to do
+
+# :sparkling_heart: Contributing
+
+We welcome any contributions! By participating in this project you agree to bide
+by the terms outlined in the [Contributor Code of Conduct](CONDUCT.md).
