@@ -14,4 +14,8 @@ position_identityx(hexpand = NA, vexpand = NA)
 \description{
 adjust identity position.
 }
+\seealso{
+Other position adjustments: 
+\code{\link{position_dodgex}()}
+}
 \concept{position adjustments}

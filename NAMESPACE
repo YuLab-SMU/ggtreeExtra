@@ -2,10 +2,12 @@
 
 S3method(ggplot_add,add_plot)
 export("%>%")
+export(PositionDodgex)
 export(PositionIdentityx)
 export(PositionStackx)
 export(geom_add)
 export(ggplot_add)
+export(position_dodgex)
 export(position_identityx)
 export(position_stackx)
 importFrom(ggplot2,Position)

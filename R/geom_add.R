@@ -9,7 +9,9 @@
 ##' @param data data to plot by 'geom', the column contained tree tip labels 
 ##' should be as y in mapping.
 ##' @param geom geom function to plot the data.
-##' @param offset numeric, distance between panels.
+##' @param offset numeric, distance between panels, the ratio of distance 
+##' to tree, default is 0.03.
+##' @param pratio numeric, the ratio of new geom to tree, default is 0.2.
 ##' @param ... additional parameters for 'geom'
 ##' @return ggplot objec
 ##' @export
@@ -27,12 +29,13 @@
 ##'                    stat="identity",
 ##'                    position=position_stackx())
 geom_add <- function(mapping=NULL, data, geom, 
-                      offset=0, ...){
+                     offset=0.03, pratio=0.2, ...){
     params <- list(...)
     structure(list(data = data,
                    geom = geom, 
                    mapping = mapping,
                    params = params,
-                   offset = offset), 
+                   offset = offset,
+                   pratio = pratio), 
               class = 'add_plot')
 }

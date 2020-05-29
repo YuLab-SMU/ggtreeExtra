@@ -28,6 +28,9 @@ PositionIdentityx <- ggproto("PositionIdentityx", Position,
            data$ymin <- data$ymin + params$vexpand
            data$ymax <- data$ymax + params$vexpand
        }
+       if ("yend" %in% colnames(data)){
+           data$yend <- data$yend + params$vexpand
+       }
     }
     if (!is.na(params$hexpand)){
        data$x <- data$x + params$hexpand
@@ -35,7 +38,10 @@ PositionIdentityx <- ggproto("PositionIdentityx", Position,
            data$xmin <- data$xmin + params$hexpand
            data$xmax <- data$xmax + params$hexpand
        }
-    data <- data.frame(data, check.names=FALSE)
+       if ("xend" %in% colnames(data)){
+           data$xend <- data$xend + params$hexpand
+       }
     }
+    data <- data.frame(data, check.names=FALSE)
   }
 )

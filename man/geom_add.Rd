@@ -4,7 +4,7 @@
 \alias{geom_add}
 \title{geom_add}
 \usage{
-geom_add(mapping = NULL, data, geom, offset = 0, ...)
+geom_add(mapping = NULL, data, geom, offset = 0.03, pratio = 0.2, ...)
 }
 \arguments{
 \item{mapping}{aes mapping for 'geom'}
@@ -14,7 +14,10 @@ should be as y in mapping.}
 
 \item{geom}{geom function to plot the data.}
 
-\item{offset}{numeric, distance between panels.}
+\item{offset}{numeric, distance between panels, the ratio of distance
+to tree, default is 0.03.}
+
+\item{pratio}{numeric, the ratio of new geom to tree, default is 0.2.}
 
 \item{...}{additional parameters for 'geom'}
 }
