@@ -17,5 +17,6 @@ normxy <- function(refnum, targetnum, na.rm=TRUE, ratio=0.38){
     tmin <- min(targetnum, na.rm=na.rm)
     k <- (rmax - rmin)/(tmax - tmin)
     newnum <- k*(targetnum - tmin) + rmin
+    newnum[targetnum==0] <- 0
     return(newnum)
 }
