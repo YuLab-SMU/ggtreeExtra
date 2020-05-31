@@ -89,12 +89,48 @@ pos_dodgex <- function(vexpand, hexpand, data){
           data$ymin <- data$ymin + vexpand
           data$ymax <- data$ymax + vexpand
       }
+      if (all(c("lower", "middle", "upper") %in% colnames(data))){
+          data$lower <- data$lower + vexpand
+          data$middle <- data$middle + vexpand
+          data$upper <- data$upper + vexpand
+      }
+      if(all(!c("ymin", "ymax", "xmin", "xmax") %in% colnames(data) && all(c("density", "violinwidth") %in% colnames(data)))){
+          data$y <- data$y + vexpand
+      }
+      vhexpand <- vexpand
    }
    if (!is.na(hexpand)){
       if (all(c("xmin", "xmax") %in% colnames(data))){
           data$xmin <- data$xmin + hexpand
           data$xmax <- data$xmax + hexpand
       }
+      if (all(c("xlower", "xmiddle", "xupper") %in% colnames(data))){
+          data$xlower <- data$xlower + hexpand
+          data$xmiddle <- data$xmiddle + hexpand
+          data$xupper <- data$xupper + hexpand
+      }
+      if(all(!c("ymin", "ymax", "xmin", "xmax") %in% colnames(data) && all(c("density", "violinwidth") %in% colnames(data)))){
+          data$x <- data$x + hexpand      
+      }
+      vhexpand <- hexpand
    }
+   if (!is.na(hexpand) || !is.na(vexpand)){
+      if ("outliers" %in% colnames(data)){
+         data$outliers <- get_outliers(data$outliers, vhexpand=vhexpand)
+      }
+      if (all(c("notchupper", "notchlower") %in% colnames(data))){
+         data$notchupper <- data$notchupper + vhexpand
+         data$notchlower <- data$notchlower + vhexpand
+      }
+   }
+   if(all(!c("ymin", "ymax", "xmin", "xmax") %in% colnames(data) && all(c("density", "violinwidth") %in% colnames(data))))
    data <- data.frame(data, check.names=FALSE)
+}
+
+get_outliers <- function(outliers, vhexpand){
+   y <- lapply(outliers, function(x){
+      if (!is.null(x)){
+          unlist(lapply(x, function(t) t + vhexpand))
+      }
+   })
 }
