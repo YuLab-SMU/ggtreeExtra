@@ -15,9 +15,14 @@ find_x_overlaps <- getFromNamespace("find_x_overlaps", "ggplot2")
 
 pos_dodge2 <- getFromNamespace("pos_dodge2", "ggplot2")
 
-normxy <- function(refnum, targetnum, na.rm=TRUE, ratio=0.38){
+normxy <- function(refnum, targetnum, na.rm=TRUE, 
+                   keepzero=FALSE, ratio=0.38){
     rmax <- max(refnum, na.rm=na.rm) * ratio
-    rmin <- min(refnum[refnum!=0], na.rm=na.rm)
+    if (!keepzero){
+        rmin <- min(refnum[refnum!=0], na.rm=na.rm)
+    }else{
+        rmin <- min(refnum, na.rm=na.rm)
+    }
     tmax <- max(targetnum, na.rm=na.rm)
     tmin <- min(targetnum, na.rm=na.rm)
     k <- (rmax - rmin)/(tmax - tmin)
