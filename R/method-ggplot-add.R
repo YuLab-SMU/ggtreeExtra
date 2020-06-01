@@ -1,6 +1,6 @@
 ##' @method ggplot_add add_plot
 ##' @importFrom utils modifyList
-##' @importFrom ggplot2 aes_ aes_string
+##' @importFrom ggplot2 aes_ aes_string geom_vline
 ##' @importFrom rlang as_name
 ##' @author Shuangbin Xu
 ##' @export
@@ -43,7 +43,8 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
             dat[[paste0(xid,"_bp")]] <- as.numeric(dat[[xid]])
             dat[[paste0("new_", xid)]] <- normxy(refnum=plot$data$x,
                                                  targetnum=dat[[paste0(xid,"_bp")]],
-                                                 ratio=object$pratio)
+                                                 keepzero=TRUE,
+                                                 ratio=object$pratio) + offset
             dat <- dat[order(-dat$y, dat[[paste0("new_", xid)]]),,drop=FALSE]
         }
         if ("xmaxtmp" %in% colnames(plot$data)){
@@ -61,7 +62,11 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
     mapping = modifyList(object$mapping, aes_(y=~y))
     params <- c(list(data=dat, mapping=mapping), object$params)
     obj <- do.call(object$geom, params)
-    #obj <- list(obj, geom_vline(xintercept=c(hexpand2, max(plot$data$xmaxtmp))))
+    if (object$addbrink){
+        obj <- list(obj, geom_vline(xintercept=hexpand2, 
+                                    color=object$linecol, 
+                                    size=object$linesize))
+    }
     ggplot_add(obj, plot, object_name)
 }
 
