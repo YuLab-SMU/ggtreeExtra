@@ -1,10 +1,10 @@
-#' Dodge overlapping objects side-to-side
+#' Dodge overlapping objects side-to-side which can be shifted verically or horizontally.
 #'
 #' Dodging preserves the vertical position of an geom while adjusting the
-#' horizontal position. `position_dodge2` is a special case of `position_dodge`
-#' for arranging box plots, which can have variable widths. `position_dodge2`
-#' also works with bars and rectangles. But unlike `position_dodge`,
-#' `position_dodge2` works without a grouping variable in a layer.
+#' horizontal position. `position_dodgex2` is a special case of `position_dodgex`
+#' for arranging box plots, which can have variable widths. `position_dodgex2`
+#' also works with bars and rectangles. But unlike `position_dodgex`,
+#' `position_dodgex2` works without a grouping variable in a layer.
 #'
 #' @param width Dodging width, when different to the width of the individual
 #'   elements. This is useful when you want to align narrow geoms with wider
@@ -15,6 +15,25 @@
 #'    at a position, or the width of a single element?
 #' @family position adjustments
 #' @export
+#' @examples
+#' library(ggplot2)
+#' library(patchwork)
+#' iris$ID <- rep(c(rep("test1", 15), rep("test2", 15), rep("test3", 20)),3)
+#' p <- ggplot(iris, aes(x=Species,y=Petal.Length,fill=ID))
+#' p1 <- p + geom_bar(stat="identity",position=position_dodgex())
+#' p2 <- p + geom_bar(stat="identity",position=position_dodgex(vexpand=5))
+#' p3 <- ggplot(iris, aes(x=Petal.Length, y=Species, fill=ID)) +
+#'       geom_bar(stat="identity", orientation="y",
+#'                position=position_dodgex(hexpand=5))
+#' p4 <- p1 + p2 + p3
+#' p4
+#' p5 <- p + geom_boxplot(position=position_dodgex2())
+#' p6 <- p + geom_boxplot(position=position_dodgex2(vexpand=5))
+#' p7 <- ggplot(iris, aes(x=Petal.Length, y=Species, fill=ID)) +
+#'       geom_boxplot(orientation="y",
+#'                    position=position_dodgex2(hexpand=5))
+#' p8 <- p5 + p6 + p7
+#' p8
 position_dodgex <- function(width = NULL, hexpand=NA, vexpand=NA,
                             preserve = c("total", "single")) {
   ggproto(NULL, PositionDodgex,
@@ -83,7 +102,7 @@ PositionDodgex <- ggproto("PositionDodgex", Position,
   }
 )
 
-pos_dodgex <- function(vexpand, hexpand, data){
+pos_dodgex <- function(data, hexpand, vexpand){
    if (!is.na(vexpand)){
       if (all(c("ymin", "ymax") %in% colnames(data))){
           data$ymin <- data$ymin + vexpand
@@ -94,7 +113,7 @@ pos_dodgex <- function(vexpand, hexpand, data){
           data$middle <- data$middle + vexpand
           data$upper <- data$upper + vexpand
       }
-      if(all(!c("ymin", "ymax", "xmin", "xmax") %in% colnames(data) && all(c("density", "violinwidth") %in% colnames(data)))){
+      if(all(c("density", "violinwidth") %in% colnames(data))){
           data$y <- data$y + vexpand
       }
       vhexpand <- vexpand
@@ -109,8 +128,8 @@ pos_dodgex <- function(vexpand, hexpand, data){
           data$xmiddle <- data$xmiddle + hexpand
           data$xupper <- data$xupper + hexpand
       }
-      if(all(!c("ymin", "ymax", "xmin", "xmax") %in% colnames(data) && all(c("density", "violinwidth") %in% colnames(data)))){
-          data$x <- data$x + hexpand      
+      if(all(c("density", "violinwidth") %in% colnames(data))){
+          data$x <- data$x + hexpand 
       }
       vhexpand <- hexpand
    }
@@ -123,7 +142,6 @@ pos_dodgex <- function(vexpand, hexpand, data){
          data$notchlower <- data$notchlower + vhexpand
       }
    }
-   if(all(!c("ymin", "ymax", "xmin", "xmax") %in% colnames(data) && all(c("density", "violinwidth") %in% colnames(data))))
    data <- data.frame(data, check.names=FALSE)
 }
 

@@ -1,10 +1,27 @@
-#' adjust identity position.
+#' adjust identity position which can be shifted vertically or horizontally.
 #'
 #' @family position adjustments
-#' @param vexpand numeric, Vertical expand for geoms that have a position, default is NA.
-#' @param hexpand numeric, Horizon expand for geoms that have a position, default is NA.
+#' @param vexpand numeric, distance to be shifted vertically for geoms that 
+#' have a position, default is NA.
+#' @param hexpand numeric, distance to be shifted horizontally for geoms that
+#' have a position, default is NA.
 #' @importFrom ggplot2 ggproto
+#' @author Shuangbin Xu
 #' @export
+#' @examples
+#' library(ggplot2)
+#' library(patchwork)
+#' p <- ggplot(mtcars, aes(x=wt, y=mpg))
+#' p1 <- p + geom_point(position=position_identityx()) + ylim(0, 50)
+#' # whole point layer was shifted vertically (distance=5).
+#' # the label of axis y should be subtracted 5 to get the true value..
+#' p2 <- p + geom_point(position=position_identityx(vexpand=5)) + ylim(0, 50)
+#' # whole point layer was shifted horizontally (distance=5).
+#' # the label of axis x should be subtracted 5 to get the true value.
+#' p3 <- ggplot(mtcars, aes(y=wt, x=mpg)) +
+#'       geom_point(position=position_identityx(hexpand=5)) + xlim(0, 50)
+#' p4 <- p1 + p2 + p3
+#' p4
 position_identityx <- function(hexpand=NA, vexpand=NA) {
     ggproto(NULL, PositionIdentityx, hexpand=hexpand, vexpand=vexpand)
 }
