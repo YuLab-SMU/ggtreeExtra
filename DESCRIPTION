@@ -18,7 +18,8 @@ Imports:
   magrittr,
   rlang
 Suggests:
-  ggtree
+  ggtree,
+  patchwork
 License: GPL-3
 Encoding: UTF-8
 URL: https://github.com/xiangpin/ggadd/

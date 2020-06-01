@@ -2,7 +2,7 @@
 % Please edit documentation in R/position_stackx.R
 \name{position_stackx}
 \alias{position_stackx}
-\title{Stack overlapping objects (method2) on top of each another}
+\title{Stack overlapping objects which can be shifted vertically or horizontally}
 \usage{
 position_stackx(vjust = 1, hexpand = NA, vexpand = NA, reverse = FALSE)
 }
@@ -12,15 +12,37 @@ position_stackx(vjust = 1, hexpand = NA, vexpand = NA, reverse = FALSE)
 \code{0} to align with the bottom, \code{0.5} for the middle,
 and \code{1} (the default) for the top.}
 
-\item{hexpand}{numeric, Horizon expand for geoms that have a position, default is NA.}
+\item{hexpand}{numeric, distance to be shifted horizontally for geoms that
+have a position, default is NA.}
 
-\item{vexpand}{numeric, Vertical expand for geoms that have a position, default is NA.}
+\item{vexpand}{numeric, distance to be shifted vertically for geoms that
+have a position, default is NA.}
 
 \item{reverse}{If \code{TRUE}, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.}
 }
 \description{
-Stack overlapping objects (method2) on top of each another
+Stack overlapping objects which can be shifted vertically or horizontally
+}
+\examples{
+library(ggplot2)
+library(patchwork)
+df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
+# 
+p1 <- ggplot(df, aes(x=trt,  y=outcome)) +
+      geom_bar(stat="identity",
+               position=position_stackx())
+
+p2 <- ggplot(df, aes(x=trt, y=outcome)) +
+      geom_bar(stat="identity",
+               position=position_stackx(vexpand=5))
+
+p3 <- ggplot(df, aes(x=outcome, y=trt)) +
+      geom_bar(stat="identity",
+               orientation="y",
+               position=position_stackx(hexpand=5))
+p <- p1 + p2 + p3
+p
 }
 \author{
 Shuangbin Xu

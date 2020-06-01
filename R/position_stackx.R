@@ -1,16 +1,37 @@
-#' Stack overlapping objects (method2) on top of each another
+#' Stack overlapping objects which can be shifted vertically or horizontally
 #'
 #' @param vjust Vertical adjustment for geoms that have a position
 #'   (like points or lines), not a dimension (like bars or areas). Set to
 #'   `0` to align with the bottom, `0.5` for the middle,
 #'   and `1` (the default) for the top.
-#' @param vexpand numeric, Vertical expand for geoms that have a position, default is NA.
-#' @param hexpand numeric, Horizon expand for geoms that have a position, default is NA.
+#' @param vexpand numeric, distance to be shifted vertically for geoms that 
+#' have a position, default is NA.
+#' @param hexpand numeric, distance to be shifted horizontally for geoms that 
+#' have a position, default is NA.
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
 #' @importFrom ggplot2 ggproto
 #' @author Shuangbin Xu
 #' @export
+#' @examples
+#' library(ggplot2)
+#' library(patchwork)
+#' df <- data.frame(trt = c("a", "b", "c"), outcome = c(2.3, 1.9, 3.2))
+#' # 
+#' p1 <- ggplot(df, aes(x=trt,  y=outcome)) +
+#'       geom_bar(stat="identity",
+#'                position=position_stackx())
+#'
+#' p2 <- ggplot(df, aes(x=trt, y=outcome)) +
+#'       geom_bar(stat="identity",
+#'                position=position_stackx(vexpand=5))
+#' 
+#' p3 <- ggplot(df, aes(x=outcome, y=trt)) +
+#'       geom_bar(stat="identity",
+#'                orientation="y",
+#'                position=position_stackx(hexpand=5))
+#' p <- p1 + p2 + p3
+#' p
 position_stackx <- function(vjust = 1, hexpand=NA, vexpand=NA, reverse = FALSE) {
     ggproto(NULL, PositionStackx, vjust = vjust, reverse = reverse,
           hexpand=hexpand, vexpand=vexpand)
