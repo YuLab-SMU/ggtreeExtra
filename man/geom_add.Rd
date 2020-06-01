@@ -4,7 +4,17 @@
 \alias{geom_add}
 \title{geom_add}
 \usage{
-geom_add(mapping = NULL, data, geom, offset = 0.03, pratio = 0.2, ...)
+geom_add(
+  mapping = NULL,
+  data,
+  geom,
+  offset = 0.03,
+  pratio = 0.2,
+  addbrink = FALSE,
+  linesize = 0.1,
+  linecol = "grey50",
+  ...
+)
 }
 \arguments{
 \item{mapping}{aes mapping for 'geom'}
@@ -19,18 +29,27 @@ to tree, default is 0.03.}
 
 \item{pratio}{numeric, the ratio of new geom to tree, default is 0.2.}
 
+\item{addbrink}{logical, whether add the brink of different layers,
+default is FALSE.}
+
+\item{linesize}{numeric, the size of line of brink when 'addbrink'
+is TRUE, default is 0.1.}
+
+\item{linecol}{character, the color of line of brink when 'addbrink'
+is TRUE, default is "grey50".}
+
 \item{...}{additional parameters for 'geom'}
 }
 \value{
-ggplot objec
+ggplot object
 }
 \description{
 plot tree associated data in another method.
 }
 \details{
 'geom_add()' automatically re-arranges the input 'data' according to the tree structure,
-visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping' and other parameters,
-and align the graph with the tree 'p' side by side.
+visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping'
+and other parameters, and align the graph with the tree 'p' side by side.
 }
 \examples{
 library(ggtree)
