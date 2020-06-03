@@ -50,6 +50,7 @@ PositionStackx <- ggproto("PositionStackx", Position,
   vjust = 1,
   fill = FALSE,
   reverse = FALSE,
+  hexpand = NA,
   vexpand = NA,
 
   setup_params = function(self, data) {
