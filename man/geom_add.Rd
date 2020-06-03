@@ -13,6 +13,7 @@ geom_add(
   addbrink = FALSE,
   linesize = 0.1,
   linecol = "grey50",
+  tippoint = FALSE,
   ...
 )
 }
@@ -38,6 +39,9 @@ is TRUE, default is 0.1.}
 \item{linecol}{character, the color of line of brink when 'addbrink'
 is TRUE, default is "grey50".}
 
+\item{tippoint}{logical, whether add the tip point layer,
+only for geom_point, geom_star or geom_symbol layer, default is FALSE.}
+
 \item{...}{additional parameters for 'geom'}
 }
 \value{
@@ -58,11 +62,11 @@ tr <- rtree(10)
 dd = data.frame(id=tr$tip.label, value=abs(rnorm(10)))
 p <- ggtree(tr)
 p <- p + geom_add(data=dd, 
-                   geom=geom_bar, 
-                   mapping=aes(x=value, y=id),
-                   orientation="y",
-                   stat="identity",
-                   position=position_stackx())
+                  geom=geom_bar, 
+                  mapping=aes(x=value, y=id),
+                  orientation="y",
+                  stat="identity",
+                  position=position_stackx())
 }
 \author{
 Shuangbin Xu and Guangchuang Yu

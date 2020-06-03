@@ -18,6 +18,8 @@
 ##' is TRUE, default is 0.1.
 ##' @param linecol character, the color of line of brink when 'addbrink'
 ##' is TRUE, default is "grey50".
+##' @param tippoint logical, whether add the tip point layer, 
+##' only for geom_point, geom_star or geom_symbol layer, default is FALSE.
 ##' @param ... additional parameters for 'geom'
 ##' @return ggplot object
 ##' @export
@@ -29,16 +31,17 @@
 ##' dd = data.frame(id=tr$tip.label, value=abs(rnorm(10)))
 ##' p <- ggtree(tr)
 ##' p <- p + geom_add(data=dd, 
-##'                    geom=geom_bar, 
-##'                    mapping=aes(x=value, y=id),
-##'                    orientation="y",
-##'                    stat="identity",
-##'                    position=position_stackx())
+##'                   geom=geom_bar, 
+##'                   mapping=aes(x=value, y=id),
+##'                   orientation="y",
+##'                   stat="identity",
+##'                   position=position_stackx())
 geom_add <- function(mapping=NULL, data, geom, 
                      offset=0.03, pratio=0.2, 
                      addbrink=FALSE,
                      linesize=0.1,
-                     linecol="grey50",...){
+                     linecol="grey50",
+                     tippoint=FALSE,...){
     params <- list(...)
     structure(list(data = data,
                    geom = geom, 
@@ -48,6 +51,7 @@ geom_add <- function(mapping=NULL, data, geom,
                    pratio = pratio,
                    addbrink=addbrink,
                    linesize=linesize,
-                   linecol=linecol), 
+                   linecol=linecol,
+                   tippoint=tippoint), 
               class = 'add_plot')
 }
