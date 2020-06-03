@@ -27,14 +27,10 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
     dat <- data.frame(plot$data, check.names=FALSE)[plot$data$isTip, c("y", "label")]
     dat <- merge(dat, object$data, by.x="label", by.y=yid)
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
-        if ("xmaxtmp" %in% colnames(plot$data)){
-            plot$data$xmaxtmp <- plot$data$xmaxtmp + hexpand2
-        }else{
-            plot$data$xmaxtmp <- plot$data$x + hexpand2
-        }
         dat[[paste0("new_",xid)]] <- normxy(refnum=plot$data$x, 
                                             targetnum=dat[[xid]],
                                             ratio=object$pratio)
+        newxexpand <- max(dat[[paste0("new_", xid)]], na.rm=TRUE)
     }else{
         if (!is.numeric(dat[[xid]])){
             if (!is.factor(dat[[xid]])){
@@ -55,11 +51,11 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
             }
             newxexpand <- 0
         }
-        if ("xmaxtmp" %in% colnames(plot$data)){
-            plot$data$xmaxtmp <- plot$data$xmaxtmp + newxexpand + offset
-        }else{
-            plot$data$xmaxtmp <- plot$data$x + newxexpand + offset
-        }
+    }
+    if ("xmaxtmp" %in% colnames(plot$data)){
+        plot$data$xmaxtmp <- plot$data$xmaxtmp + newxexpand + offset
+    }else{
+        plot$data$xmaxtmp <- plot$data$x + newxexpand + offset
     }
     if ("hexpand" %in% names(object$params$position)){
         if (is.na(object$params$position$hexpand)){
