@@ -2,11 +2,11 @@
 
 # ggadd: add layers which can be shifted horizontally or vertically.
 
-The layers of ‘ggplot’ can be added, they will be overlaped if ‘x’ and
-‘y’ are in the same range. However, sometimes we want to visualize
-them separately. In cartesian coordinate system, this problem can be
-solved by ‘facet’, But in polar coordinate system, The ‘facet’ can not
-do this. To solve the problem, this package was developed.
+The layers of ‘ggplot’ can be added using ‘+’, they will be overlaped if
+‘x’ and ‘y’ are in the same range. However, sometimes we want to
+visualize them separately. In cartesian coordinate system, this problem
+can be solved by ‘facet’, But in polar coordinate system, The ‘facet’
+can not do this. To solve the problem, this package was developed.
 
 # :writing\_hand: Author
 
