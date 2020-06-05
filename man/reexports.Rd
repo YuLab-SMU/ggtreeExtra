@@ -5,6 +5,10 @@
 \alias{reexports}
 \alias{\%>\%}
 \alias{ggplot_add}
+\alias{new_scale}
+\alias{new_scale_fill}
+\alias{new_scale_color}
+\alias{new_scale_colour}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -12,6 +16,8 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
+  \item{ggnewscale}{\code{\link[ggnewscale]{new_scale}}, \code{\link[ggnewscale]{new_scale_color}}, \code{\link[ggnewscale]{new_scale_colour}}, \code{\link[ggnewscale]{new_scale_fill}}}
+
   \item{ggplot2}{\code{\link[ggplot2]{ggplot_add}}}
 
   \item{magrittr}{\code{\link[magrittr]{\%>\%}}}
