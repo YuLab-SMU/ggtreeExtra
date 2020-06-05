@@ -16,7 +16,8 @@ Imports:
   ggplot2,
   utils,
   magrittr,
-  rlang
+  rlang,
+  ggnewscale
 Suggests:
   ggtree,
   patchwork
