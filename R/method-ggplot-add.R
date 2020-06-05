@@ -6,6 +6,7 @@
 ##' @export
 ggplot_add.add_plot <-  function(object, plot, object_name){
     yid <- as_name(object$mapping$y)
+    layout <- get("layout", envir = plot$plot_env)
     if ("x" %in% names(object$mapping)){
         xid <- as_name(object$mapping$x)
         if (xid == "x"){
@@ -24,7 +25,7 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
     }else{
         hexpand2 <- max(plot$data$x) + offset
     }
-    dat <- data.frame(plot$data, check.names=FALSE)[plot$data$isTip, c("y", "label")]
+    dat <- data.frame(plot$data, check.names=FALSE)[plot$data$isTip, c("y", "label", "angle")]
     dat <- merge(dat, object$data, by.x="label", by.y=yid)
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
         dat[[paste0("new_",xid)]] <- normxy(refnum=plot$data$x, 
@@ -62,6 +63,10 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
             object$params$position$hexpand <- hexpand2
         }
     }
+    dat$angle <- adjust_angle(layout=layout, angle=dat$angle)
+    if (object$alignpoint){
+        object$mapping = modifyList(object$mapping, aes_(angle=~angle))
+    }
     object$mapping = modifyList(object$mapping, aes_string(x=paste0("new_",xid)))
     mapping = modifyList(object$mapping, aes_(y=~y))
     params <- c(list(data=dat, mapping=mapping), object$params)
@@ -76,4 +81,13 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
 
 get_offset <- function(vnum, ratio){
     offset <- ratio*(max(vnum, na.rm=TRUE) - min(vnum, na.rm=TRUE))
+}
+
+adjust_angle <- function(layout, angle){
+    if (layout!="rectangular"){
+        angle <- 90 - angle
+    }else{
+        angle <- 90
+    }
+    return(angle)
 }

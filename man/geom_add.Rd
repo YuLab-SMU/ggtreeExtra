@@ -14,6 +14,7 @@ geom_add(
   linesize = 0.1,
   linecol = "grey50",
   tippoint = FALSE,
+  alignpoint = FALSE,
   ...
 )
 }
@@ -41,6 +42,9 @@ is TRUE, default is "grey50".}
 
 \item{tippoint}{logical, whether add the tip point layer,
 only for geom_point, geom_star or geom_symbol layer, default is FALSE.}
+
+\item{alignpoint}{logical, whether adjust the shape angle, default is FALSE,
+this parameter only for the geom_star.}
 
 \item{...}{additional parameters for 'geom'}
 }

@@ -20,6 +20,8 @@
 ##' is TRUE, default is "grey50".
 ##' @param tippoint logical, whether add the tip point layer, 
 ##' only for geom_point, geom_star or geom_symbol layer, default is FALSE.
+##' @param alignpoint logical, whether adjust the shape angle, default is FALSE,
+##' this parameter only for the geom_star.
 ##' @param ... additional parameters for 'geom'
 ##' @return ggplot object
 ##' @export
@@ -41,7 +43,8 @@ geom_add <- function(mapping=NULL, data, geom,
                      addbrink=FALSE,
                      linesize=0.1,
                      linecol="grey50",
-                     tippoint=FALSE,...){
+                     tippoint=FALSE,
+                     alignpoint=FALSE,...){
     params <- list(...)
     structure(list(data = data,
                    geom = geom, 
@@ -52,6 +55,7 @@ geom_add <- function(mapping=NULL, data, geom,
                    addbrink=addbrink,
                    linesize=linesize,
                    linecol=linecol,
-                   tippoint=tippoint), 
+                   tippoint=tippoint,
+                   alignpoint=alignpoint), 
               class = 'add_plot')
 }
