@@ -1,6 +1,6 @@
 ##' @method ggplot_add add_plot
 ##' @importFrom utils modifyList
-##' @importFrom ggplot2 aes_ aes_string geom_vline
+##' @importFrom ggplot2 aes aes_ aes_string geom_vline scale_color_manual
 ##' @importFrom rlang as_name
 ##' @author Shuangbin Xu
 ##' @export
@@ -64,13 +64,19 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
         }
     }
     dat$angle <- adjust_angle(layout=layout, angle=dat$angle)
-    if (object$alignpoint){
+    if (object$geomname=="geom_star"){
         object$mapping = modifyList(object$mapping, aes_(angle=~angle))
+    }
+    if (object$geomname %in% c("geom_boxplot", "geom_violin")){
+        object$mapping = modifyList(object$mapping, aes(color=factor(eval(parse(text="y")))))
     }
     object$mapping = modifyList(object$mapping, aes_string(x=paste0("new_",xid)))
     mapping = modifyList(object$mapping, aes_(y=~y))
     params <- c(list(data=dat, mapping=mapping), object$params)
     obj <- do.call(object$geom, params)
+    if (object$geomname %in% c("geom_boxplot", "geom_violin")){
+        obj <- list(obj, scale_color_manual(values=c(rep("black", length(dat$y)))), new_scale_color())
+    }
     if (object$addbrink){
         obj <- list(obj, geom_vline(xintercept=hexpand2, 
                                     color=object$linecol, 
