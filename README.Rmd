@@ -21,6 +21,8 @@ cat(packageDescription('ggadd')$Description)
 
 [Shuangbin Xu](https://github.com/xiangpin) and [GuangChuang Yu](https://guangchuangyu.github.io)
 
+[![](https://img.shields.io/badge/follow%20me%20on-WeChat-green.svg)](https://github.com/xiangpin/ggadd/blob/master/inst/extdata/bio-coder.png)
+
 School of Basic Medical Sciences, Southern Medical University.
 
 `ggadd` has not been published, if you use `ggadd` in published research. Please cite the most appropriate paper(s) from this list:
