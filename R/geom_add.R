@@ -27,15 +27,23 @@
 ##' @examples
 ##' library(ggtree)
 ##' library(ggplot2)
-##' tr <- rtree(10)
-##' dd = data.frame(id=tr$tip.label, value=abs(rnorm(10)))
-##' p <- ggtree(tr)
+##' library(ggstar)
+##' tr <- rtree(100)
+##' dd = data.frame(id=tr$tip.label, value=abs(rnorm(100)))
+##' dt = data.frame(id=tr$tip.label, group=c(rep("A",50),rep("B",50)))
+##' p <- ggtree(tr, layout="circular")
+##' p <- p + geom_add(data=dt,
+##'                   geom=geom_star,
+##'                   mapping=aes(y=id, fill=group),
+##'                   size=2.5,
+##'                   starstroke=0,
+##'                   tippoint=TRUE)
 ##' p <- p + geom_add(data=dd, 
 ##'                   geom=geom_bar, 
 ##'                   mapping=aes(x=value, y=id),
 ##'                   orientation="y",
 ##'                   stat="identity",
-##'                   position=position_stackx())
+##'                   position=position_stackx())  
 geom_add <- function(mapping=NULL, data, geom, 
                      offset=0.03, pratio=0.2, 
                      addbrink=FALSE,
