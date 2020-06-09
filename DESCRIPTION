@@ -1,6 +1,6 @@
 Package: ggadd
 Title: Add Layers Which Can Be Shifted Horizontally Or Vertically
-Version: 0.0.0.2
+Version: 0.0.0.4
 Authors@R: 
     person(given = "Shuangbin",
            family = "Xu",
@@ -11,7 +11,8 @@ Description: The layers of 'ggplot' can be added using '+', they will be overlap
              'x' and 'y' are in the same range. However, sometimes we want to visualize 
              them separately. In cartesian coordinate system, this problem can be solved 
              by 'facet', But in polar coordinate system, The 'facet' can not do this. 
-             To solve the problem, this package was developed.
+             To solve the problem, this package was developed. The application of this 
+             package is that it can add some layers on the tree of "ggtree".
 Imports:
   ggplot2,
   utils,
@@ -20,6 +21,7 @@ Imports:
   ggnewscale
 Suggests:
   ggtree,
+  ggstar,
   patchwork
 License: GPL-3
 Encoding: UTF-8
