@@ -6,7 +6,9 @@ The layers of ‘ggplot’ can be added using ‘+’, they will be overlaped if
 ‘x’ and ‘y’ are in the same range. However, sometimes we want to
 visualize them separately. In cartesian coordinate system, this problem
 can be solved by ‘facet’, But in polar coordinate system, The ‘facet’
-can not do this. To solve the problem, this package was developed.
+can not do this. To solve the problem, this package was developed. The
+application of this package is that it can add some layers on the tree
+of “ggtree”.
 
 # :writing\_hand: Author
 
