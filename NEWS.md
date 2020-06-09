@@ -1,3 +1,8 @@
+# 0.0.0.4
+
++ support tip point for `geom_star` or `geom_point`
++ support `geom_boxplot` and `geom_violin` (20200606)
+
 # 0.0.0.3
 
 + add marginal line, and when x is character, the new x normalized 
