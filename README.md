@@ -1,26 +1,22 @@
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# ggadd: add layers which can be shifted horizontally or vertically.
+# ggtreeExtra: An R Package To Add Geom Layers On Circular Or Other Layout Tree Of “ggtree”.
 
-The layers of ‘ggplot’ can be added using ‘+’, they will be overlaped if
-‘x’ and ‘y’ are in the same range. However, sometimes we want to
-visualize them separately. In cartesian coordinate system, this problem
-can be solved by ‘facet’, But in polar coordinate system, The ‘facet’
-can not do this. To solve the problem, this package was developed. The
-application of this package is that it can add some layers on the tree
-of “ggtree”.
+‘ggtreeExtra’ extends the method for mapping and visualizing associated
+data on phylogenetic tree using ‘ggtree’. These associated data can be
+mapped to circular layout, fan layout, or other layout tree built by
+‘ggtree’ with the grammar of ‘ggplot2’.
 
 # :writing\_hand: Author
 
 [Shuangbin Xu](https://github.com/xiangpin) and [GuangChuang
 Yu](https://guangchuangyu.github.io)
 
-[![](https://img.shields.io/badge/follow%20me%20on-WeChat-green.svg)](https://github.com/xiangpin/ggadd/blob/master/inst/extdata/bio-coder.png)
-
 School of Basic Medical Sciences, Southern Medical University.
 
-`ggadd` has not been published, if you use `ggadd` in published
-research. Please cite the most appropriate paper(s) from this list:
+`ggtreeExtra` has not been published, if you use `ggtreeExtra` in
+published research. Please cite the most appropriate paper(s) from this
+list:
 
 1.  **G Yu**. Using ggtree to visualize data on tree-like structures.
     ***Current Protocols in Bioinformatics***, 2020, 69:e96. doi:
@@ -47,24 +43,24 @@ The development version from `github`:
 ``` r
 if (!requireNamespace("devtools", quietly=TRUE))
     install.packages("devtools")
-devtools::install_github("xiangpin/ggadd")
+devtools::install_github("xiangpin/ggtreeExtra")
 ```
 
 # :beginner: Usage
 
 ``` r
-library(ggadd)
+library(ggtreeExtra)
 library(ggtree)
 library(ggplot2)
 library(ggnewscale)
 library(treeio)
 library(ggstar)
 
-trfile <- system.file("extdata", "tree.nwk", package="ggadd")
-tippoint1 <- system.file("extdata", "tree_tippoint_bar.csv", package="ggadd")
-ring1 <- system.file("extdata", "first_ring_discrete.csv", package="ggadd")
-ring2 <- system.file("extdata", "second_ring_continuous.csv", package="ggadd")
-ringpoint <- system.file("extdata", "second_ring_point.csv", package="ggadd")
+trfile <- system.file("extdata", "tree.nwk", package="ggtreeExtra")
+tippoint1 <- system.file("extdata", "tree_tippoint_bar.csv", package="ggtreeExtra")
+ring1 <- system.file("extdata", "first_ring_discrete.csv", package="ggtreeExtra")
+ring2 <- system.file("extdata", "second_ring_continuous.csv", package="ggtreeExtra")
+ringpoint <- system.file("extdata", "second_ring_point.csv", package="ggtreeExtra")
 
 tr <- read.tree(trfile)
 dat1 <- read.csv(tippoint1)
@@ -74,7 +70,7 @@ dat3 <- read.csv(ring2)
 p <- ggtree(tr, layout="circular", size=0.1) + 
     geom_treescale(x=6, y=0, linesize=0.2, fontsize=1.2)
 
-p1 <- p + geom_totree(data=dat1,
+p1 <- p + geom_fruit(data=dat1,
                       geom=geom_star,
                       mapping=aes(y=ID, fill=Location, size=Length, starshape=Group),
                       starstroke=0.2) +
@@ -86,7 +82,7 @@ p1 <- p + geom_totree(data=dat1,
                                  guide=guide_legend(keywidth=0.5, keyheight=0.5, order=1))
 
 p2 <- p1 +new_scale_fill()+ 
-          geom_totree(data=dat2,
+          geom_fruit(data=dat2,
                       geom=geom_tile,
                       mapping=aes(y=ID, x=Pos, fill=Type),
                       pwidth=0.25,
@@ -95,7 +91,7 @@ p2 <- p1 +new_scale_fill()+
                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=3))
 
 p3 <- p2 + new_scale_fill()+
-           geom_totree(data=dat3,
+           geom_fruit(data=dat3,
                        geom=geom_tile,
                        mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
                        pwidth=0.15,
@@ -106,7 +102,7 @@ p3 <- p2 + new_scale_fill()+
                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, order=5))
 
 p4 <- p3 + new_scale_fill()+
-           geom_totree(data=dat1,
+           geom_fruit(data=dat1,
                        geom=geom_bar,
                        mapping=aes(y=ID, x=Abundance, fill=Location),
                        pwidth=0.4,
