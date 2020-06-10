@@ -1,18 +1,15 @@
-Package: ggadd
-Title: Add Layers Which Can Be Shifted Horizontally Or Vertically
+Package: ggtreeExtra
+Type: Package
+Title: An R Package To Add Geom Layers On Circular Or Other Layout Tree Of "ggtree"
 Version: 0.0.0.5
-Authors@R: 
-    person(given = "Shuangbin",
-           family = "Xu",
-           role = c("aut", "cre"),
-           email = "xshuangbin@example.com",
-           comment = c(ORCID = "0000-0003-3513-5362"))
-Description: The layers of 'ggplot' can be added using '+', they will be overlaped if 
-             'x' and 'y' are in the same range. However, sometimes we want to visualize 
-             them separately. In cartesian coordinate system, this problem can be solved 
-             by 'facet', But in polar coordinate system, The 'facet' can not do this. 
-             To solve the problem, this package was developed. The application of this 
-             package is that it can add some layers on the tree of "ggtree".
+Authors@R: c(
+      person(given = "Shuangbin", family = "Xu", role = c("aut", "cre"), email = "xshuangbin@example.com", comment = c(ORCID = "0000-0003-3513-5362")),
+      person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "ctb"), comment = c(ORCID = "0000-0002-6485-8781"))
+      )
+Description:  'ggtreeExtra' extends the method for mapping and visualizing associated 
+              data on phylogenetic tree using 'ggtree'. These associated data can be 
+              mapped to circular layout, fan layout, or other layout tree built by 
+              'ggtree' with the grammar of 'ggplot2'.
 Imports:
   ggplot2,
   utils,
@@ -25,8 +22,8 @@ Suggests:
   patchwork
 License: GPL-3
 Encoding: UTF-8
-URL: https://github.com/xiangpin/ggadd/
-BugReports: https://github.com/xiangpin/ggadd/issues
+URL: https://github.com/YuLab-SMU/ggtreeExtra/
+BugReports: https://github.com/YuLab-SMU/ggtreeExtra/issues
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
