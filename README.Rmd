@@ -70,11 +70,10 @@ dat3 <- read.csv(ring2)
 p <- ggtree(tr, layout="circular", size=0.1) + 
     geom_treescale(x=6, y=0, linesize=0.2, fontsize=1.2)
 
-p1 <- p + geom_add(data=dat1,
-                   geom=geom_star,
-                   mapping=aes(y=ID, fill=Location, size=Length, starshape=Group),
-                   tippoint=TRUE,
-                   starstroke=0.2) +
+p1 <- p + geom_totree(data=dat1,
+                      geom=geom_star,
+                      mapping=aes(y=ID, fill=Location, size=Length, starshape=Group),
+                      starstroke=0.2) +
           scale_size_continuous(range=c(1, 3),
                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, override.aes=list(starshape=15), order=2)) +
           scale_fill_manual(values=c("#D15FEE","#EE6A50","#FFC0CB","#8E8E38","#9ACD32","#006400","#8B4513"),
@@ -83,33 +82,33 @@ p1 <- p + geom_add(data=dat1,
                                  guide=guide_legend(keywidth=0.5, keyheight=0.5, order=1))
 
 p2 <- p1 +new_scale_fill()+ 
-          geom_add(data=dat2,
-                    geom=geom_tile,
-                    mapping=aes(y=ID, x=Pos, fill=Type),
-                    pratio=0.25,
-                    position=position_identityx()) +
+          geom_totree(data=dat2,
+                      geom=geom_tile,
+                      mapping=aes(y=ID, x=Pos, fill=Type),
+                      pwidth=0.25,
+                      position=position_identityx()) +
           scale_fill_manual(values=c("#339933", "#dfac03"),
                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=3))
 
 p3 <- p2 + new_scale_fill()+
-           geom_add(data=dat3,
-                    geom=geom_tile,
-                    mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
-                    pratio=0.15,
-                    position=position_identityx()) +
+           geom_totree(data=dat3,
+                       geom=geom_tile,
+                       mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
+                       pwidth=0.15,
+                       position=position_identityx()) +
           scale_fill_manual(values=c("#b22222", "#005500", "#0000be", "#9f1f9f"),
                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=4)) +
           scale_alpha_continuous(range=c(0, 0.4),
                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, order=5))
 
 p4 <- p3 + new_scale_fill()+
-           geom_add(data=dat1,
-                    geom=geom_bar,
-                    mapping=aes(y=ID, x=Abundance, fill=Location),
-                    pratio=0.4,
-                    stat="identity",
-                    orientation="y",
-                    position=position_stackx()) +
+           geom_totree(data=dat1,
+                       geom=geom_bar,
+                       mapping=aes(y=ID, x=Abundance, fill=Location),
+                       pwidth=0.4,
+                       stat="identity",
+                       orientation="y",
+                       position=position_stackx()) +
            scale_fill_manual(values=c("#D15FEE","#EE6A50","#FFC0CB","#8E8E38","#9ACD32","#006400","#8B4513"),
                              guide=guide_legend(keywidth=0.5, keyheight=0.5, order=6)) +
            theme(legend.position=c(0.95, 0.5),
