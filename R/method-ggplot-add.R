@@ -30,7 +30,7 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
         dat[[paste0("new_",xid)]] <- normxy(refnum=plot$data$x, 
                                             targetnum=dat[[xid]],
-                                            ratio=object$pratio)
+                                            ratio=object$pwidth)
         newxexpand <- max(dat[[paste0("new_", xid)]], na.rm=TRUE)
     }else{
         if (!is.numeric(dat[[xid]])){
@@ -41,11 +41,11 @@ ggplot_add.add_plot <-  function(object, plot, object_name){
             dat[[paste0("new_", xid)]] <- normxy(refnum=plot$data$x,
                                                  targetnum=dat[[paste0(xid,"_bp")]],
                                                  keepzero=TRUE,
-                                                 ratio=object$pratio) + offset
+                                                 ratio=object$pwidth) + offset
             dat <- dat[order(-dat$y, dat[[paste0("new_", xid)]]),,drop=FALSE]
             newxexpand <- max(dat[[paste0("new_", xid)]], na.rm=TRUE)
         }else{
-            if (object$tippoint){
+            if (!"hexpand" %in% object$params$position){
                 dat[[paste0("new_", xid)]] <- data.frame(plot$data, check.names=FALSE)[match(dat$label,plot$data$label),"x"]
             }else{
                 dat[[paste0("new_", xid)]] <- 0
