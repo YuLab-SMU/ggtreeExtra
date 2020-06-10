@@ -1,3 +1,8 @@
+# 0.0.0.5
+
++ change `pratio` parameter to `pwidth` and remove `tippoint` parameter.
++ change `geom_add` function to `geom_totree` function. (20200610)
+
 # 0.0.0.4
 
 + support tip point for `geom_star` or `geom_point`
