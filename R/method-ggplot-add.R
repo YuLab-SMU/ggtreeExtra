@@ -1,10 +1,10 @@
-##' @method ggplot_add add_plot
+##' @method ggplot_add fruit_plot
 ##' @importFrom utils modifyList
 ##' @importFrom ggplot2 aes aes_ aes_string geom_vline scale_color_manual
 ##' @importFrom rlang as_name
 ##' @author Shuangbin Xu
 ##' @export
-ggplot_add.add_plot <-  function(object, plot, object_name){
+ggplot_add.fruit_plot <-  function(object, plot, object_name){
     yid <- as_name(object$mapping$y)
     layout <- get("layout", envir = plot$plot_env)
     if ("x" %in% names(object$mapping)){
