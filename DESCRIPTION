@@ -1,6 +1,6 @@
 Package: ggadd
 Title: Add Layers Which Can Be Shifted Horizontally Or Vertically
-Version: 0.0.0.4
+Version: 0.0.0.5
 Authors@R: 
     person(given = "Shuangbin",
            family = "Xu",
