@@ -17,6 +17,7 @@ pos_dodge2 <- getFromNamespace("pos_dodge2", "ggplot2")
 
 normxy <- function(refnum, targetnum, na.rm=TRUE, 
                    keepzero=FALSE, ratio=0.38){
+    refnum <- checkref(refnum)
     rmax <- max(refnum, na.rm=na.rm) * ratio
     if (!keepzero){
         rmin <- min(refnum[refnum!=0], na.rm=na.rm)
@@ -29,4 +30,14 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     newnum <- k*(targetnum - tmin) + rmin
     newnum[targetnum==0] <- 0
     return(newnum)
+}
+
+checkref <- function(refnum, n=5, step=40){
+    rmin <- min(refnum, na.rm=TRUE)
+    rmax <- max(refnum, na.rm=TRUE)
+    if (length(refnum)<=5){
+       tmpstep <- (rmax - rmin)/step
+       refnum <- seq(from=rmin, to=rmax, by=tmpstep)
+    }
+    return(refnum)
 }
