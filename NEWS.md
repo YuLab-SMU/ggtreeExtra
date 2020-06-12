@@ -1,3 +1,7 @@
+# 0.0.0.6
+
++ automatically detect the 'position'. (20200612)
+
 # 0.0.0.5
 
 + change `pratio` parameter to `pwidth` and remove `tippoint` parameter.
