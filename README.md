@@ -52,7 +52,6 @@ devtools::install_github("xiangpin/ggtreeExtra")
 library(ggtreeExtra)
 library(ggtree)
 library(ggplot2)
-library(ggnewscale)
 library(treeio)
 library(ggstar)
 
@@ -70,23 +69,22 @@ dat3 <- read.csv(ring2)
 p <- ggtree(tr, layout="circular", size=0.1) + 
     geom_treescale(x=6, y=0, linesize=0.2, fontsize=1.2)
 
-p1 <- p + geom_fruit(data=dat1,
-                      geom=geom_star,
-                      mapping=aes(y=ID, fill=Location, size=Length, starshape=Group),
-                      starstroke=0.2) +
+p1 <- p %<+% dat1 + 
+          geom_star(mapping=aes(fill=Location, size=Length, starshape=Group),
+                    starstroke=0.2) +
           scale_size_continuous(range=c(1, 3),
                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, override.aes=list(starshape=15), order=2)) +
           scale_fill_manual(values=c("#D15FEE","#EE6A50","#FFC0CB","#8E8E38","#9ACD32","#006400","#8B4513"),
                             guide="none")+
           scale_starshape_manual(values=c(1, 15),
-                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, order=1))
+                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, order=1),
+                                 na.translate=FALSE)
 
 p2 <- p1 +new_scale_fill()+ 
           geom_fruit(data=dat2,
                       geom=geom_tile,
                       mapping=aes(y=ID, x=Pos, fill=Type),
-                      pwidth=0.25,
-                      position=position_identityx()) +
+                      pwidth=0.25) +
           scale_fill_manual(values=c("#339933", "#dfac03"),
                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=3))
 
@@ -94,8 +92,7 @@ p3 <- p2 + new_scale_fill()+
            geom_fruit(data=dat3,
                        geom=geom_tile,
                        mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
-                       pwidth=0.15,
-                       position=position_identityx()) +
+                       pwidth=0.15)+
           scale_fill_manual(values=c("#b22222", "#005500", "#0000be", "#9f1f9f"),
                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=4)) +
           scale_alpha_continuous(range=c(0, 0.4),
@@ -107,8 +104,7 @@ p4 <- p3 + new_scale_fill()+
                        mapping=aes(y=ID, x=Abundance, fill=Location),
                        pwidth=0.4,
                        stat="identity",
-                       orientation="y",
-                       position=position_stackx()) +
+                       orientation="y")+
            scale_fill_manual(values=c("#D15FEE","#EE6A50","#FFC0CB","#8E8E38","#9ACD32","#006400","#8B4513"),
                              guide=guide_legend(keywidth=0.5, keyheight=0.5, order=6)) +
            theme(legend.position=c(0.95, 0.5),
