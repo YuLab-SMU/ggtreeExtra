@@ -5,6 +5,7 @@
 ##' @author Shuangbin Xu
 ##' @export
 ggplot_add.fruit_plot <-  function(object, plot, object_name){
+    object <- choose_pos(object=object)
     yid <- as_name(object$mapping$y)
     layout <- get("layout", envir = plot$plot_env)
     if ("x" %in% names(object$mapping)){
@@ -45,7 +46,7 @@ ggplot_add.fruit_plot <-  function(object, plot, object_name){
             dat <- dat[order(-dat$y, dat[[paste0("new_", xid)]]),,drop=FALSE]
             newxexpand <- max(dat[[paste0("new_", xid)]], na.rm=TRUE)
         }else{
-            if (!"hexpand" %in% object$params$position){
+            if (!"hexpand" %in% names(object$params$position)){
                 dat[[paste0("new_", xid)]] <- data.frame(plot$data, check.names=FALSE)[match(dat$label,plot$data$label),"x"]
             }else{
                 dat[[paste0("new_", xid)]] <- 0
@@ -96,4 +97,22 @@ adjust_angle <- function(layout, angle){
         angle <- 90
     }
     return(angle)
+}
+
+choose_pos <- function(object){
+    geomname <- object$geomname
+    if (is.character(object$position) && object$position=="auto"){
+        if (geomname %in% c("geom_boxplot", "geom_violin")){
+            object$params <- c(object$params, position=position_dodgex())
+        }
+        if (geomname %in% c("geom_point", "geom_star", "geom_symbol", "geom_tile")){
+            object$params <- c(object$params, position=position_identityx())
+        }
+        if (geomname=="geom_bar"){
+            object$params <- c(object$params, position=position_stackx())
+        }
+    }else{
+        object$params <- c(object$params, position=object$position)
+    }
+    return(object)
 }

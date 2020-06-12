@@ -14,6 +14,7 @@ geom_fruit(
   addbrink = FALSE,
   linesize = 0.1,
   linecol = "grey50",
+  position = "auto",
   ...
 )
 
@@ -27,6 +28,7 @@ fruit_plot(
   addbrink = FALSE,
   linesize = 0.1,
   linecol = "grey50",
+  position = "auto",
   ...
 )
 }
@@ -53,6 +55,9 @@ is TRUE, default is 0.1.}
 \item{linecol}{character, the color of line of brink when 'addbrink'
 is TRUE, default is "grey50".}
 
+\item{position}{Position adjustment, either as a string, or the result of a
+call to a position adjustment function, default is 'auto'.}
+
 \item{...}{additional parameters for 'geom'}
 
 \item{p}{tree view}
@@ -67,6 +72,11 @@ plot tree associated data in another method.
 'geom_fruit()' automatically re-arranges the input 'data' according to the tree structure,
 visualizes the 'data' on specific 'panel' using the 'geom' function with aesthetic 'mapping'
 and other parameters, and align the graph with the tree 'p' side by side.
+The default position parameters is 'auto'. If you want to set manually. You can use
+'position_stackx()' or 'position_dodgex()' for 'geom_bar', 'position_identityx()' for
+'geom_tile', 'geom_point', 'geom_star', 'geom_symbol' or other layers using 'identity'
+position in 'ggplot2', and 'position_dodgex()' or 'position_dodgex2()' for 'geom_boxplot'
+'geom_violin' or other layers using 'dodge' position in 'ggplot2'.
 }
 \examples{
 library(ggtree)
@@ -75,7 +85,7 @@ library(ggstar)
 tr <- rtree(100)
 dd = data.frame(id=tr$tip.label, value=abs(rnorm(100)))
 dt = data.frame(id=tr$tip.label, group=c(rep("A",50),rep("B",50)))
-p <- ggtree(tr, layout="circular")
+p <- ggtree(tr, layout="circular") 
 
 p1 <- p + geom_fruit(data=dt,
                   geom=geom_star,
@@ -86,22 +96,20 @@ p2 <- p1 + geom_fruit(data=dd,
                   geom=geom_bar, 
                   mapping=aes(x=value, y=id),
                   orientation="y",
-                  stat="identity",
-                  position=position_stackx())  
+                  stat="identity")  
 
 p3 <- fruit_plot(p=p, 
-                  data=dt, 
-                  geom=geom_star,
-                  mapping=aes(y=id, fill=group),
-                  size=2.5,starstroke=0)
+                 data=dt, 
+                 geom=geom_star,
+                 mapping=aes(y=id, fill=group),
+                 size=2.5, starstroke=0)
 
 p4 <- fruit_plot(p=p3,
-                  data=dd,
-                  geom=geom_bar,
-                  mapping=aes(x=value, y=id),
-                  orientation="y",
-                  stat="identity",
-                  position=position_stackx())
+                 data=dd,
+                 geom=geom_bar,
+                 mapping=aes(x=value, y=id),
+                 orientation="y",
+                 stat="identity")
 }
 \author{
 Shuangbin Xu and Guangchuang Yu
