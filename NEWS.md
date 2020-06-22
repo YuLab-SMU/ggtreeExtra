@@ -1,3 +1,7 @@
+# 0.0.0.7 
+
++ add `geom_fruit_list` to support add the same position for multi layers. (20200622, Mon)
+
 # 0.0.0.6
 
 + automatically detect the 'position'. (20200612)
