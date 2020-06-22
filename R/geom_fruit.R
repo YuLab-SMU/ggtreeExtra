@@ -78,18 +78,19 @@ geom_fruit <- function(mapping=NULL, data, geom,
         geomname <- as.character(as.list(calls)[["geom"]])
     }
     params <- list(...)
-    structure(list(data = data,
-                   geom = geom, 
-                   mapping = mapping,
-                   params = params,
-                   offset = offset,
-                   pwidth = pwidth,
-                   addbrink=addbrink,
-                   linesize=linesize,
-                   linecol=linecol,
-                   position=position,
-                   geomname=geomname), 
-              class = 'fruit_plot')
+    obj <- structure(list(data = data,
+                          geom = geom, 
+                          mapping = mapping,
+                          params = params,
+                          offset = offset,
+                          pwidth = pwidth,
+                          addbrink=addbrink,
+                          linesize=linesize,
+                          linecol=linecol,
+                          position=position,
+                          geomname=geomname), 
+                     class = 'fruit_plot')
+    obj <- choose_pos(object=obj)
 }
 
 #' @rdname geom_fruit
@@ -110,3 +111,19 @@ fruit_plot <- function(p, data, geom,
                         ...)
     return(p)
 }
+
+##' add the layers to the same position out of ggtree.
+##'
+##' @title geom_fruit_list
+##' @param fruit the layer of geom_fruit.
+##' @param ..., another layers of geom_fruit.
+##' @return ggplot object
+##' @export
+##' @author Shuangbin Xu and GuangChuang Yu
+geom_fruit_list <- function(fruit, ...){
+    if(!all(unlist(lapply(list(fruit, ...), function(x)inherits(x, "fruit_plot"))))){
+        stop("The all fruit layers should be fruit_plot class.")
+    }
+    obj <- structure(list(fruit, ...), class="layer_fruits")
+}
+

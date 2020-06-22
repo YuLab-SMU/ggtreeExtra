@@ -5,7 +5,7 @@
 ##' @author Shuangbin Xu
 ##' @export
 ggplot_add.fruit_plot <-  function(object, plot, object_name){
-    object <- choose_pos(object=object)
+    #object <- choose_pos(object=object)
     yid <- as_name(object$mapping$y)
     layout <- get("layout", envir = plot$plot_env)
     if ("x" %in% names(object$mapping)){
@@ -22,9 +22,9 @@ ggplot_add.fruit_plot <-  function(object, plot, object_name){
     }
     offset <- get_offset(plot$data$x, object$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
-        hexpand2 <- max(plot$data$xmaxtmp) + offset
+        hexpand2 <- max(plot$data$xmaxtmp, na.rm=TRUE) + offset
     }else{
-        hexpand2 <- max(plot$data$x) + offset
+        hexpand2 <- max(plot$data$x, na.rm=TRUE) + offset
     }
     dat <- data.frame(plot$data, check.names=FALSE)[plot$data$isTip, c("y", "label", "angle")]
     dat <- merge(dat, object$data, by.x="label", by.y=yid)
@@ -81,9 +81,25 @@ ggplot_add.fruit_plot <-  function(object, plot, object_name){
     if (object$addbrink){
         obj <- list(obj, geom_vline(xintercept=hexpand2, 
                                     color=object$linecol, 
-                                    size=object$linesize))
+                                    size=object$linesize)) 
     }
     ggplot_add(obj, plot, object_name)
+}
+
+#' @method ggplot_add layer_fruits
+#' @export
+ggplot_add.layer_fruits <- function(object, plot, object_name){
+    offset <- get_offset(plot$data$x, object[[1]]$offset)
+    if ("xmaxtmp" %in% colnames(plot$data)){
+        hexpand2 <- max(plot$data$xmaxtmp, na.rm=TRUE) + offset
+    }else{
+        hexpand2 <- max(plot$data$x, na.rm=TRUE) + offset
+    }
+    for (o in object){
+        o[["params"]][["position"]][["hexpand"]] <- hexpand2
+        plot <- plot + o
+    }
+    plot
 }
 
 get_offset <- function(vnum, ratio){
