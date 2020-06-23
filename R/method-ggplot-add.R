@@ -5,7 +5,6 @@
 ##' @author Shuangbin Xu
 ##' @export
 ggplot_add.fruit_plot <-  function(object, plot, object_name){
-    #object <- choose_pos(object=object)
     yid <- as_name(object$mapping$y)
     layout <- get("layout", envir = plot$plot_env)
     if ("x" %in% names(object$mapping)){
@@ -86,8 +85,9 @@ ggplot_add.fruit_plot <-  function(object, plot, object_name){
     ggplot_add(obj, plot, object_name)
 }
 
-#' @method ggplot_add layer_fruits
-#' @export
+##' @method ggplot_add layer_fruits
+##' @author Shuangbin Xu
+##' @export
 ggplot_add.layer_fruits <- function(object, plot, object_name){
     offset <- get_offset(plot$data$x, object[[1]]$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
@@ -95,10 +95,21 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
     }else{
         hexpand2 <- max(plot$data$x, na.rm=TRUE) + offset
     }
+    n = 0
     for (o in object){
-        o[["params"]][["position"]][["hexpand"]] <- hexpand2
+        n = n + 1
+        if (inherits(o, "fruit_plot")){
+            o[["params"]][["position"]][["hexpand"]] <- hexpand2
+        }
         plot <- plot + o
+        if ("xmaxtmp" %in% colnames(plot$data) && n == 1){
+            tmpxmax <- plot$data$xmaxtmp
+        }
+        if (!"xmaxtmp" %in% colnames(plot$data)){
+            tmpxmax <- plot$data$x + hexpand2
+        }
     }
+    plot$data$xmaxtmp <- tmpxmax
     plot
 }
 
