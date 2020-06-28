@@ -6,8 +6,8 @@
 \title{geom_fruit}
 \usage{
 geom_fruit(
-  mapping = NULL,
-  data,
+  mapping,
+  data = NULL,
   geom,
   offset = 0.03,
   pwidth = 0.2,
@@ -20,9 +20,9 @@ geom_fruit(
 
 fruit_plot(
   p,
-  data,
+  data = NULL,
   geom,
-  mapping = NULL,
+  mapping,
   offset = 0.03,
   pwidth = 0.2,
   addbrink = FALSE,
