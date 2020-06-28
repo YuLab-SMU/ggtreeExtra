@@ -1,3 +1,7 @@
+# 0.0.0.8
+
++ support data of NULL in `geom_fruit`, and user can add data by `%<+%` of `ggtree`. (20200628, Sun)
+
 # 0.0.0.7 
 
 + add `geom_fruit_list` to support add the same position for multi layers. (20200622, Mon)
