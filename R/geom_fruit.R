@@ -65,7 +65,7 @@
 ##'                  mapping=aes(x=value, y=id),
 ##'                  orientation="y",
 ##'                  stat="identity")
-geom_fruit <- function(mapping=NULL, data, geom, 
+geom_fruit <- function(mapping, data=NULL, geom, 
                        offset=0.03, pwidth=0.2, 
                        addbrink=FALSE,
                        linesize=0.1,
@@ -95,8 +95,8 @@ geom_fruit <- function(mapping=NULL, data, geom,
 
 #' @rdname geom_fruit
 #' @export
-fruit_plot <- function(p, data, geom, 
-                        mapping=NULL, offset=0.03,
+fruit_plot <- function(p, data=NULL, geom, 
+                        mapping, offset=0.03,
                         pwidth=0.2, addbrink=FALSE,
                         linesize=0.1,
                         linecol="grey50", 
