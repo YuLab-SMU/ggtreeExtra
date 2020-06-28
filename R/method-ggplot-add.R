@@ -4,29 +4,20 @@
 ##' @importFrom rlang as_name
 ##' @author Shuangbin Xu
 ##' @export
-ggplot_add.fruit_plot <-  function(object, plot, object_name){
+ggplot_add.fruit_plot <- function(object, plot, object_name){
+    res <- set_mapping(object=object, plot=plot)
+    object <- res[[1]]
+    plot <- res[[2]]
+    xid <- res[[3]]
     yid <- as_name(object$mapping$y)
     layout <- get("layout", envir = plot$plot_env)
-    if ("x" %in% names(object$mapping)){
-        xid <- as_name(object$mapping$x)
-        if (xid == "x"){
-            object$data[["xtmp"]] <- object$data$x
-            xid <- "xtmp"
-            object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-        }
-    }else{
-        object$data$xtmp <- 0
-        xid <- "xtmp"
-        object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-    }
     offset <- get_offset(plot$data$x, object$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
         hexpand2 <- max(plot$data$xmaxtmp, na.rm=TRUE) + offset
     }else{
         hexpand2 <- max(plot$data$x, na.rm=TRUE) + offset
     }
-    dat <- data.frame(plot$data, check.names=FALSE)[plot$data$isTip, c("y", "label", "angle")]
-    dat <- merge(dat, object$data, by.x="label", by.y=yid)
+    dat <- build_new_data(newdat=object$data, origindata=plot$data, yid=yid)
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
         dat[[paste0("new_",xid)]] <- normxy(refnum=plot$data$x, 
                                             targetnum=dat[[xid]],
@@ -113,8 +104,57 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
     plot
 }
 
+set_mapping <- function(object, plot){
+    if (is.null(object$data)){
+        object$mapping <- modifyList(object$mapping, aes_(y=~y))
+        if ("x" %in% names(object$mapping)){
+            xid <- as_name(object$mapping$x)
+            if (xid == "x"){
+                plot$data[["xtmp"]] <- plot$data$x
+                xid <- "xtmp"
+                object$mapping <- modifyList(object$mapping,aes_string(x=xid))
+            }
+        }else{
+            plot$data$xtmp <- 0
+            xid <- "xtmp"
+            object$mapping <- modifyList(object$mapping,aes_string(x=xid))
+        }
+    }else{
+        if ("x" %in% names(object$mapping)){
+            xid <- as_name(object$mapping$x)
+            if (xid == "x"){
+                object$data[["xtmp"]] <- object$data$x
+                xid <- "xtmp"
+                object$mapping <- modifyList(object$mapping,aes_string(x=xid))
+            }
+        }else{
+            object$data$xtmp <- 0
+            xid <- "xtmp"
+            object$mapping <- modifyList(object$mapping,aes_string(x=xid))
+        }
+    }
+    return (list(object, plot, xid))
+}
+
 get_offset <- function(vnum, ratio){
     offset <- ratio*(max(vnum, na.rm=TRUE) - min(vnum, na.rm=TRUE))
+}
+
+build_new_data <- function(newdat, origindata, yid){
+    if (!is.null(newdat) && inherits(newdat, "data.frame")){
+        origindata <- origindata[origindata$isTip, colnames(origindata)!="x"]
+        commonnames <- intersect(colnames(newdat), colnames(origindata))
+        commonnames <- commonnames[commonnames!=yid]
+        if (length(commonnames) > 0){
+            warning_wrap("The following column names/name: ", paste0(commonnames, collapse=", "),
+                         " are/is the same to tree data, the tree data column names are : ",
+                         paste0(colnames(origindata), collapse=", "), ".")
+        }
+        dat <- merge(origindata, newdat, by.x="label", by.y=yid)
+    }else{
+        dat <- origindata[origindata$isTip,,drop=TRUE]
+    }
+    return(dat)
 }
 
 adjust_angle <- function(layout, angle){
@@ -143,3 +183,6 @@ choose_pos <- function(object){
     }
     return(object)
 }
+
+#' @importFrom utils getFromNamespace
+warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
