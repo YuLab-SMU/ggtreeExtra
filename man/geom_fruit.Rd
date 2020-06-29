@@ -110,6 +110,15 @@ p4 <- fruit_plot(p=p3,
                  mapping=aes(x=value, y=id),
                  orientation="y",
                  stat="identity")
+p <- p \%<+\% dd \%<+\% dt
+p5 <- p + geom_fruit(geom = geom_star,
+                     mapping = aes(y=id, fill=group),
+                     size = 2.5,
+                     starstroke = 0) +
+          geom_fruit(geom = geom_bar,
+                     mapping = aes(x=value, y=id),
+                     orientation = "y",
+                     stat = 'identity')
 }
 \author{
 Shuangbin Xu and Guangchuang Yu

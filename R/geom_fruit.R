@@ -65,6 +65,15 @@
 ##'                  mapping=aes(x=value, y=id),
 ##'                  orientation="y",
 ##'                  stat="identity")
+##' p <- p %<+% dd %<+% dt
+##' p5 <- p + geom_fruit(geom = geom_star,
+##'                      mapping = aes(y=id, fill=group),
+##'                      size = 2.5,
+##'                      starstroke = 0) +
+##'           geom_fruit(geom = geom_bar,
+##'                      mapping = aes(x=value, y=id),
+##'                      orientation = "y",
+##'                      stat = 'identity')
 geom_fruit <- function(mapping, data=NULL, geom, 
                        offset=0.03, pwidth=0.2, 
                        addbrink=FALSE,
