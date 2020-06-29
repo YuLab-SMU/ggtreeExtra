@@ -142,7 +142,7 @@ get_offset <- function(vnum, ratio){
 
 build_new_data <- function(newdat, origindata, yid){
     if (!is.null(newdat) && inherits(newdat, "data.frame")){
-        origindata <- origindata[origindata$isTip, colnames(origindata)!="x"]
+        origindata <- origindata[origindata$isTip, colnames(origindata) %in% c("y", "label", "angle")]
         commonnames <- intersect(colnames(newdat), colnames(origindata))
         commonnames <- commonnames[commonnames!=yid]
         if (length(commonnames) > 0){
