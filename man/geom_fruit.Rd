@@ -82,6 +82,7 @@ position in 'ggplot2', and 'position_dodgex()' or 'position_dodgex2()' for 'geom
 library(ggtree)
 library(ggplot2)
 library(ggstar)
+set.seed(1024)
 tr <- rtree(100)
 dd = data.frame(id=tr$tip.label, value=abs(rnorm(100)))
 dt = data.frame(id=tr$tip.label, group=c(rep("A",50),rep("B",50)))
