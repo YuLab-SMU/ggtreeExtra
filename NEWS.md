@@ -1,3 +1,7 @@
+# 0.0.0.9
+
++ support add the axis text of extra layer of `geom_fruit` using `geom_axis_text`. (20200630, Tue)
+
 # 0.0.0.8
 
 + support data of NULL in `geom_fruit`, and user can add data by `%<+%` of `ggtree`. (20200628, Sun)
