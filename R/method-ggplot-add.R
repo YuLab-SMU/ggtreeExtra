@@ -104,6 +104,69 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
     plot
 }
 
+
+##' @method ggplot_add fruit_axis_text
+##' @author Shuangbin Xu
+##' @importFrom rlang as_name
+##' @export
+ggplot_add.fruit_axis_text <- function(object, plot, object_name){
+    if (is.null(object$nlayer)){
+        nlayer <- extract_num_layer(plot=plot, num=length(plot$layer))
+    }else{
+        nlayer <- object$nlayer + 2 
+    }
+    xid <- as_name(plot$layer[[nlayer]]$mapping$x)
+    orixid <- sub("new_", "", xid)
+    dat <- plot$layer[[nlayer]]$data[,c(xid, orixid),drop=FALSE]
+    dat <- creat_text_data(data=dat, origin=orixid, newxid=xid, nbreak=object$nbreak)
+    dat[[xid]] <- dat[[xid]] + plot$layer[[nlayer]]$position$hexpand
+    obj <- list(size=object$size, angle=object$angle)
+    obj$data <- dat
+    obj$mapping <- aes_string(x=xid, y=0, label=orixid)
+    obj <- c(obj, object$params)
+    attr(plot$layer[[nlayer]], "AddAxisText") <- TRUE
+    if (nlayer > 2 && "hexpand" %in% names(plot$layer[[nlayer]]$position)){
+        obj <- do.call("geom_text", obj)
+        plot <- plot + obj
+        return(plot)
+    }else{
+        return(plot)
+    }
+}
+
+creat_text_data <- function(data, origin, newxid, nbreak){
+    if (!is.numeric(data[[origin]]) || sum(diff(data[[origin]])) == diff(range(data[[origin]]))){
+        data <- data[!duplicated(data),,drop=FALSE]
+    }else{
+        originx <- range(data[[origin]], na.rm=TRUE)
+        originx <- c(0,seq(originx[1], originx[2], length.out=nbreak))
+        newx <- range(data[[newxid]], na.rm=TRUE)
+        newx <- c(0,seq(newx[1], newx[2], length.out=nbreak))
+        tmpdigits <- max(attr(regexpr("(?<=\\.)0+", originx, perl = TRUE), "match.length"))
+        if (tmpdigits<=0){
+            tmpdigits <- 1
+        }else{
+            tmpdigits <- tmpdigits + 1
+        }
+        originx <- round(originx, digits=tmpdigits)
+        data <- data.frame(v1=newx, v2=originx)
+        colnames(data) <- c(newxid, origin)
+    }
+    return (data)
+}
+
+extract_num_layer <- function(plot, num){
+    if (inherits(plot$layer[[num]]$geom, "GeomText") && !"hexpand" %in% names(plot$layer[[num]]$position) && num >=3){
+        num <- num - 1
+        extract_num_layer(plot=plot, num=num)
+    }else if("AddAxisText" %in% names(attributes(plot$layer[[num]])) && "hexpand" %in% names(plot$layer[[num]]$position) && num >= 3){
+        num <- num - 1
+        extract_num_layer(plot=plot, num=num)
+    }else{
+        return(num)
+    }
+}
+
 set_mapping <- function(object, plot){
     if (is.null(object$data)){
         object$mapping <- modifyList(object$mapping, aes_(y=~y))
