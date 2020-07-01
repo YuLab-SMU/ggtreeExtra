@@ -35,9 +35,11 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
 checkref <- function(refnum, n=5, step=40){
     rmin <- min(refnum, na.rm=TRUE)
     rmax <- max(refnum, na.rm=TRUE)
-    if (length(refnum)<=5){
+    if (length(refnum)<=50){
        tmpstep <- (rmax - rmin)/step
-       refnum <- seq(from=rmin, to=rmax, by=tmpstep)
+    }else{
+       tmpstep <- (rmax - rmin)/length(refnum)
     }
+    refnum <- seq(from=rmin, to=rmax, by=tmpstep)
     return(refnum)
 }
