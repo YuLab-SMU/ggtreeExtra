@@ -1,6 +1,7 @@
 # 0.0.0.9
 
 + support add the axis text of extra layer of `geom_fruit` using `geom_axis_text`. (20200630, Tue)
++ optimize normalization of extra layer data. (20200701, Wed) 
 
 # 0.0.0.8
 
