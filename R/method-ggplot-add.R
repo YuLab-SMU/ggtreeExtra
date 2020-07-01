@@ -139,9 +139,9 @@ creat_text_data <- function(data, origin, newxid, nbreak){
         data <- data[!duplicated(data),,drop=FALSE]
     }else{
         originx <- range(data[[origin]], na.rm=TRUE)
-        originx <- c(0,seq(originx[1], originx[2], length.out=nbreak))
+        originx <- seq(originx[1], originx[2], length.out=nbreak)
         newx <- range(data[[newxid]], na.rm=TRUE)
-        newx <- c(0,seq(newx[1], newx[2], length.out=nbreak))
+        newx <- seq(newx[1], newx[2], length.out=nbreak)
         tmpdigits <- max(attr(regexpr("(?<=\\.)0+", originx, perl = TRUE), "match.length"))
         if (tmpdigits<=0){
             tmpdigits <- 1
