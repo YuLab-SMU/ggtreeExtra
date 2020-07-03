@@ -26,7 +26,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }else{
         if (!is.numeric(dat[[xid]])){
             if (!is.factor(dat[[xid]])){
-                dat[[xid]] <- factor(dat[[xid]], levels=unique(as.vector(dat[[xid]])))
+                dat[[xid]] <- factor(dat[[xid]], levels=sort(unique(as.vector(dat[[xid]]))))
             }
             dat[[paste0(xid,"_bp")]] <- as.numeric(dat[[xid]])
             dat[[paste0("new_", xid)]] <- normxy(refnum=plot$data$x,
@@ -111,21 +111,21 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
 ##' @export
 ggplot_add.fruit_axis_text <- function(object, plot, object_name){
     if (is.null(object$nlayer)){
-        nlayer <- extract_num_layer(plot=plot, num=length(plot$layer))
+        nlayer <- extract_num_layer(plot=plot, num=length(plot$layers))
     }else{
         nlayer <- object$nlayer + 2 
     }
-    xid <- as_name(plot$layer[[nlayer]]$mapping$x)
+    xid <- as_name(plot$layers[[nlayer]]$mapping$x)
     orixid <- sub("new_", "", xid)
-    dat <- plot$layer[[nlayer]]$data[,c(xid, orixid),drop=FALSE]
+    dat <- plot$layers[[nlayer]]$data[,c(xid, orixid),drop=FALSE]
     dat <- creat_text_data(data=dat, origin=orixid, newxid=xid, nbreak=object$nbreak)
-    dat[[xid]] <- dat[[xid]] + plot$layer[[nlayer]]$position$hexpand
+    dat[[xid]] <- dat[[xid]] + plot$layers[[nlayer]]$position$hexpand
     obj <- list(size=object$size, angle=object$angle)
     obj$data <- dat
     obj$mapping <- aes_string(x=xid, y=0, label=orixid)
     obj <- c(obj, object$params)
-    attr(plot$layer[[nlayer]], "AddAxisText") <- TRUE
-    if (nlayer > 2 && "hexpand" %in% names(plot$layer[[nlayer]]$position)){
+    attr(plot$layers[[nlayer]], "AddAxisText") <- TRUE
+    if (nlayer > 2 && "hexpand" %in% names(plot$layers[[nlayer]]$position)){
         obj <- do.call("geom_text", obj)
         plot <- plot + obj
         return(plot)
@@ -156,10 +156,10 @@ creat_text_data <- function(data, origin, newxid, nbreak){
 }
 
 extract_num_layer <- function(plot, num){
-    if (inherits(plot$layer[[num]]$geom, "GeomText") && !"hexpand" %in% names(plot$layer[[num]]$position) && num >=3){
+    if (inherits(plot$layers[[num]]$geom, "GeomText") && !"hexpand" %in% names(plot$layers[[num]]$position) && num >=3){
         num <- num - 1
         extract_num_layer(plot=plot, num=num)
-    }else if("AddAxisText" %in% names(attributes(plot$layer[[num]])) && "hexpand" %in% names(plot$layer[[num]]$position) && num >= 3){
+    }else if("AddAxisText" %in% names(attributes(plot$layers[[num]])) && "hexpand" %in% names(plot$layers[[num]]$position) && num >= 3){
         num <- num - 1
         extract_num_layer(plot=plot, num=num)
     }else{
