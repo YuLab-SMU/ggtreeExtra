@@ -31,7 +31,7 @@
 ##'                      mapping=aes(x=value, y=id),
 ##'                      orientation="y",
 ##'                      stat="identity") +
-##'           geom_axis_text(angle=-45, nudge_x=0.1)
+##'           geom_axis_text(angle=-45, hjust=0)
 geom_axis_text <- function(angle=0, size=0.8, nlayer=NULL, nbreak=4, ...){
     params <- list(...)
     structure(list(angle = angle, 

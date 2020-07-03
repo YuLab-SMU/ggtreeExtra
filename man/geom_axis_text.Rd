@@ -44,7 +44,7 @@ p1 <- p + geom_fruit(geom=geom_star,
                      mapping=aes(x=value, y=id),
                      orientation="y",
                      stat="identity") +
-          geom_axis_text(angle=-45, nudge_x=0.1)
+          geom_axis_text(angle=-45, hjust=0)
 }
 \author{
 Shuangbin Xu
