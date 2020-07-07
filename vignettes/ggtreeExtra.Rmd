@@ -1,0 +1,252 @@
+---
+title: "ggtreeExtra"
+author: |
+  | Shuangbin Xu and GuangChuang Yu
+  | School of Basic Medical Sciences, Southern Medical University
+date: "`r Sys.Date()`"
+bibliography: ggtreeExtra.bib
+biblio-style: apalike
+output:
+  prettydoc::html_pretty:
+    toc: true
+    theme: cayman
+    highlight: vignette
+  pdf_document:
+    toc: true
+vignette: >
+  %\VignetteIndexEntry{ggtreeExtra}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\usepackage[utf8]{inputenc}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE, results="asis", message=FALSE, KnitrSetUp}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+
+Biocpkg <- function (pkg){
+        sprintf("[%s](http://bioconductor.org/packages/%s)", pkg, pkg)
+}
+
+CRANpkg <- function(pkg){
+        cran <- "https://CRAN.R-project.org/package"
+    fmt <- "[%s](%s=%s)"
+        sprintf(fmt, pkg, cran, pkg)
+}
+```
+
+# Setup
+
+```{r, message=FALSE, setup}
+library(ggtreeExtra)
+library(ggstar)
+library(ggplot2)
+library(ggtree)
+library(treeio)
+```
+
+# 1. Introduction
+
+Phylogenetic trees was often used with associated data in various biological studies. `r Biocpkg("ggtree")`, a flexible R package to visualize phylogenetic tree, had been developed by GuangChuang Yu [@yu2017ggtree]. It provided `geom_facet` function to align associated graphs to the tree [@yu2018two; @yu2020ggtree]. However, This function did not support the tree created using `circular`, `fan` or `radial` layout. To solve the problem, We developed `ggtreeExtra`, which can align associated graphs to `circular`, `fan` or `radial` and other `rectangular` layout tree. `ggtreeExtra` provides function, `geom_fruit` to align graphs to the tree. But the associated graphs will align in different position. So we also developed `geom_fruit_list` to add multiple layers in the same position. Furthermore, `geom_axis_text`, a function to add the axis of associated graphs was developed. These functions are based on `r CRANpkg("ggplot2")` using grammar of graphics [@hadlyggplot2].
+
+# 2. Install
+
+You can use the following to install it
+
+```r
+# for devel
+if(!requireNamespace("devtools", quietly=TRUE)){
+    install.packages("remotes")
+}
+remotes::install_github("YuLab-SMU/ggtreeExtra")
+
+# for release
+install.packages("ggtreeExtra")
+```
+
+# 3. Usage
+
+To show the package profiling, I will use a tree file downloaded from [plotTree](https://github.com/katholt/plotTree/blob/master/tree_example_april2015/tree.nwk). The associated datasets were simulated. 
+
+## 3.1 add single layer
+
+```{r, fig.align="center", fig.height=7, fig.width=7, dev="svg", warning=FALSE, singlelayer}
+# The path of tree file.
+trfile <- system.file("extdata", "tree.nwk", package="ggtreeExtra")
+# The path of file to plot tippoint.
+tippoint1 <- system.file("extdata", "tree_tippoint_bar.csv", package="ggtreeExtra")
+# The path of first layer outside of tree.
+ring1 <- system.file("extdata", "first_ring_discrete.csv", package="ggtreeExtra")
+# The path of second layer outside of tree.
+ring2 <- system.file("extdata", "second_ring_continuous.csv", package="ggtreeExtra")
+
+# The tree file was import using read.tree. If you have other format of tree, you can use corresponding function of treeio to read it.
+tree <- read.tree(trfile)
+
+# This dataset will to be plotted point and bar.
+dat1 <- read.csv(tippoint1)
+knitr::kable(head(dat1))
+# This dataset will to be plotted heatmap
+dat2 <- read.csv(ring1)
+knitr::kable(head(dat2))
+# This dataset will to be plotted heatmap
+dat3 <- read.csv(ring2)
+knitr::kable(head(dat3))
+# The format of the datasets is the long shape for ggplot2. If you have short shape dataset,
+# you can use melt of reshape2 or pivot_longer of tidyr to convert it.
+
+# We use ggtree to create fan layout tree. 
+p <- ggtree(tree, layout="fan", open.angle=10, size=0.5)
+p
+
+# Next, we can use %<+% of ggtree to add annotation dataset to tree.
+p1 <- p %<+% dat1
+p1
+# We use geom_star to add point layer outside of tree.
+p2 <- p1 + geom_star(mapping=aes(fill=Location, size=Length, starshape=Group),
+                     starstroke=0.2) +
+           scale_size_continuous(range=c(1, 3),
+                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, 
+                                                    override.aes=list(starshape=15), 
+                                                    order=2)) + 
+           scale_fill_manual(values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
+                             guide="none") + # don't show the legend.
+           scale_starshape_manual(values=c(1, 15),
+                                  guide=guide_legend(keywidth=0.5, # adjust width of legend
+                                                     keyheight=0.5, # adjust height of legend
+                                                     order=1), # adjust the order of legend for multiple legends.
+                                  na.translate=FALSE) # to remove the NA legend.
+p2
+
+# Or if we don't use %<+% to add annotation dataset, instead of data parameter of geom_fruit. 
+# You should specify the y column (tip label), here is y=ID.
+p2 <- p + geom_fruit(data=dat1,
+                     geom=geom_star,
+                     mapping=aes(y=ID, fill=Location, size=Length, starshape=Group),
+                     position="identity",
+                     starstroke=0.2) + 
+          scale_size_continuous(range=c(1, 3), # the range of size.
+                                guide=guide_legend(keywidth=0.5, keyheight=0.5,
+                                                   override.aes=list(starshape=15),
+                                                   order=2)) +
+          scale_fill_manual(values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
+                            guide="none") + 
+          scale_starshape_manual(values=c(1, 15),
+                                 guide=guide_legend(keywidth=0.5,
+                                                    keyheight=0.5,
+                                                    order=1))
+p2
+
+# Next, I will add a heatmap layer on the p2 using `geom_tile` of ggplot2.
+# Since I want to use fill to map some variable of dataset and the fill of p2 had been mapped.
+# So I need use `new_scale_fill` to initialize it.
+p3 <- p2 + new_scale_fill() + 
+          geom_fruit(data=dat2,
+                    geom=geom_tile,
+                    mapping=aes(y=ID, x=Pos, fill=Type),
+                    offset=0.08,   # The distance between layers, default is 0.03 of x range of tree.
+                    pwidth=0.25) + # width of the layer, default is 0.2 of x range of tree.
+          scale_fill_manual(values=c("#339933", "#dfac03"),
+                            guide=guide_legend(keywidth=0.5, keyheight=0.5, order=3)) +
+          geom_axis_text(angle=-45, hjust=0) # add axis text of the layer.
+p3
+
+# We can also add heatmap layer for continuous values.
+p4 <- p3 + new_scale_fill() +
+           geom_fruit(data=dat3,
+                     geom=geom_tile,
+                     mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
+                     pwidth=0.15) +
+           scale_fill_manual(values=c("#b22222", "#005500", "#0000be", "#9f1f9f"),
+                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=4)) +
+           scale_alpha_continuous(range=c(0, 0.4), # the range of alpha
+                                  guide=guide_legend(keywidth=0.5, keyheight=0.5, order=5)) +
+           geom_axis_text(angle=-45, hjust=0) # add axis text of the layer.
+
+# Then we add a bar layer outside of the tree.
+p5 <- p4 + new_scale_fill() +
+           geom_fruit(data=dat1, # The abundance of dat1 will be mapped to x, 
+                      geom=geom_bar,
+                      mapping=aes(y=ID, x=Abundance, fill=Location),
+                      pwidth=0.4,
+                      stat="identity",
+                      orientation="y") + # the orientation of axis.
+           scale_fill_manual(values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
+                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=6)) +
+           theme(#legend.position=c(0.96, 0.5), # the position of legend.
+                 legend.background=element_rect(fill=NA), # the background of legend.
+                 legend.title=element_text(size=7), # the title size of legend.
+                 legend.text=element_text(size=6), # the text size of legend.
+                 legend.spacing.y = unit(0.02, "cm")) + # the distance of legends (y orientation).
+           geom_axis_text(angle=-45, hjust=0)
+p5
+```
+
+## 3.2 add multiple layers on the same position.
+
+In the section, I will randomly create a tree and associated datasets.
+
+```{r, fig.align="center", fig.width=7, fig.width=7, dev="svg", multilayer}
+# To reproduce.
+set.seed(1024)
+# generate 100 tip point tree.
+tr <- rtree(100)
+# I generate three datasets, which are the same except the third column name.
+dt <- data.frame(id=tr$tip.label, value=abs(rnorm(100)), group=c(rep("A",50),rep("B",50)))
+df <- dt
+dtf <- dt
+colnames(df)[[3]] <- "group2"
+colnames(dtf)[[3]] <- "group3"
+# plot tree 
+p <- ggtree(tr, layout="fan", open.angle=0)
+p
+# the first ring.
+p1 <- p + geom_fruit(data=dt,
+                     geom=geom_bar,
+                     mapping=aes(y=id, x=value, fill=group),
+                     orientation="y",
+                     stat="identity") + new_scale_fill()
+p1
+# the second ring
+# geom_fruit_list is a list, which first element must be layer of geom_fruit.
+p2 <- p1 + geom_fruit_list(geom_fruit(data = df,
+                                      geom = geom_bar,
+                                      mapping = aes(y=id, x=value, fill=group2),
+                                      orientation = "y",
+                                      stat = "identity"),
+                                      scale_fill_manual(values=c("blue", "red")), # To map group2
+                                      new_scale_fill(), # To initialize fill scale.
+                                      geom_fruit(data = dt,
+                                                 geom = geom_star,
+                                                 mapping = aes(y=id, x=value, fill=group),
+                                                 size = 2.5,
+                                                 color = NA,
+                                                 starstroke = 0)) + 
+           new_scale_fill()
+p2
+
+# The third ring
+p3 <- p2 + geom_fruit(data=dtf,
+                      geom=geom_bar,
+                      mapping = aes(y=id, x=value, fill=group3),
+                      orientation = "y",
+                      stat = "identity") +
+           scale_fill_manual(values=c("#00AED7", "#009E73"))
+p3
+```
+
+# 4. Need helps?
+
+If you have questions/issues, please visit [github issue tracker](https://github.com/YuLab-SMU/ggtreeExtra/issues).
+
+# 5. Session information
+
+Here is the output of sessionInfo() on the system on which this document was compiled:
+
+```{r, echo=FALSE}
+sessionInfo()
+```
+
+# 6. Reference
