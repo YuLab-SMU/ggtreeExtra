@@ -1,3 +1,7 @@
+# 0.0.1
+
+# add vignettes. (20200707, Tue)
+
 # 0.0.0.9
 
 + support add the axis text of extra layer of `geom_fruit` using `geom_axis_text`. (20200630, Tue)
