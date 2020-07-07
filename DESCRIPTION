@@ -1,7 +1,7 @@
 Package: ggtreeExtra
 Type: Package
 Title: An R Package To Add Geom Layers On Circular Or Other Layout Tree Of "ggtree"
-Version: 0.0.0.9
+Version: 0.0.1
 Authors@R: c(
       person(given = "Shuangbin", family = "Xu", role = c("aut", "cre"), email = "xshuangbin@example.com", comment = c(ORCID = "0000-0003-3513-5362")),
       person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "ctb"), comment = c(ORCID = "0000-0002-6485-8781"))
