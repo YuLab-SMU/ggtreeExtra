@@ -6,20 +6,23 @@ Authors@R: c(
       person(given = "Shuangbin", family = "Xu", role = c("aut", "cre"), email = "xshuangbin@example.com", comment = c(ORCID = "0000-0003-3513-5362")),
       person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "ctb"), comment = c(ORCID = "0000-0002-6485-8781"))
       )
-Description:  'ggtreeExtra' extends the method for mapping and visualizing associated 
+Description: 'ggtreeExtra' extends the method for mapping and visualizing associated 
               data on phylogenetic tree using 'ggtree'. These associated data can be 
               mapped to circular layout, fan layout, or other layout tree built by 
               'ggtree' with the grammar of 'ggplot2'.
 Imports:
-  ggplot2,
-  utils,
-  magrittr,
-  rlang,
-  ggnewscale
+    ggplot2,
+    utils,
+    magrittr,
+    rlang,
+    ggnewscale
 Suggests:
-  ggtree,
-  ggstar,
-  patchwork
+    ggtree,
+    treeio,
+    ggstar,
+    patchwork,
+    knitr,
+    rmarkdown
 License: GPL-3
 Encoding: UTF-8
 URL: https://github.com/YuLab-SMU/ggtreeExtra/
@@ -27,3 +30,4 @@ BugReports: https://github.com/YuLab-SMU/ggtreeExtra/issues
 LazyData: true
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.0
+VignetteBuilder: knitr
