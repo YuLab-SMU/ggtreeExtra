@@ -31,6 +31,9 @@ crancheck: rd build1
 debug: build1
 	cd ..;\
 	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
+
+vignettes:
+	Rscript -e 'usethis::use_vignette("$(PKGNAME)")'
 	
 clean:
 	cd ..;\
