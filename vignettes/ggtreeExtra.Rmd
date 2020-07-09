@@ -57,13 +57,13 @@ You can use the following to install it
 
 ```r
 # for devel
-if(!requireNamespace("devtools", quietly=TRUE)){
+if(!requireNamespace("remotes", quietly=TRUE)){
     install.packages("remotes")
 }
 remotes::install_github("YuLab-SMU/ggtreeExtra")
 
 # for release
-install.packages("ggtreeExtra")
+#install.packages("ggtreeExtra")
 ```
 
 # 3. Usage
