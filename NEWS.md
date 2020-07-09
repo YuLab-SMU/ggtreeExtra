@@ -1,6 +1,6 @@
 # 0.0.1
 
-# add vignettes. (20200707, Tue)
++ add vignettes. (20200707, Tue)
 
 # 0.0.0.9
 
