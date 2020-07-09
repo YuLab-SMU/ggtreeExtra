@@ -28,7 +28,7 @@ crancheck: rd build1
 	cd ..;\
 	Rscript -e 'rcmdcheck::rcmdcheck("$(PKGNAME)_$(PKGVERS).tar.gz", args="--as-cran")'
 
-debug: build1
+debug: rd build1
 	cd ..;\
 	R CMD INSTALL $(PKGNAME)_$(PKGVERS).tar.gz
 
