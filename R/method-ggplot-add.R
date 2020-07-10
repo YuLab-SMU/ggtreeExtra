@@ -2,6 +2,7 @@
 ##' @importFrom utils modifyList
 ##' @importFrom ggplot2 aes aes_ aes_string geom_vline scale_color_manual
 ##' @importFrom rlang as_name
+##' @importFrom ggnewscale new_scale_color
 ##' @author Shuangbin Xu
 ##' @export
 ggplot_add.fruit_plot <- function(object, plot, object_name){
