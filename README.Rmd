@@ -51,6 +51,7 @@ library(ggtreeExtra)
 library(ggtree)
 library(ggplot2)
 library(treeio)
+library(ggnewscale)
 library(ggstar)
 
 trfile <- system.file("extdata", "tree.nwk", package="ggtreeExtra")
