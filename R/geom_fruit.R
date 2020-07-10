@@ -134,6 +134,7 @@ fruit_plot <- function(p, data=NULL, geom,
 ##' library(ggplot2)
 ##' library(ggtree)
 ##' library(ggstar)
+##' library(ggnewscale)
 ##' set.seed(1024)
 ##' tr <- rtree(100)
 ##' dt <- data.frame(id=tr$tip.label, value=abs(rnorm(100)), group=c(rep("A",50),rep("B",50)))
