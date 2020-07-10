@@ -45,6 +45,7 @@ library(ggstar)
 library(ggplot2)
 library(ggtree)
 library(treeio)
+library(ggnewscale)
 ```
 
 # 1. Introduction
@@ -63,7 +64,11 @@ if(!requireNamespace("remotes", quietly=TRUE)){
 remotes::install_github("YuLab-SMU/ggtreeExtra")
 
 # for release
-#install.packages("ggtreeExtra")
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+    
+## BiocManager::install("BiocUpgrade") ## you may need this
+BiocManager::install("ggtreeExtra")
 ```
 
 # 3. Usage
