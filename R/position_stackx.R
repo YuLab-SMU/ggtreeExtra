@@ -10,6 +10,7 @@
 #' have a position, default is NA.
 #' @param reverse If `TRUE`, will reverse the default stacking order.
 #'   This is useful if you're rotating both the plot and legend.
+#' @return position method.
 #' @importFrom ggplot2 ggproto
 #' @author Shuangbin Xu
 #' @export
@@ -44,7 +45,6 @@ position_stackx <- function(vjust = 1, hexpand=NA, vexpand=NA, reverse = FALSE) 
 #' @format NULL
 #' @usage NULL
 #' @author Shuangbin Xu
-#' @export
 PositionStackx <- ggproto("PositionStackx", Position,
   type = NULL,
   vjust = 1,

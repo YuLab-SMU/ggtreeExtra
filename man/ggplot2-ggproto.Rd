@@ -7,8 +7,14 @@
 \alias{PositionDodgex2}
 \alias{PositionIdentityx}
 \alias{PositionStackx}
-\title{PositionStackx}
+\title{PositionDodgex}
 \description{
+PositionDodgex
+
+PositionDodgex2
+
+PositionIdentityx
+
 PositionStackx
 }
 \author{

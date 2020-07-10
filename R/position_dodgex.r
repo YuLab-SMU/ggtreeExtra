@@ -14,6 +14,7 @@
 #' @param preserve Should dodging preserve the total width of all elements
 #'    at a position, or the width of a single element?
 #' @family position adjustments
+#' @return position methods 
 #' @export
 #' @examples
 #' library(ggplot2)
@@ -44,10 +45,10 @@ position_dodgex <- function(width = NULL, hexpand=NA, vexpand=NA,
   )
 }
 
+#' PositionDodgex
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
-#' @export
 PositionDodgex <- ggproto("PositionDodgex", Position,
   width = NULL,
   hexpand = NA,

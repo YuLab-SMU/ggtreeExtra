@@ -16,10 +16,10 @@ position_dodgex2 <- function(width = NULL, preserve = c("total", "single"),
   )
 }
 
+#' PositionDodgex2
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
-#' @export
 PositionDodgex2 <- ggproto("PositionDodgex2", PositionDodgex,
   preserve = "total",
   padding = 0.1,

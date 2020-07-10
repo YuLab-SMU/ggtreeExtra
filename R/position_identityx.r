@@ -5,6 +5,7 @@
 #' have a position, default is NA.
 #' @param hexpand numeric, distance to be shifted horizontally for geoms that
 #' have a position, default is NA.
+#' @return position method.
 #' @importFrom ggplot2 ggproto
 #' @author Shuangbin Xu
 #' @export
@@ -26,17 +27,17 @@ position_identityx <- function(hexpand=NA, vexpand=NA) {
     ggproto(NULL, PositionIdentityx, hexpand=hexpand, vexpand=vexpand)
 }
 
+#' PositionIdentityx
 #' @rdname ggplot2-ggproto
 #' @format NULL
 #' @usage NULL
 #' @importFrom ggplot2 ggproto Position
-#' @export
 PositionIdentityx <- ggproto("PositionIdentityx", Position,
-			     vexpand=NA,
+                             vexpand=NA,
                              hexpand=NA,
   setup_params = function(self, data){
      list(hexpand=self$hexpand,
-	  vexpand=self$vexpand)
+          vexpand=self$vexpand)
   },
   compute_layer = function(self, data, params, layout) {
     if (!is.na(params$vexpand)){

@@ -13,6 +13,9 @@ have a position, default is NA.}
 \item{vexpand}{numeric, distance to be shifted vertically for geoms that
 have a position, default is NA.}
 }
+\value{
+position method.
+}
 \description{
 adjust identity position which can be shifted vertically or horizontally.
 }

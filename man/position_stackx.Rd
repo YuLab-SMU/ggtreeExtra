@@ -21,6 +21,9 @@ have a position, default is NA.}
 \item{reverse}{If \code{TRUE}, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.}
 }
+\value{
+position method.
+}
 \description{
 Stack overlapping objects which can be shifted vertically or horizontally
 }

@@ -39,6 +39,9 @@ shrunk by this proportion to allow space between them. Defaults to 0.1.}
 \item{reverse}{If \code{TRUE}, will reverse the default stacking order.
 This is useful if you're rotating both the plot and legend.}
 }
+\value{
+position methods
+}
 \description{
 Dodging preserves the vertical position of an geom while adjusting the
 horizontal position. \code{position_dodgex2} is a special case of \code{position_dodgex}
