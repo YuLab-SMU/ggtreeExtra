@@ -1,3 +1,7 @@
+# 0.99.0
+
++ the 0.99.0 or 0.99.x version mean I am submit it to `Bioconductor`. (20200710, Fri)
+
 # 0.0.1
 
 + add vignettes. (20200707, Tue)
