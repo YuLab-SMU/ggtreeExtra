@@ -11,6 +11,7 @@
 ##' which mean the last layer.
 ##' @param nbreak integer, when the axis x is continuous, default is 4.
 ##' @param ... additional parameters for 'geom_text'.
+##' @return text object of ggplot2.
 ##' @export
 ##' @author Shuangbin Xu
 ##' @examples

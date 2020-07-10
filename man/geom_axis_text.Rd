@@ -18,6 +18,9 @@ which mean the last layer.}
 
 \item{...}{additional parameters for 'geom_text'.}
 }
+\value{
+text object of ggplot2.
+}
 \description{
 add the axis of layer of geom_fruit.
 }
