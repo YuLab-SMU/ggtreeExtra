@@ -10,8 +10,6 @@ Description: 'ggtreeExtra' extends the method for mapping and visualizing associ
               data on phylogenetic tree using 'ggtree'. These associated data can be 
               mapped to circular layout, fan layout, or other layout tree built by 
               'ggtree' with the grammar of 'ggplot2'.
-Depends:
-    R (>= 4.0.0)
 Imports:
     ggplot2,
     utils,
