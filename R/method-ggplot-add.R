@@ -120,6 +120,9 @@ ggplot_add.fruit_axis_text <- function(object, plot, object_name){
     orixid <- sub("new_", "", xid)
     dat <- plot$layers[[nlayer]]$data[,c(xid, orixid),drop=FALSE]
     dat <- creat_text_data(data=dat, origin=orixid, newxid=xid, nbreak=object$nbreak)
+    if (nrow(dat)==1 && !is.null(object$text)){
+       dat[[orixid]] <- object$text
+    }
     dat[[xid]] <- dat[[xid]] + plot$layers[[nlayer]]$position$hexpand
     obj <- list(size=object$size, angle=object$angle)
     obj$data <- dat

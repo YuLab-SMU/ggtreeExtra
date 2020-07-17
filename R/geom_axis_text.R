@@ -9,6 +9,7 @@
 ##' @param size numeric, the size of text, default is 0.8 .
 ##' @param nlayer integer, the specified layer of geom_fruit, default is NULL,
 ##' which mean the last layer.
+##' @param text character, the text of axis x for single tile layer, default is NULL.
 ##' @param nbreak integer, when the axis x is continuous, default is 4.
 ##' @param ... additional parameters for 'geom_text'.
 ##' @return text object of ggplot2.
@@ -33,11 +34,12 @@
 ##'                      orientation="y",
 ##'                      stat="identity") +
 ##'           geom_axis_text(angle=-45, hjust=0)
-geom_axis_text <- function(angle=0, size=0.8, nlayer=NULL, nbreak=4, ...){
+geom_axis_text <- function(angle=0, size=0.8, nlayer=NULL, text=NULL, nbreak=4, ...){
     params <- list(...)
     structure(list(angle = angle, 
                    size = size,
                    nlayer = nlayer,
+                   text = text,
                    nbreak = nbreak,
                    params = params), 
               class="fruit_axis_text")

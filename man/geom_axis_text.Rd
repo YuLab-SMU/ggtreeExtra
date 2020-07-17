@@ -4,7 +4,14 @@
 \alias{geom_axis_text}
 \title{geom_axis_text}
 \usage{
-geom_axis_text(angle = 0, size = 0.8, nlayer = NULL, nbreak = 4, ...)
+geom_axis_text(
+  angle = 0,
+  size = 0.8,
+  nlayer = NULL,
+  text = NULL,
+  nbreak = 4,
+  ...
+)
 }
 \arguments{
 \item{angle}{numeric, the angle of text, default is 0 .}
@@ -13,6 +20,8 @@ geom_axis_text(angle = 0, size = 0.8, nlayer = NULL, nbreak = 4, ...)
 
 \item{nlayer}{integer, the specified layer of geom_fruit, default is NULL,
 which mean the last layer.}
+
+\item{text}{character, the text of axis x for single tile layer, default is NULL.}
 
 \item{nbreak}{integer, when the axis x is continuous, default is 4.}
 
