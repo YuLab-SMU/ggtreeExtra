@@ -12,30 +12,32 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     xid <- res[[3]]
     yid <- as_name(object$mapping$y)
     layout <- get("layout", envir = plot$plot_env)
+    flagreverse <- check_reverse(plot=plot)
+    if (layout=="inward_circular" || flagreverse){orientation <- -1}else{orientation <- 1}
     offset <- get_offset(plot$data$x, object$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
-        hexpand2 <- max(plot$data$xmaxtmp, na.rm=TRUE) + offset
+        hexpand2 <- max(abs(plot$data$xmaxtmp), na.rm=TRUE) + offset
     }else{
-        hexpand2 <- max(plot$data$x, na.rm=TRUE) + offset
+        hexpand2 <- max(abs(plot$data$x), na.rm=TRUE) + offset
     }
     dat <- build_new_data(newdat=object$data, origindata=plot$data, yid=yid)
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
-        dat[[paste0("new_",xid)]] <- normxy(refnum=plot$data$x, 
+        dat[[paste0("new_",xid)]] <- orientation * normxy(refnum=plot$data$x, 
                                             targetnum=dat[[xid]],
                                             ratio=object$pwidth)
-        newxexpand <- max(dat[[paste0("new_", xid)]], na.rm=TRUE)
+        newxexpand <- max(abs(dat[[paste0("new_", xid)]]), na.rm=TRUE)
     }else{
         if (!is.numeric(dat[[xid]])){
             if (!is.factor(dat[[xid]])){
                 dat[[xid]] <- factor(dat[[xid]], levels=sort(unique(as.vector(dat[[xid]]))))
             }
             dat[[paste0(xid,"_bp")]] <- as.numeric(dat[[xid]])
-            dat[[paste0("new_", xid)]] <- normxy(refnum=plot$data$x,
+            dat[[paste0("new_", xid)]] <- orientation * normxy(refnum=plot$data$x,
                                                  targetnum=dat[[paste0(xid,"_bp")]],
                                                  keepzero=TRUE,
                                                  ratio=object$pwidth) + offset
             dat <- dat[order(-dat$y, dat[[paste0("new_", xid)]]),,drop=FALSE]
-            newxexpand <- max(dat[[paste0("new_", xid)]], na.rm=TRUE)
+            newxexpand <- max(abs(dat[[paste0("new_", xid)]]), na.rm=TRUE)
         }else{
             if (!"hexpand" %in% names(object$params$position)){
                 dat[[paste0("new_", xid)]] <- data.frame(plot$data, check.names=FALSE)[match(dat$label,plot$data$label),"x"]
@@ -52,6 +54,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }
     if ("hexpand" %in% names(object$params$position)){
         if (is.na(object$params$position$hexpand)){
+            if (orientation < 0){hexpand2 <- abs(hexpand2)}
             object$params$position$hexpand <- hexpand2
         }
     }
@@ -83,9 +86,9 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
 ggplot_add.layer_fruits <- function(object, plot, object_name){
     offset <- get_offset(plot$data$x, object[[1]]$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
-        hexpand2 <- max(plot$data$xmaxtmp, na.rm=TRUE) + offset
+        hexpand2 <- max(abs(plot$data$xmaxtmp), na.rm=TRUE) + offset
     }else{
-        hexpand2 <- max(plot$data$x, na.rm=TRUE) + offset
+        hexpand2 <- max(abs(plot$data$x), na.rm=TRUE) + offset
     }
     n = 0
     for (o in object){
@@ -123,15 +126,17 @@ ggplot_add.fruit_axis_text <- function(object, plot, object_name){
     if (nrow(dat)==1 && !is.null(object$text)){
        dat[[orixid]] <- object$text
     }
-    dat[[xid]] <- dat[[xid]] + plot$layers[[nlayer]]$position$hexpand
+    #dat[[xid]] <- dat[[xid]] + plot$layers[[nlayer]]$position$hexpand
     obj <- list(size=object$size, angle=object$angle)
     obj$data <- dat
     obj$mapping <- aes_string(x=xid, y=0, label=orixid)
+    obj$position <- position_identityx(hexpand=plot$layers[[nlayer]]$position$hexpand)
     obj <- c(obj, object$params)
     attr(plot$layers[[nlayer]], "AddAxisText") <- TRUE
     if (nlayer > 2 && "hexpand" %in% names(plot$layers[[nlayer]]$position)){
         obj <- do.call("geom_text", obj)
         plot <- plot + obj
+        attr(plot$layers[[nlayer+1]], "AddAxisText") <- TRUE
         return(plot)
     }else{
         return(plot)
@@ -160,7 +165,7 @@ creat_text_data <- function(data, origin, newxid, nbreak){
 }
 
 extract_num_layer <- function(plot, num){
-    if (inherits(plot$layers[[num]]$geom, "GeomText") && !"hexpand" %in% names(plot$layers[[num]]$position) && num >=3){
+    if (inherits(plot$layers[[num]]$geom, "GeomText") && "AddAxisText" %in% names(attributes(plot$layers[[num]])) && num >=3){
         num <- num - 1
         extract_num_layer(plot=plot, num=num)
     }else if("AddAxisText" %in% names(attributes(plot$layers[[num]])) && "hexpand" %in% names(plot$layers[[num]]$position) && num >= 3){
@@ -249,6 +254,18 @@ choose_pos <- function(object){
         object$params <- c(object$params, position=object$position)
     }
     return(object)
+}
+
+
+check_reverse <- function(plot){
+    flag <- unlist(lapply(plot$scales$scales, 
+                          function(x){
+                           inherits(x, "ScaleContinuousPosition") && x$aesthetics[1]=="x"
+                          }))
+    if (!all(flag)){return(FALSE)}
+    flag <- plot$scales$scales[[which(flag)]]$trans$name=="reverse" && inherits(plot$coordinates, "CoordPolar")
+    if (is.na(flag)){return(FALSE)}
+    return(flag)
 }
 
 #' @importFrom utils getFromNamespace
