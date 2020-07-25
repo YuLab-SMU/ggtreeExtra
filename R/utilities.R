@@ -15,11 +15,15 @@ find_x_overlaps <- getFromNamespace("find_x_overlaps", "ggplot2")
 
 pos_dodge2 <- getFromNamespace("pos_dodge2", "ggplot2")
 
+#' @importFrom stats var
 normxy <- function(refnum, targetnum, na.rm=TRUE, 
                    keepzero=FALSE, ratio=0.38){
     refnum <- checkref(refnum)
     rmax <- max(refnum, na.rm=na.rm) * ratio
     if (!keepzero){
+	if (var(targetnum)==0){
+            return (rep(rmax, length(targetnum)))
+        }
         rmin <- min(refnum[refnum!=0], na.rm=na.rm)
     }else{
         rmin <- min(refnum, na.rm=na.rm)
