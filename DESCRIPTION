@@ -14,7 +14,8 @@ Imports:
     ggplot2,
     utils,
     rlang,
-    ggnewscale
+    ggnewscale,
+    stats
 Suggests:
     ggtree,
     treeio,
