@@ -35,7 +35,8 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
             dat[[paste0("new_", xid)]] <- orientation * normxy(refnum=plot$data$x,
                                                  targetnum=dat[[paste0(xid,"_bp")]],
                                                  keepzero=TRUE,
-                                                 ratio=object$pwidth) + offset
+                                                 ratio=object$pwidth) 
+            if (orientation > 0){dat[[paste0("new_", xid)]] <- dat[[paste0("new_", xid)]] + offset}
             dat <- dat[order(-dat$y, dat[[paste0("new_", xid)]]),,drop=FALSE]
             newxexpand <- max(abs(dat[[paste0("new_", xid)]]), na.rm=TRUE)
         }else{
