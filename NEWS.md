@@ -5,6 +5,7 @@
 + 0.99.2 `geom_axis_text` support the single column axis. (20200717, Fri)
 + 0.99.3 support `inward_circular` tree and `geom_axis_text` was build by `position_identityx`. (20200724, Fri)
 + 0.99.4 fix the constant of `barplot` bug. (2020-07-25, Sat)
++ 0.99.5 better support the layer when x axis is reverse. (2020-07-29, Wed)
 
 # 0.0.1
 
