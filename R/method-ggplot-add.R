@@ -59,8 +59,13 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
             object$params$position$hexpand <- hexpand2
         }
     }
-    dat$angle <- adjust_angle(layout=layout, angle=dat$angle)
+    tmpangle <- dat$angle
     if (object$geomname=="geom_star"){
+        dat$angle <- adjust_angle(layout=layout, angle=tmpangle)
+        object$mapping = modifyList(object$mapping, aes_(angle=~angle))
+    }
+    if (object$geomname=="geom_text"){
+        dat$angle <- adjust_text_angle(layout=layout, angle=tmpangle)
         object$mapping = modifyList(object$mapping, aes_(angle=~angle))
     }
     if (object$geomname %in% c("geom_boxplot", "geom_violin")){
@@ -231,10 +236,22 @@ build_new_data <- function(newdat, origindata, yid){
 }
 
 adjust_angle <- function(layout, angle){
-    if (layout!="rectangular"){
+    if (!layout %in% c("rectangular", "slanted")){
         angle <- 90 - angle
     }else{
         angle <- 90
+    }
+    return(angle)
+}
+
+adjust_text_angle <- function(layout, angle){
+    if (!layout %in% c("rectangular", "slanted")){
+        angle <- unlist(lapply(angle, function(i)
+                               {if (i>90 && i<270){
+                                   i <- i - 180}
+                               return(i)}))
+    }else{
+        angle <- 0
     }
     return(angle)
 }
