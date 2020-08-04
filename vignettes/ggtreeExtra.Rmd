@@ -110,82 +110,127 @@ p
 p1 <- p %<+% dat1
 p1
 # We use geom_star to add point layer outside of tree.
-p2 <- p1 + geom_star(mapping=aes(fill=Location, size=Length, starshape=Group),
-                     starstroke=0.2) +
-           scale_size_continuous(range=c(1, 3),
-                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, 
-                                                    override.aes=list(starshape=15), 
-                                                    order=2)) + 
-           scale_fill_manual(values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
-                             guide="none") + # don't show the legend.
-           scale_starshape_manual(values=c(1, 15),
-                                  guide=guide_legend(keywidth=0.5, # adjust width of legend
-                                                     keyheight=0.5, # adjust height of legend
-                                                     order=1), # adjust the order of legend for multiple legends.
-                                  na.translate=FALSE) # to remove the NA legend.
+p2 <- p1 + 
+      geom_star(
+          mapping=aes(fill=Location, size=Length, starshape=Group),
+          starstroke=0.2
+      ) +
+      scale_size_continuous(
+          range=c(1, 3),
+          guide=guide_legend(
+                     keywidth=0.5, 
+                     keyheight=0.5, 
+                     override.aes=list(starshape=15), 
+                     order=2)
+      ) + 
+      scale_fill_manual(
+          values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
+          guide="none" # don't show the legend.
+      ) + 
+      scale_starshape_manual(
+          values=c(1, 15),
+          guide=guide_legend(
+                    keywidth=0.5, # adjust width of legend
+                    keyheight=0.5, # adjust height of legend
+                    order=1 # adjust the order of legend for multiple legends.
+                ),
+          na.translate=FALSE # to remove the NA legend.
+      ) 
 p2
 
 # Or if we don't use %<+% to add annotation dataset, instead of data parameter of geom_fruit. 
 # You should specify the y column (tip label), here is y=ID.
-p2 <- p + geom_fruit(data=dat1,
-                     geom=geom_star,
-                     mapping=aes(y=ID, fill=Location, size=Length, starshape=Group),
-                     position="identity",
-                     starstroke=0.2) + 
-          scale_size_continuous(range=c(1, 3), # the range of size.
-                                guide=guide_legend(keywidth=0.5, keyheight=0.5,
-                                                   override.aes=list(starshape=15),
-                                                   order=2)) +
-          scale_fill_manual(values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
-                            guide="none") + 
-          scale_starshape_manual(values=c(1, 15),
-                                 guide=guide_legend(keywidth=0.5,
-                                                    keyheight=0.5,
-                                                    order=1))
+p2 <- p + 
+      geom_fruit(
+          data=dat1,
+          geom=geom_star,
+          mapping=aes(y=ID, fill=Location, size=Length, starshape=Group),
+          position="identity",
+          starstroke=0.2
+      ) + 
+      scale_size_continuous(
+          range=c(1, 3), # the range of size.
+          guide=guide_legend(
+                    keywidth=0.5, 
+                    keyheight=0.5,
+                    override.aes=list(starshape=15),
+                    order=2
+                )
+      ) +
+      scale_fill_manual(
+          values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
+          guide="none"
+      ) + 
+      scale_starshape_manual(
+          values=c(1, 15),
+          guide=guide_legend(
+                    keywidth=0.5,
+                    keyheight=0.5,
+                    order=1
+                )
+      )
 p2
 
 # Next, I will add a heatmap layer on the p2 using `geom_tile` of ggplot2.
 # Since I want to use fill to map some variable of dataset and the fill of p2 had been mapped.
 # So I need use `new_scale_fill` to initialize it.
-p3 <- p2 + new_scale_fill() + 
-          geom_fruit(data=dat2,
-                    geom=geom_tile,
-                    mapping=aes(y=ID, x=Pos, fill=Type),
-                    offset=0.08,   # The distance between layers, default is 0.03 of x range of tree.
-                    pwidth=0.25) + # width of the layer, default is 0.2 of x range of tree.
-          scale_fill_manual(values=c("#339933", "#dfac03"),
-                            guide=guide_legend(keywidth=0.5, keyheight=0.5, order=3)) +
-          geom_axis_text(angle=-45, hjust=0) # add axis text of the layer.
+p3 <- p2 + 
+      new_scale_fill() + 
+      geom_fruit(
+          data=dat2,
+          geom=geom_tile,
+          mapping=aes(y=ID, x=Pos, fill=Type),
+          offset=0.08,   # The distance between layers, default is 0.03 of x range of tree.
+          pwidth=0.25 # width of the layer, default is 0.2 of x range of tree.
+      ) + 
+      scale_fill_manual(
+          values=c("#339933", "#dfac03"),
+          guide=guide_legend(keywidth=0.5, keyheight=0.5, order=3)
+      ) +
+      geom_axis_text(angle=-45, hjust=0) # add axis text of the layer.
 p3
 
 # We can also add heatmap layer for continuous values.
-p4 <- p3 + new_scale_fill() +
-           geom_fruit(data=dat3,
-                     geom=geom_tile,
-                     mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
-                     pwidth=0.15) +
-           scale_fill_manual(values=c("#b22222", "#005500", "#0000be", "#9f1f9f"),
-                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=4)) +
-           scale_alpha_continuous(range=c(0, 0.4), # the range of alpha
-                                  guide=guide_legend(keywidth=0.5, keyheight=0.5, order=5)) +
-           geom_axis_text(angle=-45, hjust=0) # add axis text of the layer.
+p4 <- p3 + 
+      new_scale_fill() +
+      geom_fruit(
+          data=dat3,
+          geom=geom_tile,
+          mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
+          pwidth=0.15
+      ) +
+      scale_fill_manual(
+          values=c("#b22222", "#005500", "#0000be", "#9f1f9f"),
+          guide=guide_legend(keywidth=0.5, keyheight=0.5, order=4)
+      ) +
+      scale_alpha_continuous(
+          range=c(0, 0.4), # the range of alpha
+          guide=guide_legend(keywidth=0.5, keyheight=0.5, order=5)
+      ) +
+      geom_axis_text(angle=-45, hjust=0) # add axis text of the layer.
 
 # Then we add a bar layer outside of the tree.
-p5 <- p4 + new_scale_fill() +
-           geom_fruit(data=dat1, # The abundance of dat1 will be mapped to x, 
-                      geom=geom_bar,
-                      mapping=aes(y=ID, x=Abundance, fill=Location),
-                      pwidth=0.4,
-                      stat="identity",
-                      orientation="y") + # the orientation of axis.
-           scale_fill_manual(values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
-                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=6)) +
-           theme(#legend.position=c(0.96, 0.5), # the position of legend.
-                 legend.background=element_rect(fill=NA), # the background of legend.
-                 legend.title=element_text(size=7), # the title size of legend.
-                 legend.text=element_text(size=6), # the text size of legend.
-                 legend.spacing.y = unit(0.02, "cm")) + # the distance of legends (y orientation).
-           geom_axis_text(angle=-45, hjust=0)
+p5 <- p4 + 
+      new_scale_fill() +
+      geom_fruit(
+          data=dat1, # The abundance of dat1 will be mapped to x, 
+          geom=geom_bar,
+          mapping=aes(y=ID, x=Abundance, fill=Location),
+          pwidth=0.4,
+          stat="identity",
+          orientation="y" # the orientation of axis.
+      ) + 
+      scale_fill_manual(
+          values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
+          guide=guide_legend(keywidth=0.5, keyheight=0.5, order=6)
+      ) +
+      theme(#legend.position=c(0.96, 0.5), # the position of legend.
+          legend.background=element_rect(fill=NA), # the background of legend.
+          legend.title=element_text(size=7), # the title size of legend.
+          legend.text=element_text(size=6), # the text size of legend.
+          legend.spacing.y = unit(0.02, "cm")  # the distance of legends (y orientation).
+      ) + 
+      geom_axis_text(angle=-45, hjust=0)
 p5
 ```
 
@@ -208,11 +253,15 @@ colnames(dtf)[[3]] <- "group3"
 p <- ggtree(tr, layout="fan", open.angle=0)
 p
 # the first ring.
-p1 <- p + geom_fruit(data=dt,
-                     geom=geom_bar,
-                     mapping=aes(y=id, x=value, fill=group),
-                     orientation="y",
-                     stat="identity") + new_scale_fill()
+p1 <- p + 
+      geom_fruit(
+          data=dt,
+          geom=geom_bar,
+          mapping=aes(y=id, x=value, fill=group),
+          orientation="y",
+          stat="identity"
+      ) + 
+      new_scale_fill()
 p1
 # the second ring
 # geom_fruit_list is a list, which first element must be layer of geom_fruit.
@@ -240,12 +289,15 @@ p2 <- p1 +
 p2
 
 # The third ring
-p3 <- p2 + geom_fruit(data=dtf,
-                      geom=geom_bar,
-                      mapping = aes(y=id, x=value, fill=group3),
-                      orientation = "y",
-                      stat = "identity") +
-           scale_fill_manual(values=c("#00AED7", "#009E73"))
+p3 <- p2 + 
+      geom_fruit(
+          data=dtf,
+          geom=geom_bar,
+          mapping = aes(y=id, x=value, fill=group3),
+          orientation = "y",
+          stat = "identity"
+      ) +
+      scale_fill_manual(values=c("#00AED7", "#009E73"))
 p3
 ```
 

@@ -49,14 +49,18 @@ dd <- data.frame(id=tr$tip.label, value=abs(rnorm(100)))
 dt <- data.frame(id=tr$tip.label, group=c(rep("A", 50), rep("B", 50)))
 p <- ggtree(tr, layout="fan", open.angle=10)
 p <- p \%<+\% dd \%<+\% dt
-p1 <- p + geom_fruit(geom=geom_star,
-                     mapping=aes(y=id, fill=group),
-                     size=2.5,
-                     starstroke=0) +
-          geom_fruit(geom=geom_bar,
-                     mapping=aes(x=value, y=id),
-                     orientation="y",
-                     stat="identity") +
+p1 <- p + geom_fruit(
+              geom=geom_star,
+              mapping=aes(y=id, fill=group),
+              size=2.5,
+              starstroke=0
+          ) +
+          geom_fruit(
+              geom=geom_bar,
+              mapping=aes(x=value, y=id),
+              orientation="y",
+              stat="identity"
+          ) +
           geom_axis_text(angle=-45, hjust=0)
 }
 \author{

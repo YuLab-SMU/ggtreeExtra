@@ -88,38 +88,54 @@ dd = data.frame(id=tr$tip.label, value=abs(rnorm(100)))
 dt = data.frame(id=tr$tip.label, group=c(rep("A",50),rep("B",50)))
 p <- ggtree(tr, layout="circular") 
 
-p1 <- p + geom_fruit(data=dt,
-                  geom=geom_star,
-                  mapping=aes(y=id, fill=group),
-                  size=2.5,
-                  starstroke=0)
-p2 <- p1 + geom_fruit(data=dd, 
-                  geom=geom_bar, 
-                  mapping=aes(x=value, y=id),
-                  orientation="y",
-                  stat="identity")  
+p1 <- p + 
+      geom_fruit(
+          data=dt,
+          geom=geom_star,
+          mapping=aes(y=id, fill=group),
+          size=2.5,
+          starstroke=0
+      )
+p2 <- p1 + 
+      geom_fruit(
+          data=dd, 
+          geom=geom_bar, 
+          mapping=aes(x=value, y=id),
+          orientation="y",
+          stat="identity"
+      )  
 
-p3 <- fruit_plot(p=p, 
-                 data=dt, 
-                 geom=geom_star,
-                 mapping=aes(y=id, fill=group),
-                 size=2.5, starstroke=0)
+p3 <- fruit_plot(
+           p=p, 
+           data=dt, 
+           geom=geom_star,
+           mapping=aes(y=id, fill=group),
+           size=2.5, 
+           starstroke=0
+      )
 
-p4 <- fruit_plot(p=p3,
-                 data=dd,
-                 geom=geom_bar,
-                 mapping=aes(x=value, y=id),
-                 orientation="y",
-                 stat="identity")
+p4 <- fruit_plot(
+           p=p3,
+           data=dd,
+           geom=geom_bar,
+           mapping=aes(x=value, y=id),
+           orientation="y",
+           stat="identity"
+      )
 p <- p \%<+\% dd \%<+\% dt
-p5 <- p + geom_fruit(geom = geom_star,
-                     mapping = aes(y=id, fill=group),
-                     size = 2.5,
-                     starstroke = 0) +
-          geom_fruit(geom = geom_bar,
-                     mapping = aes(x=value, y=id),
-                     orientation = "y",
-                     stat = 'identity')
+p5 <- p + 
+      geom_fruit(
+          geom = geom_star,
+          mapping = aes(y=id, fill=group),
+          size = 2.5,
+          starstroke = 0
+      ) +
+      geom_fruit(
+          geom = geom_bar,
+          mapping = aes(x=value, y=id),
+          orientation = "y",
+          stat = 'identity'
+      )
 }
 \author{
 Shuangbin Xu and Guangchuang Yu

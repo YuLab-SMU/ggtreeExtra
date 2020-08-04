@@ -32,11 +32,15 @@ colnames(dtf)[[3]] <- "group3"
 
 p <- ggtree(tr, layout="fan", open.angle=0)
 # first circle
-p1 <- p + geom_fruit(data=dt,
-                     geom=geom_bar,
-                     mapping=aes(y=id, x=value, fill=group),
-                     orientation="y",
-                     stat="identity") + new_scale_fill()
+p1 <- p + 
+      geom_fruit(
+          data=dt,
+          geom=geom_bar,
+          mapping=aes(y=id, x=value, fill=group),
+          orientation="y",
+          stat="identity"
+      ) + 
+      new_scale_fill()
 # second circle
 fruitlist <- geom_fruit_list(
                  geom_fruit(
@@ -61,12 +65,15 @@ fruitlist <- geom_fruit_list(
 
 p2 <- p1 + fruitlist + new_scale_fill() 
 # third circle
-p3 <- p2 + geom_fruit(data=dtf,
-                      geom=geom_bar,
-                      mapping = aes(y=id, x=value, fill=group3),
-                      orientation = "y",
-                      stat = "identity") +
-           scale_fill_manual(values=c("#00AED7", "#009E73"))
+p3 <- p2 + 
+      geom_fruit(
+          data=dtf,
+          geom=geom_bar,
+          mapping = aes(y=id, x=value, fill=group3),
+          orientation = "y",
+          stat = "identity"
+      ) +
+      scale_fill_manual(values=c("#00AED7", "#009E73"))
 p3 
 }
 \author{

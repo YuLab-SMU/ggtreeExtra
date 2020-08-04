@@ -26,14 +26,18 @@
 ##' dt <- data.frame(id=tr$tip.label, group=c(rep("A", 50), rep("B", 50)))
 ##' p <- ggtree(tr, layout="fan", open.angle=10)
 ##' p <- p %<+% dd %<+% dt
-##' p1 <- p + geom_fruit(geom=geom_star,
-##'                      mapping=aes(y=id, fill=group),
-##'                      size=2.5,
-##'                      starstroke=0) +
-##'           geom_fruit(geom=geom_bar,
-##'                      mapping=aes(x=value, y=id),
-##'                      orientation="y",
-##'                      stat="identity") +
+##' p1 <- p + geom_fruit(
+##'               geom=geom_star,
+##'               mapping=aes(y=id, fill=group),
+##'               size=2.5,
+##'               starstroke=0
+##'           ) +
+##'           geom_fruit(
+##'               geom=geom_bar,
+##'               mapping=aes(x=value, y=id),
+##'               orientation="y",
+##'               stat="identity"
+##'           ) +
 ##'           geom_axis_text(angle=-45, hjust=0)
 geom_axis_text <- function(angle=0, 
                            size=0.8, 
@@ -44,12 +48,12 @@ geom_axis_text <- function(angle=0,
     params <- list(...)
     structure(
         list(
-            angle = angle, 
-            size = size,
-            nlayer = nlayer,
-            text = text,
-            nbreak = nbreak,
-            params = params
+          angle = angle, 
+          size = size,
+          nlayer = nlayer,
+          text = text,
+          nbreak = nbreak,
+          params = params
         ), 
         class="fruit_axis_text"
     )
