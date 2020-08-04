@@ -38,20 +38,26 @@ p1 <- p + geom_fruit(data=dt,
                      orientation="y",
                      stat="identity") + new_scale_fill()
 # second circle
-fruitlist <- geom_fruit_list(geom_fruit(data = df,
-                                        geom = geom_bar,
-                                        mapping = aes(y=id, x=value, fill=group2),
-                                        orientation = "y",
-                                        stat = "identity",
-                                        addbrink=FALSE),
-                             scale_fill_manual(values=c("blue", "red")),
-                             new_scale_fill(),
-                             geom_fruit(data = dt,
-                                        geom = geom_star,
-                                        mapping = aes(y=id, x=value, fill=group),
-                                        size = 2.5,
-                                        color = NA,
-                                        starstroke = 0))
+fruitlist <- geom_fruit_list(
+                 geom_fruit(
+                     data = df,
+                     geom = geom_bar,
+                     mapping = aes(y=id, x=value, fill=group2),
+                     orientation = "y",
+                     stat = "identity",
+                     addbrink=FALSE
+                 ),
+                 scale_fill_manual(values=c("blue", "red")),
+                 new_scale_fill(),
+                 geom_fruit(
+                     data = dt,
+                     geom = geom_star,
+                     mapping = aes(y=id, x=value, fill=group),
+                     size = 2.5,
+                     color = NA,
+                     starstroke = 0
+                 )
+             )
 
 p2 <- p1 + fruitlist + new_scale_fill() 
 # third circle

@@ -21,7 +21,8 @@ geom_axis_text(
 \item{nlayer}{integer, the specified layer of geom_fruit, default is NULL,
 which mean the last layer.}
 
-\item{text}{character, the text of axis x for single tile layer, default is NULL.}
+\item{text}{character, the text of axis x for single tile layer,
+default is NULL.}
 
 \item{nbreak}{integer, when the axis x is continuous, default is 4.}
 

@@ -13,7 +13,11 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     yid <- as_name(object$mapping$y)
     layout <- get("layout", envir = plot$plot_env)
     flagreverse <- check_reverse(plot=plot)
-    if (layout=="inward_circular" || flagreverse){orientation <- -1}else{orientation <- 1}
+    if (layout=="inward_circular" || flagreverse){
+        orientation <- -1
+    }else{
+        orientation <- 1
+    }
     offset <- get_offset(plot$data$x, object$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
         hexpand2 <- max(abs(plot$data$xmaxtmp), na.rm=TRUE) + offset
@@ -22,9 +26,8 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }
     dat <- build_new_data(newdat=object$data, origindata=plot$data, yid=yid)
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
-        dat[[paste0("new_",xid)]] <- orientation * normxy(refnum=plot$data$x, 
-                                            targetnum=dat[[xid]],
-                                            ratio=object$pwidth)
+        dat[[paste0("new_",xid)]] <- orientation * 
+                                     normxy(refnum=plot$data$x, targetnum=dat[[xid]], ratio=object$pwidth)
         newxexpand <- max(abs(dat[[paste0("new_", xid)]]), na.rm=TRUE)
     }else{
         if (!is.numeric(dat[[xid]])){
@@ -32,11 +35,12 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                 dat[[xid]] <- factor(dat[[xid]], levels=sort(unique(as.vector(dat[[xid]]))))
             }
             dat[[paste0(xid,"_bp")]] <- as.numeric(dat[[xid]])
-            dat[[paste0("new_", xid)]] <- orientation * normxy(refnum=plot$data$x,
-                                                 targetnum=dat[[paste0(xid,"_bp")]],
-                                                 keepzero=TRUE,
-                                                 ratio=object$pwidth) 
-            if (orientation > 0){dat[[paste0("new_", xid)]] <- dat[[paste0("new_", xid)]] + offset}
+            dat[[paste0("new_", xid)]] <- orientation * 
+                                          normxy(refnum=plot$data$x, targetnum=dat[[paste0(xid,"_bp")]], 
+                                                 keepzero=TRUE, ratio=object$pwidth) 
+            if (orientation > 0){
+                dat[[paste0("new_", xid)]] <- dat[[paste0("new_", xid)]] + offset
+            }
             dat <- dat[order(-dat$y, dat[[paste0("new_", xid)]]),,drop=FALSE]
             newxexpand <- max(abs(dat[[paste0("new_", xid)]]), na.rm=TRUE)
         }else{
@@ -55,7 +59,9 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }
     if ("hexpand" %in% names(object$params$position)){
         if (is.na(object$params$position$hexpand)){
-            if (orientation < 0){hexpand2 <- abs(hexpand2)}
+            if (orientation < 0){
+                hexpand2 <- abs(hexpand2)
+            }
             object$params$position$hexpand <- hexpand2
         }
     }

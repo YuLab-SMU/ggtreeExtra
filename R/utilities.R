@@ -21,7 +21,7 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     refnum <- checkref(refnum)
     rmax <- max(refnum, na.rm=na.rm) * ratio
     if (!keepzero){
-	if (var(targetnum)==0){
+        if (var(targetnum)==0){
             return (rep(rmax, length(targetnum)))
         }
         rmin <- min(refnum[refnum!=0], na.rm=na.rm)
