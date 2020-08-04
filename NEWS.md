@@ -8,6 +8,7 @@
 + 0.99.5 better support the layer when x axis is reverse. (2020-07-29, Wed)
 + 0.99.6 support adjusting the angle of geom_text. (2020-07-31, Fri)
 + 0.99.7 revise stylistic comment of R code and examples. (2020-08-04, Tue)
++ 0.99.8 change the formatting of code chunk. (2020-08-04, Tue)
 
 # 0.0.1
 
