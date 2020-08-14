@@ -46,81 +46,23 @@ if (!requireNamespace("devtools", quietly=TRUE))
 devtools::install_github("xiangpin/ggtreeExtra")
 ```
 
-# :beginner: Usage
+The released version from
+[`Bioconductor`](https://bioconductor.org/packages/ggtreeExtra):
 
 ``` r
-library(ggtreeExtra)
-library(ggtree)
-library(ggplot2)
-library(treeio)
-library(ggnewscale)
-library(ggstar)
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
 
-trfile <- system.file("extdata", "tree.nwk", package="ggtreeExtra")
-tippoint1 <- system.file("extdata", "tree_tippoint_bar.csv", package="ggtreeExtra")
-ring1 <- system.file("extdata", "first_ring_discrete.csv", package="ggtreeExtra")
-ring2 <- system.file("extdata", "second_ring_continuous.csv", package="ggtreeExtra")
-ringpoint <- system.file("extdata", "second_ring_point.csv", package="ggtreeExtra")
-
-tr <- read.tree(trfile)
-dat1 <- read.csv(tippoint1)
-dat2 <- read.csv(ring1)
-dat3 <- read.csv(ring2)
-
-p <- ggtree(tr, layout="fan", size=0.1, open.angle=10) + 
-    geom_treescale(x=6, y=0, linesize=0.2, fontsize=1.2)
-
-p1 <- p %<+% dat1 + 
-          geom_star(mapping=aes(fill=Location, size=Length, starshape=Group),
-                    starstroke=0.2) +
-          scale_size_continuous(range=c(1, 3),
-                                guide=guide_legend(keywidth=0.5, keyheight=0.5, override.aes=list(starshape=15), order=2)) +
-          scale_fill_manual(values=c("#D15FEE","#EE6A50","#FFC0CB","#8E8E38","#9ACD32","#006400","#8B4513"),
-                            guide="none")+
-          scale_starshape_manual(values=c(1, 15),
-                                 guide=guide_legend(keywidth=0.5, keyheight=0.5, order=1),
-                                 na.translate=FALSE)
-
-p2 <- p1 +new_scale_fill()+ 
-          geom_fruit(data=dat2,
-                      geom=geom_tile,
-                      mapping=aes(y=ID, x=Pos, fill=Type),
-                      offset=0.08,
-                      pwidth=0.25) +
-          scale_fill_manual(values=c("#339933", "#dfac03"),
-                            guide=guide_legend(keywidth=0.5, keyheight=0.5, order=3)) +
-          geom_axis_text(angle=-45, hjust=0)
-
-p3 <- p2 + new_scale_fill()+
-           geom_fruit(data=dat3,
-                       geom=geom_tile,
-                       mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
-                       pwidth=0.15)+
-          scale_fill_manual(values=c("#b22222", "#005500", "#0000be", "#9f1f9f"),
-                            guide=guide_legend(keywidth=0.5, keyheight=0.5, order=4)) +
-          scale_alpha_continuous(range=c(0, 0.4),
-                                guide=guide_legend(keywidth=0.5, keyheight=0.5, order=5)) +
-          geom_axis_text(angle=-45, hjust=0)
-
-p4 <- p3 + new_scale_fill()+
-           geom_fruit(data=dat1,
-                       geom=geom_bar,
-                       mapping=aes(y=ID, x=Abundance, fill=Location),
-                       pwidth=0.4,
-                       stat="identity",
-                       orientation="y")+
-           geom_axis_text(angle=-45, hjust=0) +
-           scale_fill_manual(values=c("#D15FEE","#EE6A50","#FFC0CB","#8E8E38","#9ACD32","#006400","#8B4513"),
-                             guide=guide_legend(keywidth=0.5, keyheight=0.5, order=6)) +
-           theme(legend.position=c(0.96, 0.5),
-                 legend.background=element_rect(fill=NA),
-                 legend.title=element_text(size=7),
-                 legend.text=element_text(size=6),
-                 legend.spacing.y = unit(0.02, "cm"))
-p4
+## BiocManager::install("BiocUpgrade") ## you may need this
+BiocManager::install("ggtreeExtra")
 ```
 
-<img src="inst/extdata/fig1.png" style="display: block; margin: auto;" />
+# :beginner: Usage
+
+Please refer to the [online
+vignette](https://bioconductor.org/packages/devel/bioc/vignettes/ggtreeExtra/inst/doc/ggtreeExtra.html).
+
+<!-- <img src="inst/extdata/fig1.png" style="display: block; margin: auto;" /> -->
 
 # :sparkling\_heart: Contributing
 

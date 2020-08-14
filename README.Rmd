@@ -44,9 +44,21 @@ if (!requireNamespace("devtools", quietly=TRUE))
 devtools::install_github("xiangpin/ggtreeExtra")
 ```
 
-# :beginner: Usage
+The released version from [`Bioconductor`](https://bioconductor.org/packages/ggtreeExtra):
 
 ```r
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+
+## BiocManager::install("BiocUpgrade") ## you may need this
+BiocManager::install("ggtreeExtra")
+```
+
+# :beginner: Usage
+
+Please refer to the [online vignette](https://bioconductor.org/packages/devel/bioc/vignettes/ggtreeExtra/inst/doc/ggtreeExtra.html).
+
+```{r, eval=FALSE, echo=FALSE}
 library(ggtreeExtra)
 library(ggtree)
 library(ggplot2)
@@ -118,7 +130,7 @@ p4 <- p3 + new_scale_fill()+
 p4
 ```
 
-<img src="inst/extdata/fig1.png" style="display: block; margin: auto;" />
+<!-- <img src="inst/extdata/fig1.png" style="display: block; margin: auto;" /> -->
 
 # :sparkling_heart: Contributing
 
