@@ -80,9 +80,12 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     object$mapping = modifyList(object$mapping, aes_string(x=paste0("new_",xid)))
     mapping = modifyList(object$mapping, aes_(y=~y))
     params <- c(list(data=dat, mapping=mapping), object$params)
+    if (object$geomname %in% c("geom_boxplot", "geom_violin")){
+        plot <- plot + new_scale_color()
+    }
     obj <- do.call(object$geom, params)
     if (object$geomname %in% c("geom_boxplot", "geom_violin")){
-        obj <- list(obj, scale_color_manual(values=c(rep("black", length(dat$y)))), new_scale_color())
+        obj <- list(obj, scale_color_manual(values=c(rep("black", length(dat$y))), guide="none"), new_scale_color())
     }
     if (object$addbrink){
         obj <- list(obj, geom_vline(xintercept=hexpand2, 
@@ -226,7 +229,7 @@ get_offset <- function(vnum, ratio){
 
 build_new_data <- function(newdat, origindata, yid){
     if (!is.null(newdat) && inherits(newdat, "data.frame")){
-        origindata <- origindata[origindata$isTip, colnames(origindata) %in% c("y", "label", "angle")]
+        #origindata <- origindata[origindata$isTip, colnames(origindata) %in% c("y", "label", "angle")]
         commonnames <- intersect(colnames(newdat), colnames(origindata))
         commonnames <- commonnames[commonnames!=yid]
         if (length(commonnames) > 0){
