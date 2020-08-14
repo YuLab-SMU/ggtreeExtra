@@ -9,6 +9,8 @@
 + 0.99.6 support adjusting the angle of geom_text. (2020-07-31, Fri)
 + 0.99.7 revise stylistic comment of R code and examples. (2020-08-04, Tue)
 + 0.99.8 change the formatting of code chunk. (2020-08-04, Tue)
++ 0.99.9 modified the `color` aesthetics for `geom_boxplot` and `geom_violin`. (2020-08-14, Fri)
+  + keep all column of data of tree when it merge with external data. (2020-08-14, Fri)
 
 # 0.0.1
 
