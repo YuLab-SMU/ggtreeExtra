@@ -87,11 +87,11 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     if (object$geomname %in% c("geom_boxplot", "geom_violin")){
         obj <- list(obj, scale_color_manual(values=c(rep("black", length(dat$y))), guide="none"), new_scale_color())
     }
-    if (object$addbrink){
-        obj <- list(obj, geom_vline(xintercept=hexpand2, 
-                                    color=object$linecol, 
-                                    size=object$linesize)) 
-    }
+    #if (object$addbrink){
+    #    obj <- list(obj, geom_vline(xintercept=hexpand2, 
+    #                                color=object$linecol, 
+    #                                size=object$linesize)) 
+    #}
     ggplot_add(obj, plot, object_name)
 }
 
@@ -148,14 +148,95 @@ ggplot_add.fruit_axis_text <- function(object, plot, object_name){
     obj$position <- position_identityx(hexpand=plot$layers[[nlayer]]$position$hexpand)
     obj <- c(obj, object$params)
     attr(plot$layers[[nlayer]], "AddAxisText") <- TRUE
+    yr <- range(plot$data$y)
+    if (nrow(dat)==1){
+        dat2 <- data.frame(x=dat[[xid]]-2*yr[1]/10, xend=dat[[xid]]+2*yr[1]/10)
+    }else{
+        dat2 <- data.frame(x=min(dat[[xid]])-min(dat[[xid]])/2,
+                           xend=max(dat[[xid]])+min(dat[[xid]])/2)
+    }
+    obj2 <- list(size=object$linesize, colour=object$linecolour, alpha=object$linealpha)
+    obj2$data <- dat2
+    obj2$mapping <- aes_string(x="x",xend="xend",y=yr[1]/10, yend=yr[1]/10)
+    obj2$position <- position_identityx(hexpand=plot$layers[[nlayer]]$position$hexpand)
+    if (nrow(dat)==1){
+        dat3 <- data.frame(x=c(dat[[xid]]-2*yr[1]/10, dat[[xid]], dat[[xid]]+2*yr[1]/10), 
+                           xend=c(dat[[xid]]-2*yr[1]/10, dat[[xid]], dat[[xid]] + 2*yr[1]/10))
+    }else{
+        dat3 <- data.frame(x=dat[[xid]],xend=dat[[xid]])
+    }
+    dat3$y <- yr[1]/10
+    dat3$yend <- yr[1]/20
+    obj3 <- list(size=object$linesize, colour=object$linecolour, alpha=object$linealpha)
+    obj3$data <- dat3
+    obj3$mapping <- aes_string(x="x",xend="xend",y="y", yend="yend")
+    obj3$position <- position_identityx(hexpand=plot$layers[[nlayer]]$position$hexpand)
     if (nlayer > 2 && "hexpand" %in% names(plot$layers[[nlayer]]$position)){
+        obj2 <- do.call("geom_segment", obj2)
+        obj3 <- do.call("geom_segment", obj3)
         obj <- do.call("geom_text", obj)
-        plot <- plot + obj
+        plot <- plot + obj2 + obj3 + obj
         attr(plot$layers[[nlayer+1]], "AddAxisText") <- TRUE
+        attr(plot$layers[[nlayer+2]], "AddAxisText") <- TRUE
+        attr(plot$layers[[nlayer+3]], "AddAxisText") <- TRUE
         return(plot)
     }else{
         return(plot)
     }
+}
+
+##' @method ggplot_add fruit_ringline
+##' @importFrom ggplot2 geom_segment
+##' @author Shuangbin Xu
+##' @export
+ggplot_add.fruit_ringline <- function(object, plot, object_name){
+    nlayer <- length(plot$layers)
+    if ("hexpand" %in% names(plot$layers[[nlayer]]$position)){
+        tmplayer <- plot$layers[[nlayer]]
+        xid <- as_name(tmplayer$mapping$x)
+        orixid <- sub("new_", "", xid)
+        dat <- tmplayer$data[,c(xid, orixid),drop=FALSE]
+        daline <- creat_text_data(data=dat, origin=orixid, newxid=xid, nbreak=object$nbreak)
+        yr <- range(plot$data$y)
+        daline$y <- yr[1]/10
+        daline$yend <- yr[2]
+        plot$layers <- append(x=plot$layers,
+                              values=geom_segment(
+                                  data=daline,
+                                  mapping=aes_string(x=xid, xend=xid, y="y", yend="yend"),
+                                  stat="identity",
+                                  size=object$size,
+                                  colour=object$colour,
+                                  position=position_identityx(hexpand=tmplayer$position$hexpand),
+                                  alpha=object$alpha,
+                                  lineend=object$lineend,
+                                  linejoin=object$linejoin
+                              ),
+                              after=nlayer-1)
+        if (object$addgrid){
+            xr <- range(daline[[xid]])
+            daline2 <- plot$data[plot$data$isTip,"y",drop=FALSE]
+            daline2 <- rbind(data.frame(y=yr[1]/10),daline2)
+            daline2$x <- xr[1]
+            daline2$xend <- xr[2]
+            plot$layers <- append(x=plot$layers,
+                                  values=geom_segment(
+                                      data=daline2,
+                                      mapping=aes_string(x="x",xend="xend",y="y",yend="y"),
+                                      stat="identity",
+                                      size=object$size,
+                                      colour=object$colour,
+                                      position=position_identityx(hexpand=tmplayer$position$hexpand),
+                                      alpha=object$alpha,
+                                      lineend=object$lineend,
+                                      linejoin=object$linejoin
+                                  ),
+                                  after=nlayer)
+        }
+    }else{
+        message("the last layers is not a external ring layer of tree")
+    }
+    return(plot)
 }
 
 creat_text_data <- function(data, origin, newxid, nbreak){
