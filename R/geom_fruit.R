@@ -21,12 +21,6 @@
 ##' to tree, default is 0.03.
 ##' @param pwidth numeric, the width of new geom layer, this is the ratio of the 
 ##' new geom to tree, default is 0.2.
-##' @param addbrink logical, whether add the brink of different layers, 
-##' default is FALSE.
-##' @param linesize numeric, the size of line of brink when 'addbrink' 
-##' is TRUE, default is 0.1.
-##' @param linecol character, the color of line of brink when 'addbrink'
-##' is TRUE, default is "grey50".
 ##' @param position Position adjustment, either as a string, or the result of a
 ##' call to a position adjustment function, default is 'auto'.
 ##' @param ... additional parameters for 'geom'
@@ -96,9 +90,6 @@ geom_fruit <- function(mapping,
                        geom, 
                        offset=0.03, 
                        pwidth=0.2, 
-                       addbrink=FALSE,
-                       linesize=0.1,
-                       linecol="grey50",
                        position="auto",
                        ...){
     geomname <- as.character(as.list(match.call())[["geom"]])
@@ -115,9 +106,6 @@ geom_fruit <- function(mapping,
                params = params,
                offset = offset,
                pwidth = pwidth,
-               addbrink=addbrink,
-               linesize=linesize,
-               linecol=linecol,
                position=position,
                geomname=geomname
              ), 
@@ -134,9 +122,6 @@ fruit_plot <- function(p,
                        mapping, 
                        offset=0.03,
                        pwidth=0.2, 
-                       addbrink=FALSE,
-                       linesize=0.1,
-                       linecol="grey50", 
                        position="auto",
                        ...){
 
@@ -147,9 +132,6 @@ fruit_plot <- function(p,
              mapping=mapping, 
              offset=offset,
              pwidth=pwidth, 
-             addbrink=addbrink,
-             linesize=linesize, 
-             linecol=linecol,
              position=position,
              ...
          )

@@ -11,9 +11,6 @@ geom_fruit(
   geom,
   offset = 0.03,
   pwidth = 0.2,
-  addbrink = FALSE,
-  linesize = 0.1,
-  linecol = "grey50",
   position = "auto",
   ...
 )
@@ -25,9 +22,6 @@ fruit_plot(
   mapping,
   offset = 0.03,
   pwidth = 0.2,
-  addbrink = FALSE,
-  linesize = 0.1,
-  linecol = "grey50",
   position = "auto",
   ...
 )
@@ -45,15 +39,6 @@ to tree, default is 0.03.}
 
 \item{pwidth}{numeric, the width of new geom layer, this is the ratio of the
 new geom to tree, default is 0.2.}
-
-\item{addbrink}{logical, whether add the brink of different layers,
-default is FALSE.}
-
-\item{linesize}{numeric, the size of line of brink when 'addbrink'
-is TRUE, default is 0.1.}
-
-\item{linecol}{character, the color of line of brink when 'addbrink'
-is TRUE, default is "grey50".}
 
 \item{position}{Position adjustment, either as a string, or the result of a
 call to a position adjustment function, default is 'auto'.}
