@@ -9,9 +9,12 @@
 ##' @param size numeric, the size of text, default is 0.8 .
 ##' @param nlayer integer, the specified layer of geom_fruit, default is NULL,
 ##' which mean the last layer.
-##' @param text character, the text of axis x for single tile layer, 
+##' @param text character, the text of axis x for layer using single column data, 
 ##' default is NULL.
 ##' @param nbreak integer, when the axis x is continuous, default is 4.
+##' @param linesize numeric, the size of line, default is 0.1.
+##' @param linecolour character, the color of line, default is "grey50".
+##' @param linealpha character, the colour transparency of line, default is 1. 
 ##' @param ... additional parameters for 'geom_text'.
 ##' @return text object of ggplot2.
 ##' @export
@@ -44,8 +47,14 @@ geom_axis_text <- function(angle=0,
                            nlayer=NULL, 
                            text=NULL, 
                            nbreak=4, 
+                           linesize=0.1,
+                           linecolour="grey50",
+                           linealpha=1,
                            ...){
     params <- list(...)
+    if (!is.null(params$linecolor)){
+        linecolour <- params$linecolor
+    }
     structure(
         list(
           angle = angle, 
@@ -53,6 +62,9 @@ geom_axis_text <- function(angle=0,
           nlayer = nlayer,
           text = text,
           nbreak = nbreak,
+          linesize=linesize,
+          linecolour=linecolour,
+          linealpha=linealpha,
           params = params
         ), 
         class="fruit_axis_text"

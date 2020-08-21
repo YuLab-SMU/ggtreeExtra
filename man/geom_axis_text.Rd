@@ -10,6 +10,9 @@ geom_axis_text(
   nlayer = NULL,
   text = NULL,
   nbreak = 4,
+  linesize = 0.1,
+  linecolour = "grey50",
+  linealpha = 1,
   ...
 )
 }
@@ -21,10 +24,16 @@ geom_axis_text(
 \item{nlayer}{integer, the specified layer of geom_fruit, default is NULL,
 which mean the last layer.}
 
-\item{text}{character, the text of axis x for single tile layer,
+\item{text}{character, the text of axis x for layer using single column data,
 default is NULL.}
 
 \item{nbreak}{integer, when the axis x is continuous, default is 4.}
+
+\item{linesize}{numeric, the size of line, default is 0.1.}
+
+\item{linecolour}{character, the color of line, default is "grey50".}
+
+\item{linealpha}{character, the colour transparency of line, default is 1.}
 
 \item{...}{additional parameters for 'geom_text'.}
 }
