@@ -11,6 +11,10 @@
 + 0.99.8 change the formatting of code chunk. (2020-08-04, Tue)
 + 0.99.9 modified the `color` aesthetics for `geom_boxplot` and `geom_violin`. (2020-08-14, Fri)
   + keep all column of data of tree when it merge with external data. (2020-08-14, Fri)
++ 0.99.10 
+  + add `geom_ringline` to create the grid line of external ring layers. (2020-08-21, Fri)
+  + the `addbrink` and other argument control the line of margin has been removed. (2020-08-21, Fri)
+  + add pseudo axis line in `geom_axis_text`. (2020-08-21, Fri) 
 
 # 0.0.1
 
