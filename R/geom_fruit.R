@@ -8,7 +8,9 @@
 ##' 'position_stackx()' or 'position_dodgex()' for 'geom_bar', 'position_identityx()' for 
 ##' 'geom_tile', 'geom_point', 'geom_star', 'geom_symbol' or other layers using 'identity' 
 ##' position in 'ggplot2', and 'position_dodgex()' or 'position_dodgex2()' for 'geom_boxplot'
-##' 'geom_violin' or other layers using 'dodge' position in 'ggplot2'.
+##' 'geom_violin' or other layers using 'dodge' position in 'ggplot2'. The axis line and text 
+##' can be added using 'axis.params=list(add.axis=TRUE,...)', and the grid line also can be added
+##' using 'grid.params=list(add.grid=TRUE, ...)'.
 ##'
 ##' @title geom_fruit
 ##' @rdname geom_fruit
@@ -23,7 +25,41 @@
 ##' new geom to tree, default is 0.2.
 ##' @param position Position adjustment, either as a string, or the result of a
 ##' call to a position adjustment function, default is 'auto'.
+##' @param grid.params list, the parameters to control the attributes of grid lines.
+##' @param axis.params list, the parameters to control the attributes of pseudo axis.
 ##' @param ... additional parameters for 'geom'
+##' 
+##' grid.params control the attributes of grid line, it can be referred to the
+##' following parameters:
+##'     \itemize{
+##'         \item \code{add.grid} logical, weather add the grid line, default is FALSE.
+##'         \item \code{add.vline} logical, weather add the vertical line, default is FALSE.
+##'         \item \code{color} color of line, default is grey.
+##'         \item \code{size} the width of line, default is 0.2.
+##'         \item \code{alpha} the colour transparency of line, default is 1.
+##'         \item \code{lineend} Line end style (round, butt, square), default is "butt".
+##'         \item \code{linejoin} Line end style (round, butt, square), default is "round".
+##'         \item \code{nbreak} numeric, meaning the number of axis to break, default is 4. 
+##'         \item \code{linetype} Type of line, default is 1.
+##'     } 
+##'
+##' axis.params control the attributes of pseudo axis, it can be referred to the
+##' following parameters:
+##'     \itemize{
+##'         \item \code{add.axis} logical, weather add the pseudo axis, default is FALSE.
+##'         \item \code{text} vector, the text of axis x, default is NULL, it is only valid when
+##'         the text of axis is single and x is discrete.
+##'         \item \code{vjust} numeric, A numeric specifying vertical justification, default is 0.5.
+##'         \item \code{hjust} numeric, A numeric specifying horizontal justification, default is 0.5.
+##'         \item \code{text.angle} numeric, the angle of axis text, default is 0.
+##'         \item \code{text.size} numeric, the size of axis text, default is 0.8.
+##'         \item \code{nbreak} numeric, meaning the number of axis to break,
+##'          it is only valid when x is continuous, default is 4.
+##'         \item \code{line.size} numeric, the size of axis line, default is 0.2.
+##'         \item \code{line.color} character, the color of axis color, default is "grey".
+##'         \item \code{line.alpha} numeric, the colour transparency of line, default is 1.
+##'     }
+##'
 ##' @return ggplot object
 ##' @export
 ##' @author Shuangbin Xu and Guangchuang Yu
@@ -91,13 +127,62 @@ geom_fruit <- function(mapping,
                        offset=0.03, 
                        pwidth=0.2, 
                        position="auto",
+                       grid.params=list(
+                                       add.grid=FALSE,
+                                       color="grey", 
+                                       size=0.2,
+                                       alpha=1,
+                                       lineend="butt",
+                                       linejoin="round",
+                                       nbreak=4,
+                                       add.vline=FALSE,
+                                       ...
+                                   ),
+                       axis.params=list(
+                                       add.axis=FALSE,
+                                       text.angle=0,
+                                       text.size=0.8,
+                                       text=NULL,
+                                       nbreak=4,
+                                       line.size=0.2,
+                                       line.color="grey",
+                                       line.alpha=1,
+                                       ...
+                                   ),
                        ...){
     geomname <- as.character(as.list(match.call())[["geom"]])
     if (geomname=="geom"){
         calls <- evalq(match.call(), parent.frame(1))
         geomname <- as.character(as.list(calls)[["geom"]])
     }
+    default.grid.params <- list(add.grid=FALSE,
+                                color="grey",
+                                size=0.2,
+                                alpha=1,
+                                lineend="butt",
+                                linejoin="round",
+                                nbreak=4,
+                                add.vline=FALSE)
+    default.axis.params <- list(add.axis=FALSE, 
+                                text.angle=0, 
+                                text.size=0.8,
+                                text=NULL, 
+                                nbreak=4, 
+                                line.size=0.2, 
+                                line.color="grey",
+                                line.alpha=1)
     params <- list(...)
+    grid.params <- reset_params(defaultp=default.grid.params, inputp=grid.params)
+    axis.params <- reset_params(defaultp=default.axis.params, inputp=axis.params)
+    axis.params <- confuse_params(axis.params)
+    axis.dot.params <- extract_dot_params(
+                           defaultp=default.axis.params,
+                           inputp=axis.params
+                       ) 
+    grid.dot.params <- extract_dot_params(
+                           defaultp=default.grid.params,
+                           inputp=grid.params
+                       )
     obj <- structure(
              list(
                data = data,
@@ -107,7 +192,11 @@ geom_fruit <- function(mapping,
                offset = offset,
                pwidth = pwidth,
                position=position,
-               geomname=geomname
+               geomname=geomname,
+               grid.params=grid.params,
+               axis.params=axis.params,
+               grid.dot.params=grid.dot.params,
+               axis.dot.params=axis.dot.params
              ), 
              class = 'fruit_plot'
            )
