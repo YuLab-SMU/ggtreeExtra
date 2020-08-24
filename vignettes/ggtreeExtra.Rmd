@@ -50,7 +50,7 @@ library(ggnewscale)
 
 # 1. Introduction
 
-Phylogenetic trees was often used with associated data in various biological studies. `r Biocpkg("ggtree")`, a flexible R package to visualize phylogenetic tree, had been developed by GuangChuang Yu [@yu2017ggtree]. It provided `geom_facet` function to align associated graphs to the tree [@yu2018two; @yu2020ggtree]. However, This function did not support the tree created using `circular`, `fan` or `radial` layout. To solve the problem, We developed `ggtreeExtra`, which can align associated graphs to `circular`, `fan` or `radial` and other `rectangular` layout tree. `ggtreeExtra` provides function, `geom_fruit` to align graphs to the tree. But the associated graphs will align in different position. So we also developed `geom_fruit_list` to add multiple layers in the same position. Furthermore, `geom_axis_text`, a function to add the axis of associated graphs was developed. These functions are based on `r CRANpkg("ggplot2")` using grammar of graphics [@hadlyggplot2].
+Phylogenetic trees was often used with associated data in various biological studies. `r Biocpkg("ggtree")`, a flexible R package to visualize phylogenetic tree, had been developed by GuangChuang Yu [@yu2017ggtree]. It provided `geom_facet` function to align associated graphs to the tree [@yu2018two; @yu2020ggtree]. However, This function did not support the tree created using `circular`, `fan` or `radial` layout. To solve the problem, We developed `ggtreeExtra`, which can align associated graphs to `circular`, `fan` or `radial` and other `rectangular` layout tree. `ggtreeExtra` provides function, `geom_fruit` to align graphs to the tree. But the associated graphs will align in different position. So we also developed `geom_fruit_list` to add multiple layers in the same position. Furthermore, `axis` of external layers can be added using the `axis.params=list(add.axis...)` in `geom_fruit`. The `grid lines` of external layers can be added using the `grid.params=list(add.grid=TRUE)` in `geom_fruit`. These functions are based on `r CRANpkg("ggplot2")` using grammar of graphics [@hadlyggplot2].
 
 # 2. Install
 
@@ -181,13 +181,17 @@ p3 <- p2 +
           geom=geom_tile,
           mapping=aes(y=ID, x=Pos, fill=Type),
           offset=0.08,   # The distance between layers, default is 0.03 of x range of tree.
-          pwidth=0.25 # width of the layer, default is 0.2 of x range of tree.
+          pwidth=0.25, # width of the layer, default is 0.2 of x range of tree.
+          axis.params=list(                
+                        add.axis=TRUE,  # add axis text of the layer.
+                        text.angle=-45, # the text size of axis.
+                        hjust=0  # adust the horizontal position of text of axis.
+                      )
       ) + 
       scale_fill_manual(
           values=c("#339933", "#dfac03"),
           guide=guide_legend(keywidth=0.5, keyheight=0.5, order=3)
-      ) +
-      geom_axis_text(angle=-45, hjust=0) # add axis text of the layer.
+      ) 
 p3
 
 # We can also add heatmap layer for continuous values.
@@ -197,7 +201,12 @@ p4 <- p3 +
           data=dat3,
           geom=geom_tile,
           mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
-          pwidth=0.15
+          pwidth=0.15,
+          axis.params=list(
+                          add.axis=TRUE, # add axis text of the layer.
+                          text.angle=-45, # the text size of axis.
+                          hjust=0  # adust the horizontal position of text of axis.
+                      )
       ) +
       scale_fill_manual(
           values=c("#b22222", "#005500", "#0000be", "#9f1f9f"),
@@ -206,8 +215,7 @@ p4 <- p3 +
       scale_alpha_continuous(
           range=c(0, 0.4), # the range of alpha
           guide=guide_legend(keywidth=0.5, keyheight=0.5, order=5)
-      ) +
-      geom_axis_text(angle=-45, hjust=0) # add axis text of the layer.
+      ) 
 
 # Then we add a bar layer outside of the tree.
 p5 <- p4 + 
@@ -218,7 +226,15 @@ p5 <- p4 +
           mapping=aes(y=ID, x=Abundance, fill=Location),
           pwidth=0.4,
           stat="identity",
-          orientation="y" # the orientation of axis.
+          orientation="y", # the orientation of axis.
+          axis.params=list(
+                          add.axis=TRUE, # add axis text of the layer.
+                          text.angle=-45, # the text size of axis.
+                          hjust=0  # adust the horizontal position of text of axis.
+                      ),
+          grid.params=list(
+                          add.grid=TRUE # add the grid line of the external bar plot.
+                      )
       ) + 
       scale_fill_manual(
           values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
@@ -229,8 +245,7 @@ p5 <- p4 +
           legend.title=element_text(size=7), # the title size of legend.
           legend.text=element_text(size=6), # the text size of legend.
           legend.spacing.y = unit(0.02, "cm")  # the distance of legends (y orientation).
-      ) + 
-      geom_axis_text(angle=-45, hjust=0)
+      ) 
 p5
 ```
 
