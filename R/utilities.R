@@ -1,19 +1,14 @@
-#' @importFrom utils getFromNamespace
-stack_var <- getFromNamespace("stack_var", "ggplot2")
-
-collide <- getFromNamespace("collide", "ggplot2")
-
-collide2 <- getFromNamespace("collide2", "ggplot2")
-
-pos_stack <- getFromNamespace("pos_stack", "ggplot2")
-
-pos_dodge <- getFromNamespace("pos_dodge", "ggplot2")
-
-"%||%" <- getFromNamespace("%||%", "ggplot2")
-
-find_x_overlaps <- getFromNamespace("find_x_overlaps", "ggplot2")
-
-pos_dodge2 <- getFromNamespace("pos_dodge2", "ggplot2")
+#normgroupxy <- function(refda, targetda, group, targetid, orientation, 
+#                        na.rm=TRUE, keepzero=FALSE, ratio=0.38){
+#    refda1 <- split(refda, refda[[group]])
+#    newval <- lapply(refda1, function(dd) orientation *
+#                     normxy(refnum=refda$x, targetnum=dd[[targetid]], ratio=ratio))
+#    for (i in seq_len(length(newval))){
+#        refda1[[i]][[paste0("new_", targetid)]] <- newval[[i]]
+#    }
+#    refda <- do.call("rbind", refda1)
+#    return(refda)
+#}
 
 #' @importFrom stats var
 normxy <- function(refnum, targetnum, na.rm=TRUE, 
@@ -46,4 +41,33 @@ checkref <- function(refnum, n=5, step=40){
     }
     refnum <- seq(from=rmin, to=rmax, by=tmpstep)
     return(refnum)
+}
+
+reset_params <- function(defaultp, inputp){
+    intdi <- intersect(names(inputp), names(defaultp))
+    setd <- setdiff(names(defaultp), names(inputp))
+    seti <- setdiff(names(inputp), names(defaultp))
+    intdi <- inputp[match(intdi, names(inputp))]
+    setd <- defaultp[match(setd, names(defaultp))]
+    seti <- inputp[match(seti, names(inputp))]
+    newp <- c(intdi, setd, seti)
+    return(newp)
+}
+
+extract_dot_params <- function(defaultp, inputp){
+    dotname <- setdiff(names(inputp), names(defaultp))
+    dotp <- inputp[match(dotname, names(inputp))]
+    return (dotp)
+}
+
+confuse_params <- function(inputp){
+    if (!is.null(inputp$line.colour)){
+        inputp$line.color <- inputp$line.colour
+        inputp$line.colour <- NULL    
+    }
+    if (!is.null(inputp$line.col)){
+        inputp$line.color <- inputp$line.col
+        inputp$line.col <- NULL
+    }
+    return(inputp)
 }
