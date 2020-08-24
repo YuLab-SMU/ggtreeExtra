@@ -15,6 +15,10 @@
   + add `geom_ringline` to create the grid line of external ring layers. (2020-08-21, Fri)
   + the `addbrink` and other argument control the line of margin has been removed. (2020-08-21, Fri)
   + add pseudo axis line in `geom_axis_text`. (2020-08-21, Fri) 
++ 0.99.11
+  + `geom_axis_text` and `geom_ringline` are removed. (2020-08-24, Mon)
+  + user can use `axis.params=list(add.axis=TRUE)` and `grid.params=list(add.grid=TRUE)` to
+    add the axis and grid lines of external layers, respectively. (2020-08-24, Mon)
 
 # 0.0.1
 
