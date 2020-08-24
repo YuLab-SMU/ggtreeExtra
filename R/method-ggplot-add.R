@@ -62,7 +62,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
             if (orientation < 0){
                 hexpand2 <- abs(hexpand2)
             }
-            object$position$hexpand <- hexpand2
+            object$params$position$hexpand <- hexpand2
         }
     }
     tmpangle <- dat$angle
@@ -88,8 +88,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
         obj.axis <- build_axis(dat=dat, 
                                xid=xid, 
                                text=object$axis.params$text,
-                               hexpand=hexpand2,
-                               position=object$position,
+                               position=object$params$position,
                                axis.params=object$axis.params,
                                axis.dot.params=object$axis.dot.params)
         obj <- list(obj, obj.axis)
@@ -97,8 +96,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     if (object$grid.params$add.grid){
         obj.grid <- build_grid(dat=dat,
                                xid=xid,
-                               hexpand=hexpand2,
-                               position=object$position,
+                               position=object$params$position,
                                grid.params=object$grid.params,
                                grid.dot.params=object$grid.dot.params)
         obj <- list(obj.grid, obj)
