@@ -19,6 +19,8 @@
   + `geom_axis_text` and `geom_ringline` are removed. (2020-08-24, Mon)
   + user can use `axis.params=list(add.axis=TRUE)` and `grid.params=list(add.grid=TRUE)` to
     add the axis and grid lines of external layers, respectively. (2020-08-24, Mon)
++ 0.99.12
+  + add upper and lower grid lines of y. (2020-08-26, Wed)
 
 # 0.0.1
 
