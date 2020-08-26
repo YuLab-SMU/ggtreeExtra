@@ -4,13 +4,14 @@
 build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
     newxid <- paste0("new_", xid)
     yr <- range(dat$y)
-    daline2 <- dat[,"y",drop=FALSE]
+    daline3 <- dat[,"y",drop=FALSE]
     dat <- dat[,match(c(xid, newxid, "label"),colnames(dat))]
     if (inherits(position, "PositionStackx")){
         dat <- aggregate(as.formula(paste0(". ~","label")), dat, sum)
     }
     dat <- dat[,match(c(xid, newxid),colnames(dat))]
     daline1 <- create_text_data(data=dat, origin=xid, newxid=newxid, nbreak=grid.params$nbreak)
+    xr <- range(daline1[[newxid]])
     daline1$y <- yr[1]/10
     daline1$yend <- yr[2] + 1
     obj1 <- list(size=grid.params$size,
@@ -18,27 +19,37 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
                  alpha=grid.params$alpha,
                  lineend=grid.params$lineend,
                  linejoin=grid.params$linejoin)
+    obj2 <- obj1
     obj1$data <- daline1
     obj1$mapping <- aes_string(x=newxid, xend=newxid, y="y", yend="yend")
     obj1$position <- position_identityx(hexpand=position$hexpand)
     obj1 <- c(obj1, grid.dot.params)
     obj1 <- do.call("geom_segment", obj1)
+    daline2 <- data.frame(y=c(yr[1]/10, yr[2] + 1),
+                          yend=c(yr[1]/10, yr[2] + 1))
+    daline2$x <- xr[1]
+    daline2$xend <- xr[2]
+    obj2$data <- daline2
+    obj2$mapping <- aes_string(x="x", xend="xend", y="y", yend="yend")
+    obj2$position <- position_identityx(hexpand=position$hexpand)
+    obj2 <- c(obj2, grid.dot.params)
+    obj2 <- do.call("geom_segment", obj2)
+    obj1 <- list(obj1, obj2)
     if (grid.params$add.vline){
-        xr <- range(daline1[[newxid]])
-        daline2 <- rbind(data.frame(y=yr[1]/10),daline2,data.frame(y=yr[2]+1))
-        daline2$x <- xr[1]
-        daline2$xend <- xr[2]
-        obj2 <- list(size=grid.params$size,
+        daline3 <- rbind(data.frame(y=yr[1]/10),daline3)#,data.frame(y=yr[2]+1))
+        daline3$x <- xr[1]
+        daline3$xend <- xr[2]
+        obj3 <- list(size=grid.params$size,
                  colour=grid.params$color,
                  alpha=grid.params$alpha,
                  lineend=grid.params$lineend,
                  linejoin=grid.params$linejoin)
-        obj2$data <- daline2
-        obj2$mapping <- aes_string(x="x",xend="xend",y="y",yend="y")
-        obj2$position <- position_identityx(hexpand=position$hexpand)
-        obj2 <- c(obj2, grid.dot.params)
-        obj2 <- do.call("geom_segment", obj2)
-        obj1 <- list(obj1, obj2)
+        obj3$data <- daline3
+        obj3$mapping <- aes_string(x="x",xend="xend",y="y",yend="y")
+        obj3$position <- position_identityx(hexpand=position$hexpand)
+        obj3 <- c(obj3, grid.dot.params)
+        obj3 <- do.call("geom_segment", obj3)
+        obj1 <- list(obj1, obj3)
     }
     return (obj1)
 }
