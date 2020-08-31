@@ -76,13 +76,11 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }
     if (object$geomname %in% c("geom_boxplot", "geom_violin")){
         object$mapping = modifyList(object$mapping, aes(color=factor(eval(parse(text="y")))))
+        plot <- plot + new_scale_color()
     }
     object$mapping = modifyList(object$mapping, aes_string(x=paste0("new_",xid)))
     mapping = modifyList(object$mapping, aes_(y=~y))
     params <- c(list(data=dat, mapping=mapping), object$params)
-    if (object$geomname %in% c("geom_boxplot", "geom_violin")){
-        plot <- plot + new_scale_color()
-    }
     obj <- do.call(object$geom, params)
     if (object$axis.params$add.axis){
         obj.axis <- build_axis(dat=dat, 
@@ -121,6 +119,10 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
     for (o in object){
         n = n + 1
         if (inherits(o, "fruit_plot")){
+            offset.i <- get_offset(plot$data$x, o$offset)
+            if (offset != offset.i && n != 1){
+                hexpand2 <- max(abs(plot$data$x), na.rm=TRUE) + offset.i
+            }
             o[["params"]][["position"]][["hexpand"]] <- hexpand2
         }
         plot <- plot + o
