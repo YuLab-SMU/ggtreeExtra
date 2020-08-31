@@ -21,6 +21,9 @@
     add the axis and grid lines of external layers, respectively. (2020-08-24, Mon)
 + 0.99.12
   + add upper and lower grid lines of y. (2020-08-26, Wed)
++ 0.99.13
+  + update the method of `ggplot_add.layer_fruits`, when the `offset` between different `fruit_plot` 
+    is different, will use each `offset` in each `fruit_plot`. (2020-08-31, Mon)
 
 # 0.0.1
 
