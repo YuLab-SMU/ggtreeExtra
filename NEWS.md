@@ -24,6 +24,8 @@
 + 0.99.13
   + update the method of `ggplot_add.layer_fruits`, when the `offset` between different `fruit_plot` 
     is different, will use each `offset` in each `fruit_plot`. (2020-08-31, Mon)
++ 0.99.14
+  + update `normxy` to support `dendrogram` layout. (2020-09-02, Wed)
 
 # 0.0.1
 
