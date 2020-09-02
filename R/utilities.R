@@ -13,6 +13,7 @@
 #' @importFrom stats var
 normxy <- function(refnum, targetnum, na.rm=TRUE, 
                    keepzero=FALSE, ratio=0.38){
+    refnum <- abs(refnum)
     refnum <- checkref(refnum)
     rmax <- max(refnum, na.rm=na.rm) * ratio
     if (!keepzero){
