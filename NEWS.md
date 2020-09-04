@@ -26,6 +26,11 @@
     is different, will use each `offset` in each `fruit_plot`. (2020-08-31, Mon)
 + 0.99.14
   + update `normxy` to support `dendrogram` layout. (2020-09-02, Wed)
++ 0.99.15
+  + add `add.another.axis` in `geom_fruit` to add another axis. (2020-09-04, Fri)
+  + update `normxy` to fix the bug when negative values are present. (2020-09-04, Fri)
+  + update `ggplot_add` method of `geom_fruit` to support the orientation 
+    which x axis of the external is from bottom to top, when layout is `dendrogram`. (2020-09-04, Fri)
 
 # 0.0.1
 
