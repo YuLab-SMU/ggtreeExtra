@@ -253,12 +253,16 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
 ##     return(plot)
 ## }
 
-create_text_data <- function(data, origin, newxid, nbreak){
+create_text_data <- function(data, origin, newxid, nbreak, flagrev){
     if (!is.numeric(data[[origin]]) || sum(diff(data[[origin]])) == diff(range(data[[origin]]))){
         data <- data[!duplicated(data),,drop=FALSE]
     }else{
         originx <- range(data[[origin]], na.rm=TRUE)
-        originx <- seq(originx[1], originx[2], length.out=nbreak)
+        if (flagrev){
+            originx <- seq(originx[2], originx[1], length.out=nbreak)
+        }else{
+            originx <- seq(originx[1], originx[2], length.out=nbreak)
+        }
         newx <- range(data[[newxid]], na.rm=TRUE)
         newx <- seq(newx[1], newx[2], length.out=nbreak)
         tmpdigits <- max(attr(regexpr("(?<=\\.)0+", originx, perl = TRUE), "match.length"))
