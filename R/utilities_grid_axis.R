@@ -5,12 +5,17 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
     newxid <- paste0("new_", xid)
     yr <- range(dat$y)
     daline3 <- dat[,"y",drop=FALSE]
+    if (all(dat$x <=0, na.rm=TRUE)){
+        flagrev <- TRUE
+    }else{
+        flagrev <- FALSE
+    }
     dat <- dat[,match(c(xid, newxid, "label"),colnames(dat))]
     if (inherits(position, "PositionStackx")){
         dat <- aggregate(as.formula(paste0(". ~","label")), dat, sum)
     }
     dat <- dat[,match(c(xid, newxid),colnames(dat))]
-    daline1 <- create_text_data(data=dat, origin=xid, newxid=newxid, nbreak=grid.params$nbreak)
+    daline1 <- create_text_data(data=dat, origin=xid, newxid=newxid, nbreak=grid.params$nbreak, flagrev=flagrev)
     xr <- range(daline1[[newxid]])
     daline1$y <- yr[1]/10
     daline1$yend <- yr[2] + 1
@@ -57,12 +62,17 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
 build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     newxid <- paste0("new_", xid)
     yr <- range(dat$y)
+    if (all(dat$x <=0, na.rm=TRUE)){
+        flagrev <- TRUE
+    }else{
+        flagrev <- FALSE
+    }
     dat <- dat[,match(c(xid, newxid, "label"),colnames(dat))]
     if (inherits(position, "PositionStackx")){
         dat <- aggregate(as.formula(paste0(". ~","label")), dat, sum)
     }
     dat <- dat[,match(c(xid, newxid),colnames(dat))]
-    dat <- create_text_data(data=dat, origin=xid, newxid=newxid, nbreak=axis.params$nbreak)
+    dat <- create_text_data(data=dat, origin=xid, newxid=newxid, nbreak=axis.params$nbreak, flagrev=flagrev)
     if (nrow(dat)==1 && !is.null(text)){
         dat[[xid]] <- text
     }
@@ -74,16 +84,18 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     if (nrow(dat)==1){
         dat2 <- data.frame(x=dat[[newxid]]-yr[1]/8, xend=dat[[newxid]]+yr[1]/8)
     }else{
-        dat2 <- data.frame(x=min(dat[[newxid]])-min(dat[[newxid]])/2,
-                           xend=max(dat[[newxid]])+min(dat[[newxid]])/2)
+            dat2 <- data.frame(x=min(dat[[newxid]])-min(abs(dat[[newxid]]))/2,
+                           xend=max(dat[[newxid]])+min(abs(dat[[newxid]]))/2)
     }
     obj2 <- list(
                 size=axis.params$line.size, 
                 colour=axis.params$line.color,
                 alpha=axis.params$line.alpha
             )
+    dat2$y <- yr[1]/10
+    dat2$yend <- yr[1]/10
     obj2$data <- dat2
-    obj2$mapping <- aes_string(x="x",xend="xend",y=yr[1]/10, yend=yr[1]/10)
+    obj2$mapping <- aes_string(x="x",xend="xend",y="y", yend="yend")
     obj2$position <- position_identityx(hexpand=position$hexpand)
     if (nrow(dat)==1){
         dat3 <- data.frame(x=c(dat[[newxid]]-yr[1]/8, dat[[newxid]], dat[[newxid]]+yr[1]/8),
@@ -103,6 +115,26 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     obj2 <- do.call("geom_segment", obj2)
     obj3 <- do.call("geom_segment", obj3)
     obj <- list(obj2, obj3, obj)
+    if (axis.params$add.another.axis){
+        obj4 <- list(
+                     size=axis.params$line.size,
+                     colour=axis.params$line.color,
+                     alpha=axis.params$line.alpha
+                    )
+        sign_da4 <- sign(min(dat[[newxid]]))
+        da_xend <- sign_da4 * min(abs(dat[[newxid]]))
+        obj4$data <- data.frame(
+                         x=c(0, 0, 0), 
+                         xend=c(0, da_xend, da_xend), 
+                         y=c(yr[1]/10, yr[1]/10, yr[2] + 1), 
+                         yend=c(yr[2] + 1, yr[1]/10, yr[2] + 1)
+                         )
+        obj4$mapping <- aes_string(x="x", xend="xend", y="y", yend="yend")
+        obj4$position <- position_identityx(hexpand=position$hexpand)
+        obj4 <- do.call("geom_segment", obj4)
+        obj <- list(obj, obj4)
+    }
+    return(obj)
 }
 
 
