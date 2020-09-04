@@ -13,7 +13,14 @@
 #' @importFrom stats var
 normxy <- function(refnum, targetnum, na.rm=TRUE, 
                    keepzero=FALSE, ratio=0.38){
-    refnum <- abs(refnum)
+    target_sign <- sign(targetnum)
+    targetnum <- abs(targetnum)
+    if (all(refnum <= 0, na.rm=TRUE)){
+        refnum <- abs(refnum)
+        orientation <- -1
+    }else{
+        orientation <- 1
+    }
     refnum <- checkref(refnum)
     rmax <- max(refnum, na.rm=na.rm) * ratio
     if (!keepzero){
@@ -29,6 +36,8 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     k <- (rmax - rmin)/(tmax - tmin)
     newnum <- k*(targetnum - tmin) + rmin
     newnum[targetnum==0] <- 0
+    newnum <- target_sign * newnum
+    newnum <- orientation * newnum
     return(newnum)
 }
 
