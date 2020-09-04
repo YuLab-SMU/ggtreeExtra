@@ -14,8 +14,9 @@ geom_fruit(
   position = "auto",
   grid.params = list(add.grid = FALSE, color = "grey", size = 0.2, alpha = 1, lineend =
     "butt", linejoin = "round", nbreak = 4, add.vline = FALSE, ...),
-  axis.params = list(add.axis = FALSE, text.angle = 0, text.size = 0.8, text = NULL,
-    nbreak = 4, line.size = 0.2, line.color = "grey", line.alpha = 1, ...),
+  axis.params = list(add.axis = FALSE, add.another.axis = FALSE, text.angle = 0,
+    text.size = 0.8, text = NULL, nbreak = 4, line.size = 0.2, line.color = "grey",
+    line.alpha = 1, ...),
   ...
 )
 
@@ -71,6 +72,7 @@ axis.params control the attributes of pseudo axis, it can be referred to the
 following parameters:
 \itemize{
 \item \code{add.axis} logical, weather add the pseudo axis, default is FALSE.
+\item \code{add.another.axis} logical, weather add another pseudo axis, default is FALSE.
 \item \code{text} vector, the text of axis x, default is NULL, it is only valid when
 the text of axis is single and x is discrete.
 \item \code{vjust} numeric, A numeric specifying vertical justification, default is 0.5.

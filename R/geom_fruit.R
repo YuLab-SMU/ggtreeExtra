@@ -47,6 +47,7 @@
 ##' following parameters:
 ##'     \itemize{
 ##'         \item \code{add.axis} logical, weather add the pseudo axis, default is FALSE.
+##'         \item \code{add.another.axis} logical, weather add another pseudo axis, default is FALSE.
 ##'         \item \code{text} vector, the text of axis x, default is NULL, it is only valid when
 ##'         the text of axis is single and x is discrete.
 ##'         \item \code{vjust} numeric, A numeric specifying vertical justification, default is 0.5.
@@ -140,6 +141,7 @@ geom_fruit <- function(mapping,
                                    ),
                        axis.params=list(
                                        add.axis=FALSE,
+                                       add.another.axis=FALSE,
                                        text.angle=0,
                                        text.size=0.8,
                                        text=NULL,
@@ -163,7 +165,8 @@ geom_fruit <- function(mapping,
                                 linejoin="round",
                                 nbreak=4,
                                 add.vline=FALSE)
-    default.axis.params <- list(add.axis=FALSE, 
+    default.axis.params <- list(add.axis=FALSE,
+                                add.another.axis=FALSE,
                                 text.angle=0, 
                                 text.size=0.8,
                                 text=NULL, 
