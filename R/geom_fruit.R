@@ -9,8 +9,8 @@
 ##' 'geom_tile', 'geom_point', 'geom_star', 'geom_symbol' or other layers using 'identity' 
 ##' position in 'ggplot2', and 'position_dodgex()' or 'position_dodgex2()' for 'geom_boxplot'
 ##' 'geom_violin' or other layers using 'dodge' position in 'ggplot2'. The axis line and text 
-##' can be added using 'axis.params=list(add.axis=TRUE,...)', and the grid line also can be added
-##' using 'grid.params=list(add.grid=TRUE, ...)'.
+##' can be added using 'axis.params=list(add.axis="x",...)', and the grid line also can be added
+##' using 'grid.params=list(...)'.
 ##'
 ##' @title geom_fruit
 ##' @rdname geom_fruit
@@ -25,14 +25,14 @@
 ##' new geom to tree, default is 0.2.
 ##' @param position Position adjustment, either as a string, or the result of a
 ##' call to a position adjustment function, default is 'auto'.
-##' @param grid.params list, the parameters to control the attributes of grid lines.
+##' @param grid.params list, the parameters to control the attributes of grid lines, 
+##' default is NULL.
 ##' @param axis.params list, the parameters to control the attributes of pseudo axis.
 ##' @param ... additional parameters for 'geom'
 ##' 
 ##' grid.params control the attributes of grid line, it can be referred to the
 ##' following parameters:
 ##'     \itemize{
-##'         \item \code{add.grid} logical, weather add the grid line, default is FALSE.
 ##'         \item \code{add.vline} logical, weather add the vertical line, default is FALSE.
 ##'         \item \code{color} color of line, default is grey.
 ##'         \item \code{size} the width of line, default is 0.2.
@@ -46,8 +46,8 @@
 ##' axis.params control the attributes of pseudo axis, it can be referred to the
 ##' following parameters:
 ##'     \itemize{
-##'         \item \code{add.axis} logical, weather add the pseudo axis, default is FALSE.
-##'         \item \code{add.another.axis} logical, weather add another pseudo axis, default is FALSE.
+##'         \item \code{add.axis} character, add the pseudo axis, "none" don't display axis (default), 
+##'         "x" display the x axis, "y" display the (y) axis of tree tip, "xy" display the two axis.
 ##'         \item \code{text} vector, the text of axis x, default is NULL, it is only valid when
 ##'         the text of axis is single and x is discrete.
 ##'         \item \code{vjust} numeric, A numeric specifying vertical justification, default is 0.5.
@@ -128,20 +128,9 @@ geom_fruit <- function(mapping,
                        offset=0.03, 
                        pwidth=0.2, 
                        position="auto",
-                       grid.params=list(
-                                       add.grid=FALSE,
-                                       color="grey", 
-                                       size=0.2,
-                                       alpha=1,
-                                       lineend="butt",
-                                       linejoin="round",
-                                       nbreak=4,
-                                       add.vline=FALSE,
-                                       ...
-                                   ),
+                       grid.params=NULL,
                        axis.params=list(
-                                       add.axis=FALSE,
-                                       add.another.axis=FALSE,
+                                       add.axis="none",
                                        text.angle=0,
                                        text.size=0.8,
                                        text=NULL,
@@ -157,26 +146,24 @@ geom_fruit <- function(mapping,
         calls <- evalq(match.call(), parent.frame(1))
         geomname <- as.character(as.list(calls)[["geom"]])
     }
-    default.grid.params <- list(add.grid=FALSE,
-                                color="grey",
+    default.grid.params <- list(color="grey",
                                 size=0.2,
                                 alpha=1,
                                 lineend="butt",
                                 linejoin="round",
-                                nbreak=4,
                                 add.vline=FALSE)
-    default.axis.params <- list(add.axis=FALSE,
-                                add.another.axis=FALSE,
+    default.axis.params <- list(add.axis="none",
                                 text.angle=0, 
                                 text.size=0.8,
                                 text=NULL, 
-                                nbreak=4, 
                                 line.size=0.2, 
                                 line.color="grey",
                                 line.alpha=1)
     params <- list(...)
-    grid.params <- reset_params(defaultp=default.grid.params, inputp=grid.params)
-    axis.params <- reset_params(defaultp=default.axis.params, inputp=axis.params)
+    grid.params <- reset_params(defaultp=default.grid.params, 
+                                inputp=substitute(grid.params))
+    axis.params <- reset_params(defaultp=default.axis.params, 
+                                inputp=substitute(axis.params))
     axis.params <- confuse_params(axis.params)
     axis.dot.params <- extract_dot_params(
                            defaultp=default.axis.params,
