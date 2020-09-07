@@ -26,9 +26,14 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }
     dat <- build_new_data(newdat=object$data, origindata=plot$data, yid=yid)
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
-        dat[[paste0("new_",xid)]] <- orientation * 
-                                     normxy(refnum=plot$data$x, targetnum=dat[[xid]], ratio=object$pwidth)
-        newxexpand <- max(abs(dat[[paste0("new_", xid)]]), na.rm=TRUE)
+        normres <- get_continuous_norm(refdata=plot$data$x, 
+                                       data=dat, 
+                                       orientation=orientation,
+                                       xid=xid, 
+                                       position=object$params$position, 
+                                       ratio=object$pwidth)
+        dat <- normres[[1]]
+        newxexpand <- normres[[2]]
     }else{
         if (!is.numeric(dat[[xid]])){
             if (!is.factor(dat[[xid]])){
@@ -36,8 +41,8 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
             }
             dat[[paste0(xid,"_bp")]] <- as.numeric(dat[[xid]])
             dat[[paste0("new_", xid)]] <- orientation * 
-                                          normxy(refnum=plot$data$x, targetnum=dat[[paste0(xid,"_bp")]], 
-                                                 keepzero=TRUE, ratio=object$pwidth) 
+                                          normxy(refnum=plot$data$x, targetnum=dat[[paste0(xid,"_bp")]],
+                                                 keepzero=TRUE, ratio=object$pwidth)
             if (orientation > 0){
                 dat[[paste0("new_", xid)]] <- dat[[paste0("new_", xid)]] + offset
             }
@@ -82,16 +87,16 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     mapping = modifyList(object$mapping, aes_(y=~y))
     params <- c(list(data=dat, mapping=mapping), object$params)
     obj <- do.call(object$geom, params)
-    if (object$axis.params$add.axis){
-        obj.axis <- build_axis(dat=dat, 
-                               xid=xid, 
+    if (object$axis.params$add.axis != "none"){
+        obj.axis <- build_axis(dat=dat,
+                               xid=xid,
                                text=object$axis.params$text,
                                position=object$params$position,
                                axis.params=object$axis.params,
                                axis.dot.params=object$axis.dot.params)
         obj <- list(obj, obj.axis)
     }
-    if (object$grid.params$add.grid){
+    if (!is.null(object$grid.params)){
         obj.grid <- build_grid(dat=dat,
                                xid=xid,
                                position=object$params$position,
@@ -257,23 +262,9 @@ create_text_data <- function(data, origin, newxid, nbreak, flagrev){
     if (!is.numeric(data[[origin]]) || sum(diff(data[[origin]])) == diff(range(data[[origin]]))){
         data <- data[!duplicated(data),,drop=FALSE]
     }else{
-        originx <- range(data[[origin]], na.rm=TRUE)
         if (flagrev){
-            originx <- seq(originx[2], originx[1], length.out=nbreak)
-        }else{
-            originx <- seq(originx[1], originx[2], length.out=nbreak)
+            data[[origin]] <- rev(data[[origin]])
         }
-        newx <- range(data[[newxid]], na.rm=TRUE)
-        newx <- seq(newx[1], newx[2], length.out=nbreak)
-        tmpdigits <- max(attr(regexpr("(?<=\\.)0+", originx, perl = TRUE), "match.length"))
-        if (tmpdigits<=0){
-            tmpdigits <- 1
-        }else{
-            tmpdigits <- tmpdigits + 1
-        }
-        originx <- round(originx, digits=tmpdigits)
-        data <- data.frame(v1=newx, v2=originx)
-        colnames(data) <- c(newxid, origin)
     }
     return (data)
 }
