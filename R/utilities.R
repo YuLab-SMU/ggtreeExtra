@@ -37,8 +37,15 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     newnum <- k*(targetnum - tmin) + rmin
     newnum[targetnum==0] <- 0
     newnum <- target_sign * newnum
-    newnum <- orientation * newnum
-    return(newnum)
+    if (all(target_sign <=0 ) && orientation==-1){
+        return(newnum)
+    }else if(all(target_sign <= 0) && orientation==1){
+        newnum <- -1 * newnum
+        return(newnum)
+    }else{
+        newnum <- orientation * newnum
+        return(newnum)
+    }
 }
 
 checkref <- function(refnum, n=5, step=40){
@@ -54,6 +61,12 @@ checkref <- function(refnum, n=5, step=40){
 }
 
 reset_params <- function(defaultp, inputp){
+    if (is.null(inputp)){
+        return(NULL)
+    }
+    inputp <- as.list(inputp)
+    inputp[[1]] <- NULL
+    inputp <- inputp[unlist(lapply(inputp, function(x)nchar(x)>0 && x!="..."))]
     intdi <- intersect(names(inputp), names(defaultp))
     setd <- setdiff(names(defaultp), names(inputp))
     seti <- setdiff(names(inputp), names(defaultp))
@@ -65,6 +78,9 @@ reset_params <- function(defaultp, inputp){
 }
 
 extract_dot_params <- function(defaultp, inputp){
+    if (is.null(inputp)){
+        return(NULL)
+    }
     dotname <- setdiff(names(inputp), names(defaultp))
     dotp <- inputp[match(dotname, names(inputp))]
     return (dotp)
