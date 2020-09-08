@@ -39,6 +39,9 @@
     eg `grid.params=list(color="black",)`. (2020-09-07, Mon)
 + 0.99.17
   + change `add.axis` to `axis` in `axis.params`. (2020-09-08, Tue)
++ 0.99.18
+  + add `nbreak` in `axis.params` of `geom_fruit`, it will be sent to `n` of `pretty` to 
+    generate the desired number of intervals of `axis`. (2020-09-08, Tue)
   
 # 0.0.1
 
