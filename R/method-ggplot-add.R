@@ -31,7 +31,8 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                                        orientation=orientation,
                                        xid=xid, 
                                        position=object$params$position, 
-                                       ratio=object$pwidth)
+                                       ratio=object$pwidth,
+                                       nbreak=object$axis.params$nbreak)
         dat <- normres[[1]]
         newxexpand <- normres[[2]]
     }else{
@@ -258,7 +259,7 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
 ##     return(plot)
 ## }
 
-create_text_data <- function(data, origin, newxid, nbreak, flagrev){
+create_text_data <- function(data, origin, newxid, flagrev){
     if (!is.numeric(data[[origin]]) || sum(diff(data[[origin]])) == diff(range(data[[origin]]))){
         data <- data[!duplicated(data),,drop=FALSE]
     }else{

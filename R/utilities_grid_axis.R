@@ -118,12 +118,15 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
 
 #' @importFrom stats aggregate
 #' @importFrom stats as.formula
-get_continuous_norm <- function(refdata, data, orientation, xid, position, ratio){
+get_continuous_norm <- function(refdata, data, orientation, xid, position, ratio, nbreak){
     if (inherits(position, "PositionStackx")){
         dat <- aggregate(as.formula(paste0(". ~","label")), data[,c(xid, "label")], sum)
-        dabreaks <- pretty(dat[[xid]])
+        dabreaks <- pretty(dat[[xid]], n=nbreak)
+        if (!0 %in% dabreaks){
+            dabreaks <- c(0, dabreaks)
+        }
     }else{
-        dabreaks <- pretty(data[[xid]])
+        dabreaks <- pretty(data[[xid]], n=nbreak)
     }
     tmpdanorm <- orientation * normxy(refnum=refdata, targetnum=c(dabreaks,data[[xid]]), ratio=ratio)
     data[[paste0("new_",xid)]] <- tmpdanorm[-seq_len(length(dabreaks))]

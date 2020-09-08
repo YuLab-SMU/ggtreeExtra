@@ -39,7 +39,6 @@
 ##'         \item \code{alpha} the colour transparency of line, default is 1.
 ##'         \item \code{lineend} Line end style (round, butt, square), default is "butt".
 ##'         \item \code{linejoin} Line end style (round, butt, square), default is "round".
-##'         \item \code{nbreak} numeric, meaning the number of axis to break, default is 4. 
 ##'         \item \code{linetype} Type of line, default is 1.
 ##'     } 
 ##'
@@ -54,8 +53,9 @@
 ##'         \item \code{hjust} numeric, A numeric specifying horizontal justification, default is 0.5.
 ##'         \item \code{text.angle} numeric, the angle of axis text, default is 0.
 ##'         \item \code{text.size} numeric, the size of axis text, default is 0.8.
-##'         \item \code{nbreak} numeric, meaning the number of axis to break,
-##'          it is only valid when x is continuous, default is 4.
+##'         \item \code{nbreak} numeric, meaning the number of axis to break, 
+##'          integer giving the _desired_ number of intervals. Non-integer values are rounded down.
+##'          It is only valid when x is continuous, default is 4.
 ##'         \item \code{line.size} numeric, the size of axis line, default is 0.2.
 ##'         \item \code{line.color} character, the color of axis color, default is "grey".
 ##'         \item \code{line.alpha} numeric, the colour transparency of line, default is 1.
@@ -158,6 +158,7 @@ geom_fruit <- function(mapping,
                                 text=NULL, 
                                 line.size=0.2, 
                                 line.color="grey",
+                                nbreak=4,
                                 line.alpha=1)
     params <- list(...)
     grid.params <- reset_params(defaultp=default.grid.params, 
