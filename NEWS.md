@@ -32,11 +32,13 @@
   + update `ggplot_add` method of `geom_fruit` to support the orientation 
     which x axis of the external is from bottom to top, when layout is `dendrogram`. (2020-09-04, Fri)
 + 0.99.16
-  • change `add.axis` in axis.params from TRUE or FALSE to `x` or `y` or `xy`. (2020-09-05, Sat)
+  + change `add.axis` in axis.params from TRUE or FALSE to `x` or `y` or `xy`. (2020-09-05, Sat)
   + remove `add.grid` in `grid.params` and default of `grid.params` is NULL. (2020-09-07, Mon)
   + update method of `axis tick` and remove `nbreaks`, the breaks will be calculate by `pretty`. (2020-09-07, Mon)
   + use `substitute` to allow list of `axis.params` or `grid.params` has empty argument, 
     eg `grid.params=list(color="black",)`. (2020-09-07, Mon)
++ 0.99.17
+  + change `add.axis` to `axis` in `axis.params`. (2020-09-08, Tue)
   
 # 0.0.1
 
