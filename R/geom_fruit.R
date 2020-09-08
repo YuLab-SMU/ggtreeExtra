@@ -9,7 +9,7 @@
 ##' 'geom_tile', 'geom_point', 'geom_star', 'geom_symbol' or other layers using 'identity' 
 ##' position in 'ggplot2', and 'position_dodgex()' or 'position_dodgex2()' for 'geom_boxplot'
 ##' 'geom_violin' or other layers using 'dodge' position in 'ggplot2'. The axis line and text 
-##' can be added using 'axis.params=list(add.axis="x",...)', and the grid line also can be added
+##' can be added using 'axis.params=list(axis="x",...)', and the grid line also can be added
 ##' using 'grid.params=list(...)'.
 ##'
 ##' @title geom_fruit
@@ -33,7 +33,7 @@
 ##' grid.params control the attributes of grid line, it can be referred to the
 ##' following parameters:
 ##'     \itemize{
-##'         \item \code{add.vline} logical, weather add the vertical line, default is FALSE.
+##'         \item \code{vline} logical, weather add the vertical line, default is FALSE.
 ##'         \item \code{color} color of line, default is grey.
 ##'         \item \code{size} the width of line, default is 0.2.
 ##'         \item \code{alpha} the colour transparency of line, default is 1.
@@ -46,7 +46,7 @@
 ##' axis.params control the attributes of pseudo axis, it can be referred to the
 ##' following parameters:
 ##'     \itemize{
-##'         \item \code{add.axis} character, add the pseudo axis, "none" don't display axis (default), 
+##'         \item \code{axis} character, add the pseudo axis, "none" don't display axis (default), 
 ##'         "x" display the x axis, "y" display the (y) axis of tree tip, "xy" display the two axis.
 ##'         \item \code{text} vector, the text of axis x, default is NULL, it is only valid when
 ##'         the text of axis is single and x is discrete.
@@ -130,7 +130,7 @@ geom_fruit <- function(mapping,
                        position="auto",
                        grid.params=NULL,
                        axis.params=list(
-                                       add.axis="none",
+                                       axis="none",
                                        text.angle=0,
                                        text.size=0.8,
                                        text=NULL,
@@ -151,8 +151,8 @@ geom_fruit <- function(mapping,
                                 alpha=1,
                                 lineend="butt",
                                 linejoin="round",
-                                add.vline=FALSE)
-    default.axis.params <- list(add.axis="none",
+                                vline=FALSE)
+    default.axis.params <- list(axis="none",
                                 text.angle=0, 
                                 text.size=0.8,
                                 text=NULL, 

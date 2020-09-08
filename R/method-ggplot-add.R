@@ -87,7 +87,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     mapping = modifyList(object$mapping, aes_(y=~y))
     params <- c(list(data=dat, mapping=mapping), object$params)
     obj <- do.call(object$geom, params)
-    if (object$axis.params$add.axis != "none"){
+    if (object$axis.params$axis != "none"){
         obj.axis <- build_axis(dat=dat,
                                xid=xid,
                                text=object$axis.params$text,

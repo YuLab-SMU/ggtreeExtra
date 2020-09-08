@@ -24,7 +24,7 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
                           yend=c(yr[1]/10, yr[2] + 1))
     daline2$x <- xr[1]
     daline2$xend <- xr[2]
-    if (!grid.params$add.vline){
+    if (!grid.params$vline){
         daline1 <- rbind(daline1, daline2)
     }else{
         daline3 <- rbind(data.frame(y=yr[1]/10),daline3)#,data.frame(y=yr[2]+1))
@@ -92,19 +92,19 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     }   
     dat3$y <- yr[1]/10
     dat3$yend <- yr[1]/25
-    if (axis.params$add.axis=="x"){
+    if (axis.params$axis=="x"){
         dat3 <- rbind(dat2, dat3)
         obj2$data <- dat3
         obj2 <- do.call("geom_segment", obj2)
         obj <- list(obj2, obj) 
-    }else if(axis.params$add.axis=="y"){
+    }else if(axis.params$axis=="y"){
         sign_da4 <- sign(min(dat[[newxid]]))
         da_xend <- sign_da4 * min(abs(dat[[newxid]]))
         dat4 <- data.frame(x=0, xend=0, y=yr[1]/10, yend=yr[2]+1)
         obj2$data <- dat4
         obj2 <- do.call("geom_segment", obj2)
         obj <- list(obj2)
-    }else if(axis.params$add.axis=="xy"){
+    }else if(axis.params$axis=="xy"){
         sign_da4 <- sign(min(dat[[newxid]]))
         da_xend <- sign_da4 * min(abs(dat[[newxid]]))
         dat4 <- data.frame(x=0, xend=0, y=yr[1]/10, yend=yr[2]+1)

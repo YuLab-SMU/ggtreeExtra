@@ -50,7 +50,7 @@ library(ggnewscale)
 
 # 1. Introduction
 
-Phylogenetic trees was often used with associated data in various biological studies. `r Biocpkg("ggtree")`, a flexible R package to visualize phylogenetic tree, had been developed by GuangChuang Yu [@yu2017ggtree]. It provided `geom_facet` function to align associated graphs to the tree [@yu2018two; @yu2020ggtree]. However, This function did not support the tree created using `circular`, `fan` or `radial` layout. To solve the problem, We developed `ggtreeExtra`, which can align associated graphs to `circular`, `fan` or `radial` and other `rectangular` layout tree. `ggtreeExtra` provides function, `geom_fruit` to align graphs to the tree. But the associated graphs will align in different position. So we also developed `geom_fruit_list` to add multiple layers in the same position. Furthermore, `axis` of external layers can be added using the `axis.params=list(add.axis="x",...)` in `geom_fruit`. The `grid lines` of external layers can be added using the `grid.params=list()` in `geom_fruit`. These functions are based on `r CRANpkg("ggplot2")` using grammar of graphics [@hadlyggplot2]. More vignettes can be found on the [`chapter10`](https://yulab-smu.top/treedata-book/chapter10.html) of [online book](http://yulab-smu.top/treedata-book).
+Phylogenetic trees was often used with associated data in various biological studies. `r Biocpkg("ggtree")`, a flexible R package to visualize phylogenetic tree, had been developed by GuangChuang Yu [@yu2017ggtree]. It provided `geom_facet` function to align associated graphs to the tree [@yu2018two; @yu2020ggtree]. However, This function did not support the tree created using `circular`, `fan` or `radial` layout. To solve the problem, We developed `ggtreeExtra`, which can align associated graphs to `circular`, `fan` or `radial` and other `rectangular` layout tree. `ggtreeExtra` provides function, `geom_fruit` to align graphs to the tree. But the associated graphs will align in different position. So we also developed `geom_fruit_list` to add multiple layers in the same position. Furthermore, `axis` of external layers can be added using the `axis.params=list(axis="x",...)` in `geom_fruit`. The `grid lines` of external layers can be added using the `grid.params=list()` in `geom_fruit`. These functions are based on `r CRANpkg("ggplot2")` using grammar of graphics [@hadlyggplot2]. More vignettes can be found on the [`chapter10`](https://yulab-smu.top/treedata-book/chapter10.html) of [online book](http://yulab-smu.top/treedata-book).
 
 # 2. Install
 
@@ -183,7 +183,7 @@ p3 <- p2 +
           offset=0.08,   # The distance between layers, default is 0.03 of x range of tree.
           pwidth=0.25, # width of the layer, default is 0.2 of x range of tree.
           axis.params=list(                
-                        add.axis="x",  # add axis text of the layer.
+                        axis="x",  # add axis text of the layer.
                         text.angle=-45, # the text size of axis.
                         hjust=0  # adust the horizontal position of text of axis.
                       )
@@ -203,7 +203,7 @@ p4 <- p3 +
           mapping=aes(y=ID, x=Type2, alpha=Alpha, fill=Type2),
           pwidth=0.15,
           axis.params=list(
-                          add.axis="x", # add axis text of the layer.
+                          axis="x", # add axis text of the layer.
                           text.angle=-45, # the text size of axis.
                           hjust=0  # adust the horizontal position of text of axis.
                       )
@@ -228,7 +228,7 @@ p5 <- p4 +
           stat="identity",
           orientation="y", # the orientation of axis.
           axis.params=list(
-                          add.axis="x", # add axis text of the layer.
+                          axis="x", # add axis text of the layer.
                           text.angle=-45, # the text size of axis.
                           hjust=0  # adust the horizontal position of text of axis.
                       ),
