@@ -1,4 +1,4 @@
-#' @importFrom ggplot2 aes_string
+#' @importFrom ggplot2 aes_string geom_segment
 #' @importFrom stats aggregate
 #' @importFrom stats as.formula
 build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
