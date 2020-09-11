@@ -42,6 +42,8 @@
 + 0.99.18
   + add `nbreak` in `axis.params` of `geom_fruit`, it will be sent to `n` of `pretty` to 
     generate the desired number of intervals of `axis`. (2020-09-08, Tue)
++ 0.99.19
+  + modified the namespace, remove `geom_vline`, add `geom_segment`. (2020-09-11, Fri)
   
 # 0.0.1
 
