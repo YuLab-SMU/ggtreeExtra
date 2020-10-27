@@ -1,6 +1,6 @@
-# 0.99.0 or 0.99.x
+# 0.99.0
 
-+ the 0.99.0 or 0.99.x version mean I am submitting it to `Bioconductor`. (20200710, Fri)
+## the 0.99.0 or 0.99.x version mean I am submitting it to `Bioconductor`. (20200710, Fri)
 + 0.99.1 change `svg` of `dev` to `png`, set the dpi to 300. (20200714, Tue)
 + 0.99.2 `geom_axis_text` support the single column axis. (20200717, Fri)
 + 0.99.3 support `inward_circular` tree and `geom_axis_text` was build by `position_identityx`. (20200724, Fri)
@@ -9,40 +9,41 @@
 + 0.99.6 support adjusting the angle of geom_text. (2020-07-31, Fri)
 + 0.99.7 revise stylistic comment of R code and examples. (2020-08-04, Tue)
 + 0.99.8 change the formatting of code chunk. (2020-08-04, Tue)
-+ 0.99.9 modified the `color` aesthetics for `geom_boxplot` and `geom_violin`. (2020-08-14, Fri)
+### 0.99.9
+  + modified the `color` aesthetics for `geom_boxplot` and `geom_violin`. (2020-08-14, Fri)
   + keep all column of data of tree when it merge with external data. (2020-08-14, Fri)
-+ 0.99.10 
+### 0.99.10 
   + add `geom_ringline` to create the grid line of external ring layers. (2020-08-21, Fri)
   + the `addbrink` and other argument control the line of margin has been removed. (2020-08-21, Fri)
   + add pseudo axis line in `geom_axis_text`. (2020-08-21, Fri) 
-+ 0.99.11
+### 0.99.11
   + `geom_axis_text` and `geom_ringline` are removed. (2020-08-24, Mon)
   + user can use `axis.params=list(add.axis=TRUE)` and `grid.params=list(add.grid=TRUE)` to
     add the axis and grid lines of external layers, respectively. (2020-08-24, Mon)
-+ 0.99.12
+### 0.99.12
   + add upper and lower grid lines of y. (2020-08-26, Wed)
-+ 0.99.13
+### 0.99.13
   + update the method of `ggplot_add.layer_fruits`, when the `offset` between different `fruit_plot` 
     is different, will use each `offset` in each `fruit_plot`. (2020-08-31, Mon)
-+ 0.99.14
+### 0.99.14
   + update `normxy` to support `dendrogram` layout. (2020-09-02, Wed)
-+ 0.99.15
+### 0.99.15
   + add `add.another.axis` in `geom_fruit` to add another axis. (2020-09-04, Fri)
   + update `normxy` to fix the bug when negative values are present. (2020-09-04, Fri)
   + update `ggplot_add` method of `geom_fruit` to support the orientation 
     which x axis of the external is from bottom to top, when layout is `dendrogram`. (2020-09-04, Fri)
-+ 0.99.16
+### 0.99.16
   + change `add.axis` in axis.params from TRUE or FALSE to `x` or `y` or `xy`. (2020-09-05, Sat)
   + remove `add.grid` in `grid.params` and default of `grid.params` is NULL. (2020-09-07, Mon)
   + update method of `axis tick` and remove `nbreaks`, the breaks will be calculate by `pretty`. (2020-09-07, Mon)
   + use `substitute` to allow list of `axis.params` or `grid.params` has empty argument, 
     eg `grid.params=list(color="black",)`. (2020-09-07, Mon)
-+ 0.99.17
+### 0.99.17
   + change `add.axis` to `axis` in `axis.params`. (2020-09-08, Tue)
-+ 0.99.18
+### 0.99.18
   + add `nbreak` in `axis.params` of `geom_fruit`, it will be sent to `n` of `pretty` to 
     generate the desired number of intervals of `axis`. (2020-09-08, Tue)
-+ 0.99.19
+### 0.99.19
   + modified the namespace, remove `geom_vline`, add `geom_segment`. (2020-09-11, Fri)
   
 # 0.0.1
