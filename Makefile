@@ -54,6 +54,14 @@ bignore:
 gignore:
 	Rscript -e 'usethis::use_git_ignore(c(".DS_Store", ".RData", ".Rhistory", ".Rproj.user"))'
 
+biocinit:
+	git remote add upstream git@git.bioconductor.org:packages/$(PKGNAME).git;\
+	git fetch --all
+
+release:
+	git checkout RELEASE_3_12;\
+    git fetch --all
+
 update:
 	git fetch --all
 	git merge upstream/master
