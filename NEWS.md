@@ -1,4 +1,6 @@
-# 0.99.0
+# ggtreeExtra 1.0.0
+
++ Bioconductor 3.12 release (2020-10-28, Wed)
 
 ## the 0.99.0 or 0.99.x version mean I am submitting it to `Bioconductor`. (20200710, Fri)
 + 0.99.1 change `svg` of `dev` to `png`, set the dpi to 300. (20200714, Tue)
