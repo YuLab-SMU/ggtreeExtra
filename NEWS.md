@@ -1,3 +1,7 @@
+# ggtreeExtra 1.1.1.991
+
++ support `subset` in mapping, but the `data` should also be provided. (2020-11-30, Mon)
+
 # ggtreeExtra 1.0.0
 
 + Bioconductor 3.12 release (2020-10-28, Wed)
