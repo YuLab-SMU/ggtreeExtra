@@ -1,11 +1,19 @@
 ##' @method ggplot_add fruit_plot
 ##' @importFrom utils modifyList
 ##' @importFrom ggplot2 aes aes_ aes_string scale_color_manual
-##' @importFrom rlang as_name
+##' @importFrom rlang as_name quo_name
 ##' @importFrom ggnewscale new_scale_color
 ##' @author Shuangbin Xu
 ##' @export
 ggplot_add.fruit_plot <- function(object, plot, object_name){
+    if (!is.null(object$mapping$subset)){
+        if (is.null(object$data)){
+            stop("When the subset is provided in mapping, the data also should be provided!")
+        }else{
+            object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
+            object$mapping <- object$mapping[names(object$mapping)!="subset"]
+        }
+    }
     res <- set_mapping(object=object, plot=plot)
     object <- res[[1]]
     plot <- res[[2]]
