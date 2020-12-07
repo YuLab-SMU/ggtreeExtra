@@ -33,7 +33,7 @@
 ##' grid.params control the attributes of grid line, it can be referred to the
 ##' following parameters:
 ##'     \itemize{
-##'         \item \code{vline} logical, weather add the vertical line, default is FALSE.
+##'         \item \code{vline} logical, whether add the vertical line, default is FALSE.
 ##'         \item \code{color} color of line, default is grey.
 ##'         \item \code{size} the width of line, default is 0.2.
 ##'         \item \code{alpha} the colour transparency of line, default is 1.
