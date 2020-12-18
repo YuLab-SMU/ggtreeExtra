@@ -1,12 +1,14 @@
-# ggtreeExtra 1.1.1.991
+# ggtreeExtra 1.1.2
 
 + support `subset` in mapping, but the `data` should also be provided. (2020-11-30, Mon)
++ add default position methods for common geometric functions. (2020-12-18, Fri)
 
 # ggtreeExtra 1.0.0
 
 + Bioconductor 3.12 release (2020-10-28, Wed)
 
 ## the 0.99.0 or 0.99.x version mean I am submitting it to `Bioconductor`. (20200710, Fri)
+
 + 0.99.1 change `svg` of `dev` to `png`, set the dpi to 300. (20200714, Tue)
 + 0.99.2 `geom_axis_text` support the single column axis. (20200717, Fri)
 + 0.99.3 support `inward_circular` tree and `geom_axis_text` was build by `position_identityx`. (20200724, Fri)
