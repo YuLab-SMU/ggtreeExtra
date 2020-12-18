@@ -88,7 +88,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
         dat$angle <- adjust_text_angle(layout=layout, angle=tmpangle)
         object$mapping = modifyList(object$mapping, aes_(angle=~angle))
     }
-    if (object$geomname %in% c("geom_boxplot", "geom_violin")){
+    if (object$geomname %in% dodpos){
         object$mapping = modifyList(object$mapping, aes(color=factor(eval(parse(text="y")))))
         plot <- plot + new_scale_color()
     }
@@ -113,7 +113,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                                grid.dot.params=object$grid.dot.params)
         obj <- list(obj.grid, obj)
     }
-    if (object$geomname %in% c("geom_boxplot", "geom_violin")){
+    if (object$geomname %in% dodpos){
         obj <- list(obj, scale_color_manual(values=c(rep("black", length(dat$y))), guide="none"), new_scale_color())
     }
     ggplot_add(obj, plot, object_name)
@@ -367,13 +367,13 @@ adjust_text_angle <- function(layout, angle){
 choose_pos <- function(object){
     geomname <- object$geomname
     if (is.character(object$position) && object$position=="auto"){
-        if (geomname %in% c("geom_boxplot", "geom_violin")){
+        if (geomname %in% dodpos){
             object$params <- c(object$params, position=position_dodgex())
         }
-        if (geomname %in% c("geom_point", "geom_star", "geom_symbol", "geom_tile")){
+        if (geomname %in% idepos){
             object$params <- c(object$params, position=position_identityx())
         }
-        if (geomname=="geom_bar"){
+        if (geomname %in% stackpos){
             object$params <- c(object$params, position=position_stackx())
         }
     }else{
@@ -382,6 +382,15 @@ choose_pos <- function(object){
     return(object)
 }
 
+dodpos <- c("geom_boxplot", "geom_violin", "geom_boxplot_pattern", 
+            "geom_violin_pattern", "geom_boxploth", "geom_violinh")
+
+idepos <- c("geom_point", "geom_star", "geom_symbol",
+            "geom_tile", "geom_tile_pattern", "geom_scatterpie",
+            "geom_text_repel", "geom_label_repel",
+            "geom_image", "geom_phylopic")
+
+stackpos <- c("geom_bar", "geom_barh", "geom_bar_pattern")
 
 check_reverse <- function(plot){
     flag <- unlist(lapply(plot$scales$scales, 
