@@ -36,7 +36,8 @@ p4
 }
 \seealso{
 Other position adjustments: 
-\code{\link{position_dodgex}()}
+\code{\link{position_dodgex}()},
+\code{\link{position_points_sinax}()}
 }
 \author{
 Shuangbin Xu

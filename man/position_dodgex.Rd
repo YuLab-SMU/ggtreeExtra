@@ -71,6 +71,7 @@ p8
 }
 \seealso{
 Other position adjustments: 
-\code{\link{position_identityx}()}
+\code{\link{position_identityx}()},
+\code{\link{position_points_sinax}()}
 }
 \concept{position adjustments}
