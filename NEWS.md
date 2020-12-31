@@ -1,3 +1,9 @@
+# ggtreeExtra 1.1.3
+
++ support multiple density plot from **geom** of *ggridges*. (2020-12-31, Thu)
+  `geom_density_ridges`, `geom_density_ridges2`, `geom_density_ridges_gradient`,
+  `geom_ridgeline`, `geom_ridgeline_gradient`.
+
 # ggtreeExtra 1.1.2
 
 + support `subset` in mapping, but the `data` should also be provided. (2020-11-30, Mon)
