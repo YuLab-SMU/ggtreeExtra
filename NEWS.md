@@ -1,3 +1,7 @@
+# ggtreeExtra 1.1.3.991
+
++ add `position_points_jitterx` and `position_raincloudx` for **geom** of `ggridges`. (2021-01-20, Wed)
+
 # ggtreeExtra 1.1.3
 
 + support multiple density plot from **geom** of *ggridges*. (2020-12-31, Thu)
