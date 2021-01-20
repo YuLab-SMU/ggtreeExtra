@@ -397,7 +397,7 @@ idepos <- c("geom_point", "geom_star", "geom_symbol",
             "geom_text_repel", "geom_label_repel",
             "geom_image", "geom_phylopic")
 
-stackpos <- c("geom_bar", "geom_barh", "geom_bar_pattern")
+stackpos <- c("geom_bar", "geom_barh", "geom_bar_pattern", "geom_col", "geom_colh", "geom_col_pattern")
 
 densitypos <- c("geom_density_ridges", "geom_density_ridges2", "geom_density_ridges_gradient")
 
