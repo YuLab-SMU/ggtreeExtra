@@ -174,6 +174,12 @@ geom_fruit <- function(mapping,
                            defaultp=default.grid.params,
                            inputp=grid.params
                        )
+    # for MSA
+    if (geomname == "geom_msa"){
+        if (missing(mapping)){
+            mapping <- aes_(x = ~position, y = ~name, fill = ~I(color))
+        }
+    }
     obj <- structure(
              list(
                data = data,

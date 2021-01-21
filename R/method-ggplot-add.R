@@ -395,7 +395,7 @@ dodpos <- c("geom_boxplot", "geom_violin", "geom_boxplot_pattern",
 idepos <- c("geom_point", "geom_star", "geom_symbol",
             "geom_tile", "geom_tile_pattern", "geom_scatterpie",
             "geom_text_repel", "geom_label_repel",
-            "geom_image", "geom_phylopic")
+            "geom_image", "geom_phylopic", "geom_msa")
 
 stackpos <- c("geom_bar", "geom_barh", "geom_bar_pattern", "geom_col", "geom_colh", "geom_col_pattern")
 
