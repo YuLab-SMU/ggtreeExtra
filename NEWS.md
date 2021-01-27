@@ -1,7 +1,8 @@
-# ggtreeExtra 1.1.3.991
+# ggtreeExtra 1.1.4
 
 + add `position_points_jitterx` and `position_raincloudx` for **geom** of `ggridges`. (2021-01-20, Wed)
 + supports `geom_msa` of `ggmsa`. (2021-01-21, Thu)
++ specific `position` method for *geom* automatically. (2021-01-27, Wed)
 
 # ggtreeExtra 1.1.3
 
