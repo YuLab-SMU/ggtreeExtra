@@ -392,10 +392,14 @@ choose_pos <- function(object){
 dodpos <- c("geom_boxplot", "geom_violin", "geom_boxplot_pattern", 
             "geom_violin_pattern", "geom_boxploth", "geom_violinh")
 
-idepos <- c("geom_point", "geom_star", "geom_symbol",
-            "geom_tile", "geom_tile_pattern", "geom_scatterpie",
+idepos <- c("geom_dots", "geom_dotsinterval", "geom_pointinterval",
+            "geom_slab", "geom_slabinterval", "geom_image", "geom_phylopic",
+            "geom_point", "geom_tile", "geom_text", "geom_label", "geom_raster",
+            "geom_plot", "geom_table", "geom_star", "geom_symbol", 
+            "geom_tile_pattern", "geom_scatterpie",
             "geom_text_repel", "geom_label_repel",
-            "geom_image", "geom_phylopic", "geom_msa")
+            "geom_msa", "geom_richtext", "geom_ridgeline",
+            "geom_ridgeline_gradient")
 
 stackpos <- c("geom_bar", "geom_barh", "geom_bar_pattern", "geom_col", "geom_colh", "geom_col_pattern")
 
