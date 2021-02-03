@@ -69,6 +69,16 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     obj$position <- position_identityx(hexpand=position$hexpand)
     obj <- c(obj, axis.dot.params)
     obj <- do.call("geom_text", obj)
+    if (!is.null(axis.params$title)){
+        yindex <- ifelse(is.null(axis.params$title.height), 0.1, axis.params$title.height)
+        titledat <- data.frame(x=mean(dat[[newxid]], na.rm=TRUE), y=yr[2]*(1+yindex), label=axis.params$title)
+        titleobj <- list(size=axis.params$title.size, angle=axis.params$title.angle, color=axis.params$title.color)
+        titleobj$data <- titledat
+        titleobj$mapping <- aes_(x=~x, y=~y, label=~label)
+        titleobj$position <- position_identityx(hexpand=position$hexpand)
+        titleobj <- do.call("geom_text", titleobj)
+        obj <- list(obj, titleobj)
+    }
     if (nrow(dat)==1){
         dat2 <- data.frame(x=dat[[newxid]]-yr[1]/8, xend=dat[[newxid]]+yr[1]/8)
     }else{
