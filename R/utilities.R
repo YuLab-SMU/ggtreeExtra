@@ -95,5 +95,21 @@ confuse_params <- function(inputp){
         inputp$line.color <- inputp$line.col
         inputp$line.col <- NULL
     }
+    #if (!is.null(inputp$text.colour)){
+    #    inputp$text.color <- inputp$text.colour
+    #    inputp$text.colour <- NULL
+    #}
+    #if (!is.null(inputp$text.col)){
+    #    inputp$text.color <- inputp$text.col
+    #    inputp$text.col <- NULL
+    #}
+    if (!is.null(inputp$title.colour)){
+        inputp$title.color <- inputp$title.colour
+        inputp$title.colour <- NULL
+    }
+    if (!is.null(inputp$title.col)){
+        inputp$title.col <- inputp$title.col
+        inputp$title.col <- NULL
+    }
     return(inputp)
 }
