@@ -1,3 +1,8 @@
+# ggtreeExtra 1.1.4.991
+
++ support `title` of panel. (2021-02-03, Wed)
+  - <https://github.com/YuLab-SMU/ggtreeExtra/issues/7>
+
 # ggtreeExtra 1.1.4
 
 + add `position_points_jitterx` and `position_raincloudx` for **geom** of `ggridges`. (2021-01-20, Wed)
