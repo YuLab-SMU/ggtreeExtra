@@ -14,27 +14,34 @@ Yu](https://guangchuangyu.github.io)
 
 School of Basic Medical Sciences, Southern Medical University.
 
-`ggtreeExtra` has not been published, if you use `ggtreeExtra` in
-published research. Please cite the most appropriate paper(s) from this
-list:
+If you use `ggtreeExtra` in published research. Please cite the papers
+from this list:
 
-1.  **G Yu**. Using ggtree to visualize data on tree-like structures.
-    ***Current Protocols in Bioinformatics***, 2020, 69:e96. doi:
-    [10.1002/cpbi.96](https://doi.org/10.1002/cpbi.96).
-      - [Source code and data to reproduce figures in the
-        article](https://github.com/GuangchuangYu/ggtree-current-protocols)
-2.  **G Yu**<sup>\*</sup>, TTY Lam, H Zhu, Y Guan<sup>\*</sup>. Two
-    methods for mapping and visualizing associated data on phylogeny
-    using ggtree. ***Molecular Biology and Evolution***, 2018,
-    35(2):3041-3043. doi:
-    [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
+1.  **S Xu**, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen,
+    L Zhan, T Wu, E Hu and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact
+    visualization of richly annotated phylogenetic data. ***Research
+    Square*** doi:
+    [10.21203/rs.3.rs-155672/v1](https://doi.org/10.21203/rs.3.rs-155672/v1).
       - [Source code to produce Supplementary
-        Material](https://github.com/GuangchuangYu/plotting_tree_with_data)
-3.  **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an
+        Material](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra)
+2.  **G Yu**, DK Smith, H Zhu, Y Guan, TTY Lam<sup>\*</sup>. ggtree: an
     R package for visualization and annotation of phylogenetic trees
     with their covariates and other associated data. ***Methods in
     Ecology and Evolution***. 2017, 8(1):28-36. doi:
     [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
+
+<!--
+
+1. __G Yu__. Using ggtree to visualize data on tree-like structures. __*Current Protocols in Bioinformatics*__, 2020, 69:e96. doi: [10.1002/cpbi.96](https://doi.org/10.1002/cpbi.96).
+   - [Source code and data to reproduce figures in the article](https://github.com/GuangchuangYu/ggtree-current-protocols)
+2. __G Yu__^\*^, TTY Lam, H Zhu, Y Guan^\*^. Two methods for mapping and visualizing associated data on phylogeny using ggtree. __*Molecular Biology and Evolution*__, 2018, 35(2):3041-3043. 
+   doi: [10.1093/molbev/msy194](https://doi.org/10.1093/molbev/msy194).
+   - [Source code to produce Supplementary Material](https://github.com/GuangchuangYu/plotting_tree_with_data)
+3. __G Yu__, DK Smith, H Zhu, Y Guan, TTY Lam^\*^. ggtree: an R package for visualization and annotation of phylogenetic trees with their covariates and 
+   other associated data. __*Methods in Ecology and Evolution*__. 2017, 8(1):28-36. 
+   doi: [10.1111/2041-210X.12628](https://doi.org/10.1111/2041-210X.12628).
+
+-->
 
 # :arrow\_double\_down: Installation
 
