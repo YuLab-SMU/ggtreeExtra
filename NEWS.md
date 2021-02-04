@@ -2,12 +2,13 @@
 
 + support `title` of panel. (2021-02-03, Wed)
   - <https://github.com/YuLab-SMU/ggtreeExtra/issues/7>
++ add citation info. (2021-02-04, Thu)
 
 # ggtreeExtra 1.1.4
 
 + add `position_points_jitterx` and `position_raincloudx` for **geom** of `ggridges`. (2021-01-20, Wed)
 + supports `geom_msa` of `ggmsa`. (2021-01-21, Thu)
-+ specific `position` method for *geom* automatically. (2021-01-27, Wed)
++ specific `position` method for specific *geom* method automatically. (2021-01-27, Wed)
 
 # ggtreeExtra 1.1.3
 
