@@ -23,7 +23,7 @@ cat(packageDescription('ggtreeExtra')$Description)
 
 School of Basic Medical Sciences, Southern Medical University.
 
-If you use `ggtreeExtra` in published research. Please cite the papers from this list:
+If you use `ggtreeExtra` in published research. Please cite the paper:
 
 __S Xu__, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu and __G Yu__<sup>\*</sup>. ggtreeExtra: Compact visualization of richly annotated phylogenetic data. __*Research Square*__ doi: [10.21203/rs.3.rs-155672/v1](https://doi.org/10.21203/rs.3.rs-155672/v1).
    - [Source code to produce Supplementary Material](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra)

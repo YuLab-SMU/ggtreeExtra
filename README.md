@@ -14,8 +14,7 @@ Yu](https://guangchuangyu.github.io)
 
 School of Basic Medical Sciences, Southern Medical University.
 
-If you use `ggtreeExtra` in published research. Please cite the papers
-from this list:
+If you use `ggtreeExtra` in published research. Please cite the paper:
 
 **S Xu**, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L
 Zhan, T Wu, E Hu and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact
