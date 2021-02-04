@@ -1,0 +1,30 @@
+citHeader("To cite ggtreeExtra in publications use:")
+
+citEntry(
+    entry  = "article",
+    title  = "ggtreeExtra: Compact visualization of richly annotated phylogenetic data",
+    author = personList(
+        as.person("Shuangbin Xu"),
+        as.person("Zehan Dai"),
+        as.person("Pingfan Guo"),
+        as.person("Xiaocong Fu"),
+        as.person("Shanshan Liu"),
+        as.person("Lang Zhou"),
+        as.person("Wenli Tang"),
+        as.person("Tingze Feng"),
+        as.person("Meijun Chen"),
+        as.person("Li Zhan"),
+        as.person("Tianzi Wu"),
+        as.person("Erqiang Hu"),
+        as.person("Guangchuang Yu")
+        ),
+    year    = "2021",
+    journal = "Research Square",
+    ISSN    = "2693-5015",
+    doi     = "10.21203/rs.3.rs-155672/v1",
+    PMID    = "",
+    url     = "",
+    textVersion = paste("SB Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, G Yu.",
+                        "ggtreeExtra: Compact visualization of richly annotated phylogenetic data.",
+                        "Research Square. doi: 10.21203/rs.3.rs-155672/v1, (preprint).")
+)
