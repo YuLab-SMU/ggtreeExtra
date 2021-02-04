@@ -3,6 +3,7 @@
 + support `title` of panel. (2021-02-03, Wed)
   - <https://github.com/YuLab-SMU/ggtreeExtra/issues/7>
 + add citation info. (2021-02-04, Thu)
++ don't use `svg` dev. (2021-02-04, Thu)
 
 # ggtreeExtra 1.1.4
 

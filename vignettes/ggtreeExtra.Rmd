@@ -23,7 +23,9 @@ vignette: >
 ```{r, include = FALSE, results="asis", message=FALSE, KnitrSetUp}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>"
+  comment = "#>",
+  dev="svg",
+  eval=capabilities("cairo")
 )
 
 Biocpkg <- function (pkg){
@@ -77,7 +79,7 @@ To show the package profiling, I will use a tree file downloaded from [plotTree]
 
 ## 3.1 add single layer
 
-```{r, fig.align="center", fig.height=7, fig.width=7, dpi=300, warning=FALSE, singlelayer}
+```{r, fig.align="center", fig.height=7, fig.width=7, warning=FALSE, singlelayer}
 # The path of tree file.
 trfile <- system.file("extdata", "tree.nwk", package="ggtreeExtra")
 # The path of file to plot tippoint.
@@ -251,7 +253,7 @@ p5
 
 In the section, I will randomly create a tree and associated datasets.
 
-```{r, fig.align="center", fig.width=7, fig.width=7, dpi=300, multilayer}
+```{r, fig.align="center", fig.width=7, fig.width=7, multilayer}
 # To reproduce.
 set.seed(1024)
 # generate 100 tip point tree.
