@@ -106,37 +106,37 @@ knitr::kable(head(dat3))
 p <- ggtree(tree, layout="fan", open.angle=10, size=0.5)
 p
 
-# Next, we can use %<+% of ggtree to add annotation dataset to tree.
-p1 <- p %<+% dat1
-p1
-# We use geom_star to add point layer outside of tree.
-p2 <- p1 + 
-      geom_star(
-          mapping=aes(fill=Location, size=Length, starshape=Group),
-          starstroke=0.2
-      ) +
-      scale_size_continuous(
-          range=c(1, 3),
-          guide=guide_legend(
-                     keywidth=0.5, 
-                     keyheight=0.5, 
-                     override.aes=list(starshape=15), 
-                     order=2)
-      ) + 
-      scale_fill_manual(
-          values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
-          guide="none" # don't show the legend.
-      ) + 
-      scale_starshape_manual(
-          values=c(1, 15),
-          guide=guide_legend(
-                    keywidth=0.5, # adjust width of legend
-                    keyheight=0.5, # adjust height of legend
-                    order=1 # adjust the order of legend for multiple legends.
-                ),
-          na.translate=FALSE # to remove the NA legend.
-      ) 
-p2
+## Next, we can use %<+% of ggtree to add annotation dataset to tree.
+#p1 <- p %<+% dat1
+#p1
+## We use geom_star to add point layer outside of tree.
+#p2 <- p1 + 
+#      geom_star(
+#          mapping=aes(fill=Location, size=Length, starshape=Group),
+#          starstroke=0.2
+#      ) +
+#      scale_size_continuous(
+#          range=c(1, 3),
+#          guide=guide_legend(
+#                     keywidth=0.5, 
+#                     keyheight=0.5, 
+#                     override.aes=list(starshape=15), 
+#                     order=2)
+#      ) + 
+#      scale_fill_manual(
+#          values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
+#          guide="none" # don't show the legend.
+#      ) + 
+#      scale_starshape_manual(
+#          values=c(1, 15),
+#          guide=guide_legend(
+#                    keywidth=0.5, # adjust width of legend
+#                    keyheight=0.5, # adjust height of legend
+#                    order=1 # adjust the order of legend for multiple legends.
+#                ),
+#          na.translate=FALSE # to remove the NA legend.
+#      ) 
+#p2
 
 # Or if we don't use %<+% to add annotation dataset, instead of data parameter of geom_fruit. 
 # You should specify the y column (tip label), here is y=ID.
