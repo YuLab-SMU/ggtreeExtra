@@ -23,9 +23,7 @@ vignette: >
 ```{r, include = FALSE, results="asis", message=FALSE, KnitrSetUp}
 knitr::opts_chunk$set(
   collapse = TRUE,
-  comment = "#>",
-  dev="svg",
-  eval=capabilities("cairo")
+  comment = "#>"
 )
 
 Biocpkg <- function (pkg){
