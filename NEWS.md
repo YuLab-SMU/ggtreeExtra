@@ -1,4 +1,4 @@
-# ggtreeExtra 1.1.4.991
+# ggtreeExtra 1.1.5
 
 + support `title` of panel. (2021-02-03, Wed)
   - <https://github.com/YuLab-SMU/ggtreeExtra/issues/7>
