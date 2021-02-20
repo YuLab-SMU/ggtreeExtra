@@ -20,7 +20,7 @@ If you use `ggtreeExtra` in published research. Please cite the paper:
 Zhan, T Wu, E Hu and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact
 visualization of richly annotated phylogenetic data. ***Research
 Square*** doi:
-[10.21203/rs.3.rs-155672/v1](https://doi.org/10.21203/rs.3.rs-155672/v1).
+[10.21203/rs.3.rs-155672/v2](https://doi.org/10.21203/rs.3.rs-155672/v2).
 - [Source code to produce Supplementary
 Material](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra)
 

@@ -118,6 +118,6 @@ ggtreeExtra_citations <- function(){
     paste(
         "SB Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, G Yu.",
         "ggtreeExtra: Compact visualization of richly annotated phylogenetic data.",
-        "Research Square. doi: 10.21203/rs.3.rs-155672/v1, (preprint).\n"
+        "Research Square. doi: 10.21203/rs.3.rs-155672/v2, (preprint).\n"
         )
 }
