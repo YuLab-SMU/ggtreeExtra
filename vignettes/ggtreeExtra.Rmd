@@ -181,12 +181,7 @@ p3 <- p2 +
           geom=geom_tile,
           mapping=aes(y=ID, x=Pos, fill=Type),
           offset=0.08,   # The distance between layers, default is 0.03 of x range of tree.
-          pwidth=0.25, # width of the layer, default is 0.2 of x range of tree.
-          axis.params=list(                
-                        axis="x",  # add axis text of the layer.
-                        text.angle=-45, # the text size of axis.
-                        hjust=0  # adust the horizontal position of text of axis.
-                      )
+          pwidth=0.25 # width of the layer, default is 0.2 of x range of tree.
       ) + 
       scale_fill_manual(
           values=c("#339933", "#dfac03"),
