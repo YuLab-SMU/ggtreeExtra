@@ -5,7 +5,7 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
     newxid <- paste0("new_", xid)
     yr <- range(dat$y)
     daline3 <- dat[,"y",drop=FALSE]
-    if(all(dat$x>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
+    if(is.numeric(dat[[xid]]) && all(dat$x>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
         flagrev <- TRUE
     }else{
         flagrev <- FALSE
@@ -49,7 +49,7 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
 build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     newxid <- paste0("new_", xid)
     yr <- range(dat$y)
-    if(all(dat$x>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
+    if(is.numeric(dat[[xid]]) &&all(dat$x>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
         flagrev <- TRUE
     }else{
         flagrev <- FALSE
