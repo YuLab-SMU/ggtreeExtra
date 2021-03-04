@@ -1,4 +1,4 @@
-# ggtreeExtra 1.1.5.991
+# ggtreeExtra 1.1.6
 
 + check whether the value of x is numeric to avoid warnings when x is factor. (2021-02-24, Wed)
 + remove axis of first `geom_tile` of vignettes, since the axis of this layer is meaningless. (2021-02-24, wed)
