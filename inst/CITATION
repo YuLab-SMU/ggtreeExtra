@@ -21,10 +21,10 @@ citEntry(
     year    = "2021",
     journal = "Research Square",
     ISSN    = "2693-5015",
-    doi     = "10.21203/rs.3.rs-155672/v1",
+    doi     = "10.21203/rs.3.rs-155672/v2",
     PMID    = "",
     url     = "",
     textVersion = paste("SB Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, G Yu.",
                         "ggtreeExtra: Compact visualization of richly annotated phylogenetic data.",
-                        "Research Square. doi: 10.21203/rs.3.rs-155672/v1, (preprint).")
+                        "Research Square. doi: 10.21203/rs.3.rs-155672/v2, (preprint).")
 )
