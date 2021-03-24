@@ -1,15 +1,15 @@
 Package: ggtreeExtra
 Type: Package 
-Title: An R Package To Add Geom Layers On Circular Or Other Layout Tree Of "ggtree"
-Version: 1.1.6
+Title: An R Package To Add Geometric Layers On Circular Or Other Layout Tree Of "ggtree"
+Version: 1.1.6.990
 Authors@R: c(
       person(given = "Shuangbin", family = "Xu", role = c("aut", "cre"), email = "xshuangbin@163.com", comment = c(ORCID = "0000-0003-3513-5362")),
       person("Guangchuang", "Yu", email = "guangchuangyu@gmail.com", role = c("aut", "ctb"), comment = c(ORCID = "0000-0002-6485-8781"))
       )
 Description: 'ggtreeExtra' extends the method for mapping and visualizing associated 
               data on phylogenetic tree using 'ggtree'. These associated data can be 
-              mapped to circular layout, fan layout, or other layout tree built by 
-              'ggtree' with the grammar of 'ggplot2'.
+              presented on the external panels to circular layout, fan layout, or other 
+              rectangular layout tree built by 'ggtree' with the grammar of 'ggplot2'.
 Imports:
     ggplot2,
     utils,
