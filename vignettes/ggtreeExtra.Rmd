@@ -50,7 +50,7 @@ library(ggnewscale)
 
 # 1. Introduction
 
-Phylogenetic trees was often used with associated data in various biological studies. `r Biocpkg("ggtree")`, a flexible R package to visualize phylogenetic tree, had been developed by GuangChuang Yu [@yu2017ggtree]. It provided `geom_facet` function to align associated graphs to the tree [@yu2018two; @yu2020ggtree]. However, This function did not support the tree created using `circular`, `fan` or `radial` layout. To solve the problem, We developed `ggtreeExtra`, which can align associated graphs to `circular`, `fan` or `radial` and other `rectangular` layout tree. `ggtreeExtra` provides function, `geom_fruit` to align graphs to the tree. But the associated graphs will align in different position. So we also developed `geom_fruit_list` to add multiple layers in the same position. Furthermore, `axis` of external layers can be added using the `axis.params=list(axis="x",...)` in `geom_fruit`. The `grid lines` of external layers can be added using the `grid.params=list()` in `geom_fruit`. These functions are based on `r CRANpkg("ggplot2")` using grammar of graphics [@hadlyggplot2]. More vignettes can be found on the [`chapter10`](https://yulab-smu.top/treedata-book/chapter10.html) of [online book](http://yulab-smu.top/treedata-book).
+Phylogenetic trees was often used with associated data in various biological studies. `r Biocpkg("ggtree")`, a flexible R package to visualize phylogenetic tree, had been developed by GuangChuang Yu [@yu2017ggtree]. It provided `geom_facet` function to align associated graphs to the tree [@yu2018two; @yu2020ggtree]. However, This function only works with `rectangular`, `roundrect`, `ellipse` and `slanted` layouts to present tree data on external panels. There is no direct supports in `ggtree` to present associated data on the outer rings of phylogenetic tree in `circular`, `fan` or `radial` layout. To solve the problem, We developed `ggtreeExtra`, which can align associated graphs to `circular`, `fan` or `radial` and other `rectangular` layout tree. `ggtreeExtra` provides function, `geom_fruit` to align graphs to the tree. But the associated graphs will align at the different position of external panels of the tree. So we also developed `geom_fruit_list` to add multiple layers at the same position of external panels of tree. Furthermore, `axis` of external layers can be added using the `axis.params=list(axis="x",...)` in `geom_fruit`. The `grid lines` of external layers can be added using the `grid.params=list()` in `geom_fruit`. These functions are based on `r CRANpkg("ggplot2")` using grammar of graphics [@hadlyggplot2]. More vignettes can be found on the [`chapter10`](https://yulab-smu.top/treedata-book/chapter10.html) of [online book](http://yulab-smu.top/treedata-book).
 
 # 2. Install
 
@@ -73,21 +73,21 @@ BiocManager::install("ggtreeExtra")
 
 # 3. Usage
 
-To show the package profiling, I will use a tree file downloaded from [plotTree](https://github.com/katholt/plotTree/blob/master/tree_example_april2015/tree.nwk). The associated datasets were simulated. 
+To show the package profiling, I will use a tree file downloaded from [plotTree](https://github.com/katholt/plotTree/blob/master/tree_example_april2015/tree.nwk). The associated datasets were simulated, All of them have one column contained taxa labels of tree. 
 
 ## 3.1 add single layer
 
 ```{r, fig.align="center", fig.height=7, fig.width=7, warning=FALSE, singlelayer}
 # The path of tree file.
 trfile <- system.file("extdata", "tree.nwk", package="ggtreeExtra")
-# The path of file to plot tippoint.
+# The path of file to plot tip point.
 tippoint1 <- system.file("extdata", "tree_tippoint_bar.csv", package="ggtreeExtra")
 # The path of first layer outside of tree.
 ring1 <- system.file("extdata", "first_ring_discrete.csv", package="ggtreeExtra")
 # The path of second layer outside of tree.
 ring2 <- system.file("extdata", "second_ring_continuous.csv", package="ggtreeExtra")
 
-# The tree file was import using read.tree. If you have other format of tree, you can use corresponding function of treeio to read it.
+# The tree file was imported using read.tree. If you have other tree format files, you can use corresponding functions from treeio package to read it.
 tree <- read.tree(trfile)
 
 # This dataset will to be plotted point and bar.
@@ -100,7 +100,7 @@ knitr::kable(head(dat2))
 dat3 <- read.csv(ring2)
 knitr::kable(head(dat3))
 # The format of the datasets is the long shape for ggplot2. If you have short shape dataset,
-# you can use melt of reshape2 or pivot_longer of tidyr to convert it.
+# you can use `melt` of `reshape2` or `pivot_longer` of `tidyr` to convert it.
 
 # We use ggtree to create fan layout tree. 
 p <- ggtree(tree, layout="fan", open.angle=10, size=0.5)
@@ -138,8 +138,11 @@ p
 #      ) 
 #p2
 
-# Or if we don't use %<+% to add annotation dataset, instead of data parameter of geom_fruit. 
-# You should specify the y column (tip label), here is y=ID.
+# Or if you don't use %<+% to import annotation dataset, instead of `data` parameter of `geom_fruit`. 
+
+# You should specify the column contained tip labels to y axis of `mapping`, here is `y=ID`.
+
+# the `position` parameter was set to `identity` to add the points on the tip nodes.
 p2 <- p + 
       geom_fruit(
           data=dat1,
@@ -159,7 +162,7 @@ p2 <- p +
       ) +
       scale_fill_manual(
           values=c("#F8766D", "#C49A00", "#53B400", "#00C094", "#00B6EB", "#A58AFF", "#FB61D7"),
-          guide="none"
+          guide="none" 
       ) + 
       scale_starshape_manual(
           values=c(1, 15),
@@ -171,17 +174,17 @@ p2 <- p +
       )
 p2
 
-# Next, I will add a heatmap layer on the p2 using `geom_tile` of ggplot2.
-# Since I want to use fill to map some variable of dataset and the fill of p2 had been mapped.
-# So I need use `new_scale_fill` to initialize it.
+# Next, we will add a heatmap layer on the outer ring of p2 using `geom_tile` of `ggplot2`.
+# Since we want to map some variable of dataset to the `fill` aesthetics of `geom_tile`, but 
+# the `fill` of p2 had been mapped. So I need use `new_scale_fill` of `ggnewscale` package to initialize it.
 p3 <- p2 + 
       new_scale_fill() + 
       geom_fruit(
           data=dat2,
           geom=geom_tile,
           mapping=aes(y=ID, x=Pos, fill=Type),
-          offset=0.08,   # The distance between layers, default is 0.03 of x range of tree.
-          pwidth=0.25 # width of the layer, default is 0.2 of x range of tree.
+          offset=0.08,   # The distance between external layers, default is 0.03 times of x range of tree.
+          pwidth=0.25 # width of the external layer, default is 0.2 times of x range of tree.
       ) + 
       scale_fill_manual(
           values=c("#339933", "#dfac03"),
@@ -189,7 +192,7 @@ p3 <- p2 +
       ) 
 p3
 
-# We can also add heatmap layer for continuous values.
+# You can also add heatmap layer for continuous values.
 p4 <- p3 + 
       new_scale_fill() +
       geom_fruit(
@@ -199,8 +202,8 @@ p4 <- p3 +
           pwidth=0.15,
           axis.params=list(
                           axis="x", # add axis text of the layer.
-                          text.angle=-45, # the text size of axis.
-                          hjust=0  # adust the horizontal position of text of axis.
+                          text.angle=-45, # the text angle of x-axis.
+                          hjust=0  # adjust the horizontal position of text of axis.
                       )
       ) +
       scale_fill_manual(
@@ -212,20 +215,20 @@ p4 <- p3 +
           guide=guide_legend(keywidth=0.5, keyheight=0.5, order=5)
       ) 
 
-# Then we add a bar layer outside of the tree.
+# Then add a bar layer outside of the tree.
 p5 <- p4 + 
       new_scale_fill() +
       geom_fruit(
-          data=dat1, # The abundance of dat1 will be mapped to x, 
+          data=dat1,
           geom=geom_bar,
-          mapping=aes(y=ID, x=Abundance, fill=Location),
+          mapping=aes(y=ID, x=Abundance, fill=Location),  #The 'Abundance' of 'dat1' will be mapped to x
           pwidth=0.4,
           stat="identity",
           orientation="y", # the orientation of axis.
           axis.params=list(
                           axis="x", # add axis text of the layer.
                           text.angle=-45, # the text size of axis.
-                          hjust=0  # adust the horizontal position of text of axis.
+                          hjust=0  # adjust the horizontal position of text of axis.
                       ),
           grid.params=list() # add the grid line of the external bar plot.
       ) + 
@@ -244,14 +247,14 @@ p5
 
 ## 3.2 add multiple layers on the same position.
 
-In the section, I will randomly create a tree and associated datasets.
+In the section, we generated a simulated tree and simulated associated datasets. Then, `geom_fruit_list` was used to add multiple layers at the same position of external panels of the tree.
 
 ```{r, fig.align="center", fig.width=7, fig.width=7, multilayer}
 # To reproduce.
 set.seed(1024)
 # generate 100 tip point tree.
 tr <- rtree(100)
-# I generate three datasets, which are the same except the third column name.
+# generate three datasets, which are the same except the third column name.
 dt <- data.frame(id=tr$tip.label, value=abs(rnorm(100)), group=c(rep("A",50),rep("B",50)))
 df <- dt
 dtf <- dt
