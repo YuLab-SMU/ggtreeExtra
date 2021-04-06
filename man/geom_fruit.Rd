@@ -106,10 +106,12 @@ layout tree side by side. Note: the tree should be created by 'ggtree'.
 \details{
 The 'data' parameter is data.frame or tibble type, it is the same with the data for corresponding
 geometric layers, but it must contain one column of taxa labels of tree, it will be mapped to 'y' axis
-in 'mapping'.
+in 'mapping'. When 'data' is not provided, the associated data in tree data will be extracted automatically,
+and the 'y' axis don't need to be mapped.
 
 The 'mapping' parameter is setting of aesthetic mappings created by 'aes()' or 'aes_()' of 'ggplot2',
-the y should be assigned to the variable names of column of taxa labels in data.frame of 'data'.
+the 'y' should be assigned to the variable names of column of taxa labels in data.frame of 'data', only if
+the 'data' is not provided, see the above.
 
 The 'geom' parameter is the geometric function defined in 'ggplot2' or other 'ggplot2-extension',
 e.g.
