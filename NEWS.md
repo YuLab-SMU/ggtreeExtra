@@ -1,3 +1,7 @@
+# ggtreeExtra 1.1.7
+
++ update man and vignettes. (2021-04-06, Tue)
+
 # ggtreeExtra 1.1.6
 
 + check whether the value of x is numeric to avoid warnings when x is factor. (2021-02-24, Wed)
