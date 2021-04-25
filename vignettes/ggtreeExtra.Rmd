@@ -50,11 +50,14 @@ library(ggnewscale)
 
 # 1. Introduction
 
-Phylogenetic trees was often used with associated data in various biological studies. `r Biocpkg("ggtree")`, a flexible R package to visualize phylogenetic tree, had been developed by GuangChuang Yu [@yu2017ggtree]. It provided `geom_facet` function to align associated graphs to the tree [@yu2018two; @yu2020ggtree]. However, This function only works with `rectangular`, `roundrect`, `ellipse` and `slanted` layouts to present tree data on external panels. There is no direct supports in `ggtree` to present associated data on the outer rings of phylogenetic tree in `circular`, `fan` or `radial` layout. To solve the problem, We developed `ggtreeExtra`, which can align associated graphs to `circular`, `fan` or `radial` and other `rectangular` layout tree. `ggtreeExtra` provides function, `geom_fruit` to align graphs to the tree. But the associated graphs will align at the different position of external panels of the tree. So we also developed `geom_fruit_list` to add multiple layers at the same position of external panels of tree. Furthermore, `axis` of external layers can be added using the `axis.params=list(axis="x",...)` in `geom_fruit`. The `grid lines` of external layers can be added using the `grid.params=list()` in `geom_fruit`. These functions are based on `r CRANpkg("ggplot2")` using grammar of graphics [@hadlyggplot2]. More vignettes can be found on the [`chapter10`](https://yulab-smu.top/treedata-book/chapter10.html) of [online book](http://yulab-smu.top/treedata-book).
+The `geom_facet` function provided in the `r Biocpkg("ggtree")` package [@yu2017ggtree] was designed to align associated graphs to the tree [@yu2018two]. It only works with `rectangular`, `roundrect`, `ellipse` and `slanted` layouts to present tree data on external panels. To extend `r Biocpkg("ggtree")` to present associated data on the outer rings of phylogenetic tree in `circular`, `fan` and `radial` layouts, we developed `r Biocpkg("ggtreeExtra")`, which is able to align associated graphs with a tree in `rectangular`, `circular`, `fan` and `radial` layouts.
+
+
+The `ggtreeExtra` package provides a function, `geom_fruit`, to align graphs to a tree. The associated graphs will align at different positions of the external panels of the tree. We also developed `geom_fruit_list` to add multiple layers at the same external panel of tree. Furthermore, `axis` of an external layer can be added using the `axis.params=list(axis="x",...)` in `geom_fruit`. Background grid lines of an external layer can be added using the `grid.params=list()` in `geom_fruit`. These functions are based on `r CRANpkg("ggplot2")` and support using grammar of graphics [@hadlyggplot2]. See also [Chapter10](https://yulab-smu.top/treedata-book/chapter10.html) of the [online book](http://yulab-smu.top/treedata-book).
 
 # 2. Install
 
-You can use the following to install it
+You can use the following commands to install it
 
 ```{r, eval=FALSE, INSTALL}
 # for devel
@@ -73,7 +76,7 @@ BiocManager::install("ggtreeExtra")
 
 # 3. Usage
 
-To show the package profiling, I will use a tree file downloaded from [plotTree](https://github.com/katholt/plotTree/blob/master/tree_example_april2015/tree.nwk). The associated datasets were simulated, All of them have one column contained taxa labels of tree. 
+To demonstrate the usages of the package, we use a tree file downloaded from [plotTree](https://github.com/katholt/plotTree/blob/master/tree_example_april2015/tree.nwk) with simulated associated datasets. All the simulated datasets contain one column of taxa labels of the tree. 
 
 ## 3.1 add single layer
 
@@ -247,7 +250,7 @@ p5
 
 ## 3.2 add multiple layers on the same position.
 
-In the section, we generated a simulated tree and simulated associated datasets. Then, `geom_fruit_list` was used to add multiple layers at the same position of external panels of the tree.
+In the section, we simulated a tree with several associated datasets, and used `geom_fruit_list` to add multiple layers at the same external panel of the tree.
 
 ```{r, fig.align="center", fig.width=7, fig.width=7, multilayer}
 # To reproduce.
