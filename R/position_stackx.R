@@ -123,6 +123,7 @@ PositionStackx <- ggproto("PositionStackx", Position,
         data$xmin <- data$xmin + params$hexpand
         data$xmax <- data$xmax + params$hexpand
     }
-    data <- data.frame(data, check.names=FALSE)
+    data #<- data.frame(data, check.names=FALSE)
+
   }
 )

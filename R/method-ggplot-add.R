@@ -139,6 +139,8 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
         if (inherits(o, "fruit_plot")){
             offset.i <- get_offset(plot$data$x, o$offset)
             if (offset != offset.i && n != 1){
+                warning_wrap("The 'offset' argument of geom_fruit layers in geom_fruit_list is different. 
+                              Please keep it consistent if you want to display these layers on the same position.")
                 hexpand2 <- max(abs(plot$data$x), na.rm=TRUE) + offset.i
             }
             o[["params"]][["position"]][["hexpand"]] <- hexpand2

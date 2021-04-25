@@ -143,7 +143,7 @@ pos_dodgex <- function(data, hexpand, vexpand){
          data$notchlower <- data$notchlower + vhexpand
       }
    }
-   data <- data.frame(data, check.names=FALSE)
+   data #<- data.frame(data, check.names=FALSE)
 }
 
 get_outliers <- function(outliers, vhexpand){

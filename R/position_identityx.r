@@ -60,6 +60,6 @@ PositionIdentityx <- ggproto("PositionIdentityx", Position,
            data$xend <- data$xend + params$hexpand
        }
     }
-    data <- data.frame(data, check.names=FALSE)
+    data #<- data.frame(data, check.names=FALSE)
   }
 )
