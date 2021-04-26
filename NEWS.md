@@ -1,3 +1,8 @@
+# ggtreeExtra 1.1.8
+
++ add new `position` functions: `position_jitterx` and `position_jitterdodgex`. (2021-04-23, Fri)
++ update vignettes. (2021-04-25, Sun)
+
 # ggtreeExtra 1.1.7
 
 + update man and vignettes. (2021-04-06, Tue)
