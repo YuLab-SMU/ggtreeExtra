@@ -255,7 +255,7 @@ In the section, we simulated a tree with several associated datasets, and used `
 ```{r, fig.align="center", fig.width=7, fig.width=7, multilayer}
 # To reproduce.
 set.seed(1024)
-# generate 100 tip point tree.
+# generate a tree contained 100 tip labels.
 tr <- rtree(100)
 # generate three datasets, which are the same except the third column name.
 dt <- data.frame(id=tr$tip.label, value=abs(rnorm(100)), group=c(rep("A",50),rep("B",50)))
@@ -317,7 +317,7 @@ p3
 
 # 4. Need helps?
 
-If you have questions/issues, please visit [github issue tracker](https://github.com/YuLab-SMU/ggtreeExtra/issues). You also can post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree). Users are highly recommended to subscribe to the [mailing list](https://groups.google.com/forum/#!forum/bioc-ggtree).
+If you have any questions/issues, please visit [github issue tracker](https://github.com/YuLab-SMU/ggtreeExtra/issues). You also can post to [google group](https://groups.google.com/forum/#!forum/bioc-ggtree). Users are highly recommended to subscribe to the [mailing list](https://groups.google.com/forum/#!forum/bioc-ggtree).
 
 # 5. Session information
 
