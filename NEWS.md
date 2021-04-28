@@ -1,3 +1,7 @@
+# ggtreeExtra 1.1.8.990
+
++ don't inherit `aes` (global aes from the `ggtree`). (2021-04-28, Wed)
+
 # ggtreeExtra 1.1.8
 
 + add new `position` functions: `position_jitterx` and `position_jitterdodgex`. (2021-04-23, Fri)
