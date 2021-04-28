@@ -19,7 +19,7 @@
 ##' meaning the 0.2 times of x range of tree (0.2 * xrange of tree).
 ##' @param position Position adjustment, either as a string, or the result of a
 ##' call to a position adjustment function, default is 'auto', see details in the following.
-##' @param inherit.aes logical, If ‘FALSE’, overrides the default aesthetics, rather than
+##' @param inherit.aes logical, If 'FALSE', overrides the default aesthetics, rather than
 ##' combining with them. This is most useful for helper functions that define both data and 
 ##' aesthetics and shouldn't inherit behaviour from the default plot specification, 
 ##' default is FALSE.
