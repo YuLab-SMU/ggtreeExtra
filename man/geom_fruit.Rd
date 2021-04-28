@@ -12,6 +12,7 @@ geom_fruit(
   offset = 0.03,
   pwidth = 0.2,
   position = "auto",
+  inherit.aes = FALSE,
   grid.params = NULL,
   axis.params = list(axis = "none", text.angle = 0, text.size = 0.8, text = NULL, title
     = NULL, title.size = 3, title.height = 0.1, title.angle = 0, title.color = "black",
@@ -46,6 +47,11 @@ meaning the 0.2 times of x range of tree (0.2 * xrange of tree).}
 
 \item{position}{Position adjustment, either as a string, or the result of a
 call to a position adjustment function, default is 'auto', see details in the following.}
+
+\item{inherit.aes}{logical, If ‘FALSE’, overrides the default aesthetics, rather than
+combining with them. This is most useful for helper functions that define both data and
+aesthetics and shouldn't inherit behaviour from the default plot specification,
+default is FALSE.}
 
 \item{grid.params}{list, the parameters to control the attributes of grid lines,
 default is NULL, see the grid.params in the following.

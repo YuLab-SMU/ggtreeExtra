@@ -19,6 +19,10 @@
 ##' meaning the 0.2 times of x range of tree (0.2 * xrange of tree).
 ##' @param position Position adjustment, either as a string, or the result of a
 ##' call to a position adjustment function, default is 'auto', see details in the following.
+##' @param inherit.aes logical, If ‘FALSE’, overrides the default aesthetics, rather than
+##' combining with them. This is most useful for helper functions that define both data and 
+##' aesthetics and shouldn't inherit behaviour from the default plot specification, 
+##' default is FALSE.
 ##' @param grid.params list, the parameters to control the attributes of grid lines, 
 ##' default is NULL, see the grid.params in the following.
 ##'
@@ -166,6 +170,7 @@ geom_fruit <- function(mapping,
                        offset=0.03, 
                        pwidth=0.2, 
                        position="auto",
+                       inherit.aes = FALSE,
                        grid.params=NULL,
                        axis.params=list(
                                        axis="none",
@@ -194,7 +199,8 @@ geom_fruit <- function(mapping,
                                 alpha=1,
                                 lineend="butt",
                                 linejoin="round",
-                                vline=FALSE)
+                                vline=FALSE,
+                                inherit.aes=FALSE)
     default.axis.params <- list(axis="none",
                                 text.angle=0, 
                                 text.size=0.8,
@@ -207,7 +213,8 @@ geom_fruit <- function(mapping,
                                 line.size=0.2, 
                                 line.color="grey",
                                 nbreak=4,
-                                line.alpha=1)
+                                line.alpha=1,
+                                inherit.aes=FALSE)
     params <- list(...)
     grid.params <- reset_params(defaultp=default.grid.params, 
                                 inputp=substitute(grid.params))
@@ -236,6 +243,7 @@ geom_fruit <- function(mapping,
                params = params,
                offset = offset,
                pwidth = pwidth,
+               inherit.aes = inherit.aes,
                position=position,
                geomname=geomname,
                grid.params=grid.params,

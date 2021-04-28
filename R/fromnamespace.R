@@ -15,6 +15,8 @@ find_x_overlaps <- getFromNamespace("find_x_overlaps", "ggplot2")
 
 pos_dodge2 <- getFromNamespace("pos_dodge2", "ggplot2")
 
+get_layout <- getFromNamespace("get_layout", "ggtree")
+
 # from ggplot2
 with_seed_null <- function(seed, code) {
     if (is.null(seed)) {

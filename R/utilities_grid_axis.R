@@ -37,7 +37,8 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
                  colour=grid.params$color,
                  alpha=grid.params$alpha,
                  lineend=grid.params$lineend,
-                 linejoin=grid.params$linejoin)
+                 linejoin=grid.params$linejoin,
+                 inherit.aes=grid.params$inherit.aes)
     obj1$data <- daline1
     obj1$mapping <- aes_string(x="x", xend="xend", y="y", yend="yend")
     obj1$position <- position_identityx(hexpand=position$hexpand)
@@ -63,7 +64,7 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     if (nrow(dat)==1 && !is.null(text)){
         dat[[xid]] <- text
     }
-    obj <- list(size=axis.params$text.size, angle=axis.params$text.angle)
+    obj <- list(size=axis.params$text.size, angle=axis.params$text.angle, inherit.aes=axis.params$inherit.aes)
     obj$data <- dat
     obj$mapping <- aes_string(x=newxid, y=0, label=xid)
     obj$position <- position_identityx(hexpand=position$hexpand)
@@ -72,7 +73,8 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     if (!is.null(axis.params$title)){
         yindex <- ifelse(is.null(axis.params$title.height), 0.1, axis.params$title.height)
         titledat <- data.frame(x=mean(dat[[newxid]], na.rm=TRUE), y=yr[2]*(1+yindex), label=axis.params$title)
-        titleobj <- list(size=axis.params$title.size, angle=axis.params$title.angle, color=axis.params$title.color)
+        titleobj <- list(size=axis.params$title.size, angle=axis.params$title.angle, 
+                         color=axis.params$title.color, inherit.aes=axis.params$inherit.aes)
         titleobj$data <- titledat
         titleobj$mapping <- aes_(x=~x, y=~y, label=~label)
         titleobj$position <- position_identityx(hexpand=position$hexpand)
@@ -88,7 +90,8 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     obj2 <- list(
                 size=axis.params$line.size, 
                 colour=axis.params$line.color,
-                alpha=axis.params$line.alpha
+                alpha=axis.params$line.alpha,
+                inherit.aes=axis.params$inherit.aes
             )
     dat2$y <- yr[1]/10
     dat2$yend <- yr[1]/10

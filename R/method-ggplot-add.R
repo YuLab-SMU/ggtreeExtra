@@ -19,7 +19,8 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     plot <- res[[2]]
     xid <- res[[3]]
     yid <- as_name(object$mapping$y)
-    layout <- get("layout", envir = plot$plot_env)
+    #layout <- get("layout", envir = plot$plot_env)
+    layout <- get_layout(plot)
     flagreverse <- check_reverse(plot=plot)
     if (layout=="inward_circular" || flagreverse){
         orientation <- -1
@@ -94,7 +95,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }
     object$mapping = modifyList(object$mapping, aes_string(x=paste0("new_",xid)))
     mapping = modifyList(object$mapping, aes_(y=~y))
-    params <- c(list(data=dat, mapping=mapping), object$params)
+    params <- c(list(data=dat, mapping=mapping, inherit.aes=object$inherit.aes), object$params)
     obj <- do.call(object$geom, params)
     if (object$axis.params$axis != "none"){
         obj.axis <- build_axis(dat=dat,
