@@ -6,18 +6,22 @@
 ##' @author Shuangbin Xu
 ##' @export
 ggplot_add.fruit_plot <- function(object, plot, object_name){
-    if (!is.null(object$mapping$subset)){
-        if (is.null(object$data)){
-            stop("When the subset is provided in mapping, the data also should be provided!")
-        }else{
-            object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
-            object$mapping <- object$mapping[names(object$mapping)!="subset"]
-        }
-    }
+    #if (!is.null(object$mapping$subset)){
+    #    if (is.null(object$data)){
+    #        stop("When the subset is provided in mapping, the data also should be provided!")
+    #    }else{
+    #        object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
+    #        object$mapping <- object$mapping[names(object$mapping)!="subset"]
+    #    }
+    #}
     res <- set_mapping(object=object, plot=plot)
     object <- res[[1]]
     plot <- res[[2]]
     xid <- res[[3]]
+    if (!is.null(object$mapping$subset)){
+        object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
+        object$mapping <- object$mapping[names(object$mapping)!="subset"]
+    }
     yid <- as_name(object$mapping$y)
     #layout <- get("layout", envir = plot$plot_env)
     layout <- get_layout(plot)
@@ -158,122 +162,6 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
     plot
 }
 
-
-## ##' @method ggplot_add fruit_axis_text
-## ##' @author Shuangbin Xu
-## ##' @importFrom rlang as_name
-## ##' @export
-## ggplot_add.fruit_axis_text <- function(object, plot, object_name){
-##     if (is.null(object$nlayer)){
-##         nlayer <- extract_num_layer(plot=plot, num=length(plot$layers))
-##     }else{
-##         nlayer <- object$nlayer + 2 
-##     }
-##     xid <- as_name(plot$layers[[nlayer]]$mapping$x)
-##     orixid <- sub("new_", "", xid)
-##     dat <- plot$layers[[nlayer]]$data[,c(xid, orixid),drop=FALSE]
-##     dat <- create_text_data(data=dat, origin=orixid, newxid=xid, nbreak=object$nbreak)
-##     if (nrow(dat)==1 && !is.null(object$text)){
-##        dat[[orixid]] <- object$text
-##     }
-##     #dat[[xid]] <- dat[[xid]] + plot$layers[[nlayer]]$position$hexpand
-##     obj <- list(size=object$size, angle=object$angle)
-##     obj$data <- dat
-##     obj$mapping <- aes_string(x=xid, y=0, label=orixid)
-##     obj$position <- position_identityx(hexpand=plot$layers[[nlayer]]$position$hexpand)
-##     obj <- c(obj, object$params)
-##     attr(plot$layers[[nlayer]], "AddAxisText") <- TRUE
-##     yr <- range(plot$data$y)
-##     if (nrow(dat)==1){
-##         dat2 <- data.frame(x=dat[[xid]]-2*yr[1]/10, xend=dat[[xid]]+2*yr[1]/10)
-##     }else{
-##         dat2 <- data.frame(x=min(dat[[xid]])-min(dat[[xid]])/2,
-##                            xend=max(dat[[xid]])+min(dat[[xid]])/2)
-##     }
-##     obj2 <- list(size=object$linesize, colour=object$linecolour, alpha=object$linealpha)
-##     obj2$data <- dat2
-##     obj2$mapping <- aes_string(x="x",xend="xend",y=yr[1]/10, yend=yr[1]/10)
-##     obj2$position <- position_identityx(hexpand=plot$layers[[nlayer]]$position$hexpand)
-##     if (nrow(dat)==1){
-##         dat3 <- data.frame(x=c(dat[[xid]]-2*yr[1]/10, dat[[xid]], dat[[xid]]+2*yr[1]/10), 
-##                            xend=c(dat[[xid]]-2*yr[1]/10, dat[[xid]], dat[[xid]] + 2*yr[1]/10))
-##     }else{
-##         dat3 <- data.frame(x=dat[[xid]],xend=dat[[xid]])
-##     }
-##     dat3$y <- yr[1]/10
-##     dat3$yend <- yr[1]/20
-##     obj3 <- list(size=object$linesize, colour=object$linecolour, alpha=object$linealpha)
-##     obj3$data <- dat3
-##     obj3$mapping <- aes_string(x="x",xend="xend",y="y", yend="yend")
-##     obj3$position <- position_identityx(hexpand=plot$layers[[nlayer]]$position$hexpand)
-##     if (nlayer > 2 && "hexpand" %in% names(plot$layers[[nlayer]]$position)){
-##         obj2 <- do.call("geom_segment", obj2)
-##         obj3 <- do.call("geom_segment", obj3)
-##         obj <- do.call("geom_text", obj)
-##         plot <- plot + obj2 + obj3 + obj
-##         attr(plot$layers[[nlayer+1]], "AddAxisText") <- TRUE
-##         attr(plot$layers[[nlayer+2]], "AddAxisText") <- TRUE
-##         attr(plot$layers[[nlayer+3]], "AddAxisText") <- TRUE
-##         return(plot)
-##     }else{
-##         return(plot)
-##     }
-## }
-
-## ##' @method ggplot_add fruit_ringline
-## ##' @importFrom ggplot2 geom_segment
-## ##' @author Shuangbin Xu
-## ##' @export
-## ggplot_add.fruit_ringline <- function(object, plot, object_name){
-##     nlayer <- length(plot$layers)
-##     if ("hexpand" %in% names(plot$layers[[nlayer]]$position)){
-##         tmplayer <- plot$layers[[nlayer]]
-##         xid <- as_name(tmplayer$mapping$x)
-##         orixid <- sub("new_", "", xid)
-##         dat <- tmplayer$data[,c(xid, orixid),drop=FALSE]
-##         daline <- create_text_data(data=dat, origin=orixid, newxid=xid, nbreak=object$nbreak)
-##         yr <- range(plot$data$y)
-##         daline$y <- yr[1]/10
-##         daline$yend <- Inf#yr[2]
-##         plot$layers <- append(x=plot$layers,
-##                               values=geom_segment(
-##                                   data=daline,
-##                                   mapping=aes_string(x=xid, xend=xid, y="y", yend="yend"),
-##                                   stat="identity",
-##                                   size=object$size,
-##                                   colour=object$colour,
-##                                   position=position_identityx(hexpand=tmplayer$position$hexpand),
-##                                   alpha=object$alpha,
-##                                   lineend=object$lineend,
-##                                   linejoin=object$linejoin
-##                               ),
-##                               after=nlayer-1)
-##         if (object$addgrid){
-##             xr <- range(daline[[xid]])
-##             daline2 <- plot$data[plot$data$isTip,"y",drop=FALSE]
-##             daline2 <- rbind(data.frame(y=yr[1]/10),daline2,data.frame(y=Inf))#yr[2] + yr[1]/10))
-##             daline2$x <- xr[1]
-##             daline2$xend <- xr[2]
-##             plot$layers <- append(x=plot$layers,
-##                                   values=geom_segment(
-##                                       data=daline2,
-##                                       mapping=aes_string(x="x",xend="xend",y="y",yend="y"),
-##                                       stat="identity",
-##                                       size=object$size,
-##                                       colour=object$colour,
-##                                       position=position_identityx(hexpand=tmplayer$position$hexpand),
-##                                       alpha=object$alpha,
-##                                       lineend=object$lineend,
-##                                       linejoin=object$linejoin
-##                                   ),
-##                                   after=nlayer)
-##         }
-##     }else{
-##         message("the last layers is not a external ring layer of tree")
-##     }
-##     return(plot)
-## }
-
 create_text_data <- function(data, origin, newxid, flagrev){
     if (!is.numeric(data[[origin]]) || sum(diff(data[[origin]])) == diff(range(data[[origin]]))){
         data <- data[!duplicated(data),,drop=FALSE]
@@ -285,46 +173,22 @@ create_text_data <- function(data, origin, newxid, flagrev){
     return (data)
 }
 
-#extract_num_layer <- function(plot, num){
-#    if (inherits(plot$layers[[num]]$geom, "GeomText") && "AddAxisText" %in% names(attributes(plot$layers[[num]])) && num >=3){
-#        num <- num - 1
-#        extract_num_layer(plot=plot, num=num)
-#    }else if("AddAxisText" %in% names(attributes(plot$layers[[num]])) && "hexpand" %in% names(plot$layers[[num]]$position) && num >= 3){
-#        num <- num - 1
-#        extract_num_layer(plot=plot, num=num)
-#    }else{
-#        return(num)
-#    }
-#}
-
 set_mapping <- function(object, plot){
     if (is.null(object$data)){
         object$mapping <- modifyList(object$mapping, aes_(y=~y))
-        if ("x" %in% names(object$mapping)){
-            xid <- as_name(object$mapping$x)
-            if (xid == "x"){
-                plot$data[["xtmp"]] <- plot$data$x
-                xid <- "xtmp"
-                object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-            }
-        }else{
-            plot$data$xtmp <- 0
+        object$data <- plot$data[plot$data$isTip,,drop=FALSE]
+    }
+    if ("x" %in% names(object$mapping)){
+        xid <- as_name(object$mapping$x)
+        if (xid == "x"){
+            object$data[["xtmp"]] <- object$data$x
             xid <- "xtmp"
             object$mapping <- modifyList(object$mapping,aes_string(x=xid))
         }
     }else{
-        if ("x" %in% names(object$mapping)){
-            xid <- as_name(object$mapping$x)
-            if (xid == "x"){
-                object$data[["xtmp"]] <- object$data$x
-                xid <- "xtmp"
-                object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-            }
-        }else{
-            object$data$xtmp <- 0
-            xid <- "xtmp"
-            object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-        }
+        object$data$xtmp <- 0
+        xid <- "xtmp"
+        object$mapping <- modifyList(object$mapping,aes_string(x=xid))
     }
     return (list(object, plot, xid))
 }
@@ -334,8 +198,8 @@ get_offset <- function(vnum, ratio){
 }
 
 build_new_data <- function(newdat, origindata, yid){
-    if (!is.null(newdat) && inherits(newdat, "data.frame")){
-        #origindata <- origindata[origindata$isTip, colnames(origindata) %in% c("y", "label", "angle")]
+    if (inherits(newdat, "data.frame") && ! all(colnames(origindata) %in% colnames(newdat))){
+        origindata <- origindata[origindata$isTip, !colnames(origindata) %in% c("parent", "node", "branch.length", "isTip", "x", "branch")]
         commonnames <- intersect(colnames(newdat), colnames(origindata))
         commonnames <- commonnames[commonnames!=yid]
         if (length(commonnames) > 0){
@@ -345,7 +209,7 @@ build_new_data <- function(newdat, origindata, yid){
         }
         dat <- merge(origindata, newdat, by.x="label", by.y=yid)
     }else{
-        dat <- origindata[origindata$isTip,,drop=TRUE]
+        dat <- newdat
     }
     return(dat)
 }
