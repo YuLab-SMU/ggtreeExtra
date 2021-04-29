@@ -72,7 +72,7 @@ gf2 <- geom_fruit(
           mapping=aes(x=value, y=id, color=group),
           offset=0.1,
           pwidth=0.9,
-          position= position_jitterx(width=0.1),
+          position= position_jitterx(height=0.3),
           axis.params=list(axis="x", text.size=2),
           grid.params=list()
           )
