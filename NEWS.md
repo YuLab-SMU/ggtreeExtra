@@ -1,6 +1,7 @@
 # ggtreeExtra 1.1.8.990
 
 + don't inherit `aes` (global aes from the `ggtree`). (2021-04-28, Wed)
++ `subset` in mapping also supports the data from `ggtree` object. (2021-04-29, Thu)
 
 # ggtreeExtra 1.1.8
 
