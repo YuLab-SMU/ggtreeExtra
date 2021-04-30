@@ -48,8 +48,7 @@ fruitlist <- geom_fruit_list(
                      geom = geom_bar,
                      mapping = aes(y=id, x=value, fill=group2),
                      orientation = "y",
-                     stat = "identity",
-                     addbrink=FALSE
+                     stat = "identity"
                  ),
                  scale_fill_manual(values=c("blue", "red")),
                  new_scale_fill(),

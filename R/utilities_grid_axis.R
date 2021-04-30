@@ -5,7 +5,7 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
     newxid <- paste0("new_", xid)
     yr <- range(dat$y)
     daline3 <- dat[,"y",drop=FALSE]
-    if(is.numeric(dat[[xid]]) && all(dat$x>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
+    if(is.numeric(dat[[xid]]) && all(dat[[xid]]>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
         flagrev <- TRUE
     }else{
         flagrev <- FALSE
@@ -50,7 +50,7 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
 build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
     newxid <- paste0("new_", xid)
     yr <- range(dat$y)
-    if(is.numeric(dat[[xid]]) &&all(dat$x>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
+    if(is.numeric(dat[[xid]]) &&all(dat[[xid]]>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
         flagrev <- TRUE
     }else{
         flagrev <- FALSE
@@ -134,10 +134,15 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
 get_continuous_norm <- function(refdata, data, orientation, xid, position, ratio, nbreak){
     if (inherits(position, "PositionStackx")){
         dat <- aggregate(as.formula(paste0(". ~","label")), data[,c(xid, "label")], sum)
-        dabreaks <- pretty(dat[[xid]], n=nbreak)
-        if (!0 %in% dabreaks){
-            dabreaks <- c(0, dabreaks)
+        if (!0 %in% dat[[xid]]){
+            dabreaks <- pretty(c(0, dat[[xid]]), n=nbreak)
+        }else{
+            dabreaks <- pretty(dat[[xid]], n=nbreak)
         }
+        #dabreaks <- pretty(dat[[xid]], n=nbreak)
+        #if (!0 %in% dabreaks){
+        #    dabreaks <- c(0, dabreaks)
+        #}
     }else{
         dabreaks <- pretty(data[[xid]], n=nbreak)
     }

@@ -14,15 +14,22 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     #        object$mapping <- object$mapping[names(object$mapping)!="subset"]
     #    }
     #}
-    res <- set_mapping(object=object, plot=plot)
+    #res <- set_mapping(object=object, plot=plot)
+    #object <- res[[1]]
+    #plot <- res[[2]]
+    #xid <- res[[3]]
+    object <- check_plotdata(object=object, plot=plot)
+    object <- check_subset_aes(object=object)
+    object <- build_new_data(object=object, plot=plot)
+    object <- compute_aes(object=object, plot=plot)
+    res <- set_mapping(object=object)
     object <- res[[1]]
-    plot <- res[[2]]
-    xid <- res[[3]]
-    if (!is.null(object$mapping$subset)){
-        object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
-        object$mapping <- object$mapping[names(object$mapping)!="subset"]
-    }
-    yid <- as_name(object$mapping$y)
+    xid <- res[[2]]
+    #if (!is.null(object$mapping$subset)){
+    #    object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
+    #    object$mapping <- object$mapping[names(object$mapping)!="subset"]
+    #}
+    #yid <- as_name(object$mapping$y)
     #layout <- get("layout", envir = plot$plot_env)
     layout <- get_layout(plot)
     flagreverse <- check_reverse(plot=plot)
@@ -37,7 +44,9 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }else{
         hexpand2 <- max(abs(plot$data$x), na.rm=TRUE) + offset
     }
-    dat <- build_new_data(newdat=object$data, origindata=plot$data, yid=yid)
+    #dat <- build_new_data(newdat=object$data, origindata=plot$data, yid=yid, flag=object$datanull)
+    #object$datanull <- NULL
+    dat <- object$data
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
         normres <- get_continuous_norm(refdata=plot$data$x, 
                                        data=dat, 
@@ -98,8 +107,8 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
         plot <- plot + new_scale_color()
     }
     object$mapping = modifyList(object$mapping, aes_string(x=paste0("new_",xid)))
-    mapping = modifyList(object$mapping, aes_(y=~y))
-    params <- c(list(data=dat, mapping=mapping, inherit.aes=object$inherit.aes), object$params)
+    #mapping = modifyList(object$mapping, aes_(y=~y))
+    params <- c(list(data=dat, mapping=object$mapping, inherit.aes=object$inherit.aes), object$params)
     obj <- do.call(object$geom, params)
     if (object$axis.params$axis != "none"){
         obj.axis <- build_axis(dat=dat,
@@ -173,45 +182,57 @@ create_text_data <- function(data, origin, newxid, flagrev){
     return (data)
 }
 
-set_mapping <- function(object, plot){
+check_plotdata <- function(object, plot){
     if (is.null(object$data)){
         object$mapping <- modifyList(object$mapping, aes_(y=~y))
-        object$data <- plot$data[plot$data$isTip,,drop=FALSE]
-    }
-    if ("x" %in% names(object$mapping)){
-        xid <- as_name(object$mapping$x)
-        if (xid == "x"){
-            object$data[["xtmp"]] <- object$data$x
-            xid <- "xtmp"
-            object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-        }
+        object$data <- plot$data[plot$data$isTip, 
+                                 !colnames(plot$data) %in% c("parent", "node", "branch.length", "isTip", "x", "branch"), 
+                                 drop=FALSE]
+        object$datanull <- TRUE
     }else{
-        object$data$xtmp <- 0
-        xid <- "xtmp"
-        object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-    }
-    return (list(object, plot, xid))
+	    object$datanull <- FALSE
+	}
+    #if ("x" %in% names(object$mapping)){
+    #    xid <- as_name(object$mapping$x)
+    #    if (xid == "x"){
+    #        object$data[["xtmp"]] <- object$data$x
+    #        xid <- "xtmp"
+    #        object$mapping <- modifyList(object$mapping,aes_string(x=xid))
+    #    }
+    #}else{
+    #    object$data$xtmp <- 0
+    #    xid <- "xtmp"
+    #    object$mapping <- modifyList(object$mapping,aes_string(x=xid))
+    #}
+    #return (list(object, plot, xid))
+    return (object)
 }
 
 get_offset <- function(vnum, ratio){
     offset <- ratio*(max(vnum, na.rm=TRUE) - min(vnum, na.rm=TRUE))
 }
 
-build_new_data <- function(newdat, origindata, yid){
-    if (inherits(newdat, "data.frame") && ! all(colnames(origindata) %in% colnames(newdat))){
-        origindata <- origindata[origindata$isTip, !colnames(origindata) %in% c("parent", "node", "branch.length", "isTip", "x", "branch")]
-        commonnames <- intersect(colnames(newdat), colnames(origindata))
-        commonnames <- commonnames[commonnames!=yid]
+#build_new_data <- function(newdat, origindata, yid, flag){
+build_new_data <- function(object, plot){
+    if (inherits(object$data, "data.frame") && !object$datanull){
+        #origindata <- origindata[origindata$isTip, !colnames(origindata) %in% c("parent", "node", "branch.length", "isTip", "x", "branch")]
+        #commonnames <- intersect(colnames(newdat), colnames(origindata))
+        #commonnames <- commonnames[commonnames!=yid]
+        origindata <- plot$data[plot$data$isTip, !colnames(plot$data) %in% c("parent", "node", "branch.length", "isTip", "x", "branch")]
+        commonnames <- intersect(colnames(object$data), colnames(origindata)) 
+        commonnames <- commonnames[commonnames!=as_name(object$mapping$y)]
         if (length(commonnames) > 0){
             warning_wrap("The following column names/name: ", paste0(commonnames, collapse=", "),
                          " are/is the same to tree data, the tree data column names are : ",
                          paste0(colnames(origindata), collapse=", "), ".")
         }
-        dat <- merge(origindata, newdat, by.x="label", by.y=yid)
-    }else{
-        dat <- newdat
+        object$data <- merge(origindata, object$data, by.x="label", by.y=as_name(object$mapping$y))
+        object$mapping <- modifyList(object$mapping, aes_(y=~y))
+    #}else{
+    #    dat <- newdat
     }
-    return(dat)
+    object$datanull <- NULL
+    return(object)
 }
 
 adjust_angle <- function(layout, angle){
