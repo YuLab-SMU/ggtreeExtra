@@ -17,9 +17,17 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     targetnum <- abs(targetnum)
     if (all(refnum <= 0, na.rm=TRUE)){
         refnum <- abs(refnum)
-        orientation <- -1
+        if (all(target_sign <=0)){
+            orientation <- 1
+        }else{
+            orientation <- -1
+        }
     }else{
-        orientation <- 1
+        if (all(target_sign <= 0)){
+            orientation <- -1
+        }else{
+            orientation <- 1
+        }
     }
     refnum <- checkref(refnum)
     rmax <- max(refnum, na.rm=na.rm) * ratio
@@ -48,10 +56,10 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     }
 }
 
-checkref <- function(refnum, n=5, step=40){
+checkref <- function(refnum, n=5, step=2000){
     rmin <- min(refnum, na.rm=TRUE)
     rmax <- max(refnum, na.rm=TRUE)
-    if (length(refnum)<=50){
+    if (length(refnum)<=500){
        tmpstep <- (rmax - rmin)/step
     }else{
        tmpstep <- (rmax - rmin)/length(refnum)

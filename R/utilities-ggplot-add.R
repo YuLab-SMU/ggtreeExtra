@@ -10,7 +10,8 @@ check_subset_aes <- function(object){
 compute_aes <- function(object, plot){
     if("x" %in% names(object$mapping) && !quo_text(object$mapping$x) %in% colnames(object$data)){
         mappingx <- object$mapping
-		mappingx <- mappingx[names(mappingx) %in% c("x", "y")]
+        geomobj <- do.call(object$geom, list())
+        mappingx <- mappingx[names(mappingx) %in% geomobj$geom$required_aes]
         geomobj <- do.call(object$geom, list(mappingx))
         data_after_cal <- suppressWarnings(geomobj$compute_aesthetics(data=object$data, plot=plot))
         object$data[["x"]] <- data_after_cal[["x"]]
