@@ -91,7 +91,7 @@ PositionDodgex <- ggproto("PositionDodgex", Position,
     collided <- collide(
       data,
       params$width,
-      name = "position_dodge",
+      name = "position_dodgex",
       strategy = pos_dodge,
       n = params$n,
       check.width = FALSE
