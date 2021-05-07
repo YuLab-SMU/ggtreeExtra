@@ -6,18 +6,6 @@
 ##' @author Shuangbin Xu
 ##' @export
 ggplot_add.fruit_plot <- function(object, plot, object_name){
-    #if (!is.null(object$mapping$subset)){
-    #    if (is.null(object$data)){
-    #        stop("When the subset is provided in mapping, the data also should be provided!")
-    #    }else{
-    #        object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
-    #        object$mapping <- object$mapping[names(object$mapping)!="subset"]
-    #    }
-    #}
-    #res <- set_mapping(object=object, plot=plot)
-    #object <- res[[1]]
-    #plot <- res[[2]]
-    #xid <- res[[3]]
     object <- check_plotdata(object=object, plot=plot)
     object <- check_subset_aes(object=object)
     object <- build_new_data(object=object, plot=plot)
@@ -25,12 +13,6 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     res <- set_mapping(object=object)
     object <- res[[1]]
     xid <- res[[2]]
-    #if (!is.null(object$mapping$subset)){
-    #    object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
-    #    object$mapping <- object$mapping[names(object$mapping)!="subset"]
-    #}
-    #yid <- as_name(object$mapping$y)
-    #layout <- get("layout", envir = plot$plot_env)
     layout <- get_layout(plot)
     flagreverse <- check_reverse(plot=plot)
     if (layout=="inward_circular" || flagreverse){
@@ -44,8 +26,6 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }else{
         hexpand2 <- max(abs(plot$data$x), na.rm=TRUE) + offset
     }
-    #dat <- build_new_data(newdat=object$data, origindata=plot$data, yid=yid, flag=object$datanull)
-    #object$datanull <- NULL
     dat <- object$data
     if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
         normres <- get_continuous_norm(refdata=plot$data$x, 
@@ -53,6 +33,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                                        orientation=orientation,
                                        xid=xid, 
                                        position=object$params$position, 
+                                       geomname=object$geomname,
                                        ratio=object$pwidth,
                                        nbreak=object$axis.params$nbreak)
         dat <- normres[[1]]
@@ -107,7 +88,6 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
         plot <- plot + new_scale_color()
     }
     object$mapping = modifyList(object$mapping, aes_string(x=paste0("new_",xid)))
-    #mapping = modifyList(object$mapping, aes_(y=~y))
     params <- c(list(data=dat, mapping=object$mapping, inherit.aes=object$inherit.aes), object$params)
     obj <- do.call(object$geom, params)
     if (object$axis.params$axis != "none"){
@@ -192,19 +172,6 @@ check_plotdata <- function(object, plot){
     }else{
 	    object$datanull <- FALSE
 	}
-    #if ("x" %in% names(object$mapping)){
-    #    xid <- as_name(object$mapping$x)
-    #    if (xid == "x"){
-    #        object$data[["xtmp"]] <- object$data$x
-    #        xid <- "xtmp"
-    #        object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-    #    }
-    #}else{
-    #    object$data$xtmp <- 0
-    #    xid <- "xtmp"
-    #    object$mapping <- modifyList(object$mapping,aes_string(x=xid))
-    #}
-    #return (list(object, plot, xid))
     return (object)
 }
 
@@ -212,12 +179,8 @@ get_offset <- function(vnum, ratio){
     offset <- ratio*(max(vnum, na.rm=TRUE) - min(vnum, na.rm=TRUE))
 }
 
-#build_new_data <- function(newdat, origindata, yid, flag){
 build_new_data <- function(object, plot){
     if (inherits(object$data, "data.frame") && !object$datanull){
-        #origindata <- origindata[origindata$isTip, !colnames(origindata) %in% c("parent", "node", "branch.length", "isTip", "x", "branch")]
-        #commonnames <- intersect(colnames(newdat), colnames(origindata))
-        #commonnames <- commonnames[commonnames!=yid]
         origindata <- plot$data[plot$data$isTip, !colnames(plot$data) %in% c("parent", "node", "branch.length", "isTip", "x", "branch")]
         commonnames <- intersect(colnames(object$data), colnames(origindata)) 
         commonnames <- commonnames[commonnames!=as_name(object$mapping$y)]
@@ -228,8 +191,6 @@ build_new_data <- function(object, plot){
         }
         object$data <- merge(origindata, object$data, by.x="label", by.y=as_name(object$mapping$y))
         object$mapping <- modifyList(object$mapping, aes_(y=~y))
-    #}else{
-    #    dat <- newdat
     }
     object$datanull <- NULL
     return(object)

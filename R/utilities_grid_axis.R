@@ -131,18 +131,18 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
 
 #' @importFrom stats aggregate
 #' @importFrom stats as.formula
-get_continuous_norm <- function(refdata, data, orientation, xid, position, ratio, nbreak){
-    if (inherits(position, "PositionStackx")){
-        dat <- aggregate(as.formula(paste0(". ~","label")), data[,c(xid, "label")], sum)
+get_continuous_norm <- function(refdata, data, orientation, xid, position, geomname, ratio, nbreak){
+    if (inherits(position, "PositionStackx") || geomname %in% stackpos){
+        if (inherits(position, "PositionStackx")){
+            dat <- aggregate(as.formula(paste0(". ~","label")), data[,c(xid, "label")], sum)
+        }else{
+            dat <- data[,c(xid, "label")]
+        }
         if (!0 %in% dat[[xid]]){
             dabreaks <- pretty(c(0, dat[[xid]]), n=nbreak)
         }else{
             dabreaks <- pretty(dat[[xid]], n=nbreak)
         }
-        #dabreaks <- pretty(dat[[xid]], n=nbreak)
-        #if (!0 %in% dabreaks){
-        #    dabreaks <- c(0, dabreaks)
-        #}
     }else{
         dabreaks <- pretty(data[[xid]], n=nbreak)
     }
