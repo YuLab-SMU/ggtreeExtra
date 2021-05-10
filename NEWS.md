@@ -1,8 +1,13 @@
+# ggtreeExtra 1.1.10
+
++ fix a bug for `compute_aes` ( This is 
+  to support mapping aesthetics (x, not y in aes of geom_fruit) to functions of variables). (2021-05-10, Mon)
+
 # ggtreeExtra 1.1.9
 
 + don't inherit `aes` (global aes from the `ggtree`). (2021-04-28, Wed)
 + `subset` in mapping also supports the data from `ggtree` object. (2021-04-29, Thu)
-+ support mapping aesthetics (`x`, `fill`, `color`, not `y` in `aes` of `geom_fruit`) to functions of variables. (2021-05-07, Fri)
++ support mapping aesthetics (`x`, not `y` in `aes` of `geom_fruit`) to functions of variables. (2021-05-07, Fri)
 
 # ggtreeExtra 1.1.8
 
