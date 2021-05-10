@@ -10,14 +10,27 @@ check_subset_aes <- function(object){
 compute_aes <- function(object, plot){
     if("x" %in% names(object$mapping) && !quo_text(object$mapping$x) %in% colnames(object$data)){
         mappingx <- object$mapping
-        geomobj <- do.call(object$geom, list())
-        mappingx <- mappingx[names(mappingx) %in% geomobj$geom$required_aes]
+        reqaes <- extract_requierd_aes(object)
+        mappingx <- mappingx[names(mappingx) %in% reqaes]
         geomobj <- do.call(object$geom, list(mappingx))
         data_after_cal <- suppressWarnings(geomobj$compute_aesthetics(data=object$data, plot=plot))
         object$data[["x"]] <- data_after_cal[["x"]]
         object$mapping <- modifyList(object$mapping, aes_string(x="x"))
 	}
     return (object)
+}
+
+extract_requierd_aes <- function(object){
+    geomobj <- do.call(object$geom, list())
+    reqaes <- geomobj$geom$required_aes
+    if (any(grepl("\\|", reqaes))){
+        flagindex <- grepl("\\|", reqaes)
+        tmpreqaes <- reqaes[flagindex]
+        reqaes <- reqaes[!flagindex]
+        tmpreqaes <- unlist(strsplit(tmpreqaes, "\\|"))
+        reqaes <- c(reqaes, tmpreqaes)
+    }
+    return(reqaes)
 }
 
 set_mapping <- function(object){
