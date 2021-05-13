@@ -1,3 +1,8 @@
+# ggtreeExtra 1.1.11
+
++ fix a bug to solve the problem (variable of x has `NA`). (2021-05-13, Thu)
+  + <https://github.com/YuLab-SMU/ggtreeExtra/issues/8>
+
 # ggtreeExtra 1.1.10
 
 + fix a bug for `compute_aes` ( This is 
