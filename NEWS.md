@@ -1,3 +1,7 @@
+# ggtreeExtra 1.1.12
+
++ import `ggtree` to pass `BiocCheck`. (2021-05-14, Fri)
+
 # ggtreeExtra 1.1.11
 
 + fix a bug to solve the problem (variable of x has `NA`). (2021-05-13, Thu)

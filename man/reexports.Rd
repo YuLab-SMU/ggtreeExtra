@@ -4,6 +4,7 @@
 \name{reexports}
 \alias{reexports}
 \alias{ggplot_add}
+\alias{ggtree}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -12,5 +13,7 @@ below to see their documentation.
 
 \describe{
   \item{ggplot2}{\code{\link[ggplot2]{ggplot_add}}}
+
+  \item{ggtree}{\code{\link[ggtree]{ggtree}}}
 }}
 
