@@ -1,3 +1,11 @@
+# ggtreeExtra 1.3.0.990
+
++ `data` argument of `geom_fruit` support function input. (2021-05-20, Thu)
+
+# ggtreeExtra 1.3.0
+
++ new version release, and bump new devel version (1.3.0). (2021-05-20, Thu)
+
 # ggtreeExtra 1.1.12
 
 + import `ggtree` to pass `BiocCheck`. (2021-05-14, Fri)
