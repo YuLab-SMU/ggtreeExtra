@@ -162,16 +162,25 @@ create_text_data <- function(data, origin, newxid, flagrev){
     return (data)
 }
 
+#' @importFrom rlang abort
 check_plotdata <- function(object, plot){
     if (is.null(object$data)){
         object$mapping <- modifyList(object$mapping, aes_(y=~y))
-        object$data <- plot$data[plot$data$isTip, 
-                                 !colnames(plot$data) %in% c("parent", "node", "branch.length", "isTip", "x", "branch"), 
-                                 drop=FALSE]
+        object$data <- plot$data[plot$data$isTip,]
+                                 #!colnames(plot$data) %in% c("parent", "node", "branch.length", "isTip", "x", "branch"), 
+                                 #drop=FALSE]
+        object$datanull <- TRUE
+    }else if (is.function(object$data)){
+        object$data <- object$data(plot$data)
+        if (!is.data.frame(object$data)){
+            abort("Data function must return a data.frame")
+        }
+        object$data <- object$data[object$data$isTip,]
+        object$mapping <- modifyList(object$mapping, aes_(y=~y))
         object$datanull <- TRUE
     }else{
-	    object$datanull <- FALSE
-	}
+        object$datanull <- FALSE
+    }
     return (object)
 }
 
