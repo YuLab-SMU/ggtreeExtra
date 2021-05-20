@@ -5,6 +5,8 @@
 \alias{reexports}
 \alias{ggplot_add}
 \alias{ggtree}
+\alias{td_unnest}
+\alias{td_filter}
 \title{Objects exported from other packages}
 \keyword{internal}
 \description{
@@ -14,6 +16,6 @@ below to see their documentation.
 \describe{
   \item{ggplot2}{\code{\link[ggplot2]{ggplot_add}}}
 
-  \item{ggtree}{\code{\link[ggtree]{ggtree}}}
+  \item{ggtree}{\code{\link[ggtree]{ggtree}}, \code{\link[ggtree]{td_filter}}, \code{\link[ggtree]{td_unnest}}}
 }}
 
