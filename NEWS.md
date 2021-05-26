@@ -1,6 +1,8 @@
-# ggtreeExtra 1.3.0.990
+# ggtreeExtra 1.3.1
 
 + `data` argument of `geom_fruit` support function input. (2021-05-20, Thu)
++ the argument of `axis.params` and `grid.params` can be assigned by intermediate variables. (2021-05-26, Wed)
+  - <https://github.com/YuLab-SMU/ggtreeExtra/issues/9> 
 
 # ggtreeExtra 1.3.0
 
