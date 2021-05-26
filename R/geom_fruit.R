@@ -104,6 +104,7 @@
 ##'
 ##' The 'p' parameter only work when you use `fruit_plot()`, which is alias of `geom_fruit()`.
 ##' @return ggplot object
+##' @importFrom rlang enquo
 ##' @export
 ##' @author Shuangbin Xu and Guangchuang Yu
 ##' @examples
@@ -217,9 +218,9 @@ geom_fruit <- function(mapping,
                                 inherit.aes=FALSE)
     params <- list(...)
     grid.params <- reset_params(defaultp=default.grid.params, 
-                                inputp=substitute(grid.params))
+                                inputp=enquo(grid.params))
     axis.params <- reset_params(defaultp=default.axis.params, 
-                                inputp=substitute(axis.params))
+                                inputp=enquo(axis.params))
     axis.params <- confuse_params(axis.params)
     axis.dot.params <- extract_dot_params(
                            defaultp=default.axis.params,

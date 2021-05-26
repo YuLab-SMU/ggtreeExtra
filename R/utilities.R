@@ -68,13 +68,12 @@ checkref <- function(refnum, n=5, step=2000){
     return(refnum)
 }
 
+#' @importFrom rlang get_expr
 reset_params <- function(defaultp, inputp){
-    if (is.null(inputp)){
+    if (is.null(get_expr(inputp))){
         return(NULL)
     }
-    inputp <- as.list(inputp)
-    inputp[[1]] <- NULL
-    inputp <- inputp[unlist(lapply(inputp, function(x)nchar(x)>0 && x!="..."))]
+    inputp <- parse_list_input(input=inputp)
     intdi <- intersect(names(inputp), names(defaultp))
     setd <- setdiff(names(defaultp), names(inputp))
     seti <- setdiff(names(inputp), names(defaultp))
@@ -83,6 +82,22 @@ reset_params <- function(defaultp, inputp){
     seti <- inputp[match(seti, names(inputp))]
     newp <- c(intdi, setd, seti)
     return(newp)
+}
+
+#' @importFrom rlang get_env
+parse_list_input <- function(input){
+    expr <- get_expr(input)
+    env <- get_env(input)
+    inputp <- as.list(expr)
+    inputp[[1]] <- NULL
+    inputp <- inputp[unname(unlist(lapply(inputp, function(x)nchar(x)>0 && x!="...")))]
+    for (i in seq_len(length(inputp))){
+        if (is.symbol(inputp[[i]])){
+            values <- as.vector(inputp[[i]], mode="character")
+            inputp[[i]] <- get(values, envir = env)
+        }
+    }
+    return (inputp)
 }
 
 extract_dot_params <- function(defaultp, inputp){
