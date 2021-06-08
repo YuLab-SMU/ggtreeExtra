@@ -25,7 +25,8 @@ School of Basic Medical Sciences, Southern Medical University.
 
 If you use `ggtreeExtra` in published research. Please cite the paper:
 
-__S Xu__, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu and __G Yu__<sup>\*</sup>. ggtreeExtra: Compact visualization of richly annotated phylogenetic data. __*Research Square*__ doi: [10.21203/rs.3.rs-155672/v2](https://doi.org/10.21203/rs.3.rs-155672/v2).
+__S Xu__, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, Y Jiang^\*^, X Bo^\*^ and __G Yu__<sup>\*</sup>. ggtreeExtra: Compact visualization of richly annotated phylogenetic data. __*Methods in Ecology and Evolution*__. 2021, msab166. doi: [10.1093/molbev/msab166](https://doi.org/10.1093/molbev/msab166).
+
    - [Source code to produce Supplementary Material](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra)
 
 <!--

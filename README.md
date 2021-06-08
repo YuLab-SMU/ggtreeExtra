@@ -4,8 +4,9 @@
 
 ‘ggtreeExtra’ extends the method for mapping and visualizing associated
 data on phylogenetic tree using ‘ggtree’. These associated data can be
-mapped to circular layout, fan layout, or other layout tree built by
-‘ggtree’ with the grammar of ‘ggplot2’.
+presented on the external panels to circular layout, fan layout, or
+other rectangular layout tree built by ‘ggtree’ with the grammar of
+‘ggplot2’.
 
 # :writing\_hand: Author
 
@@ -17,12 +18,14 @@ School of Basic Medical Sciences, Southern Medical University.
 If you use `ggtreeExtra` in published research. Please cite the paper:
 
 **S Xu**, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L
-Zhan, T Wu, E Hu and **G Yu**<sup>\*</sup>. ggtreeExtra: Compact
-visualization of richly annotated phylogenetic data. ***Research
-Square*** doi:
-[10.21203/rs.3.rs-155672/v2](https://doi.org/10.21203/rs.3.rs-155672/v2).
-- [Source code to produce Supplementary
-Material](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra)
+Zhan, T Wu, E Hu, Y Jiang<sup>\*</sup>, X Bo<sup>\*</sup> and **G
+Yu**<sup>\*</sup>. ggtreeExtra: Compact visualization of richly
+annotated phylogenetic data. ***Methods in Ecology and Evolution***.
+2021, msab166. doi:
+[10.1093/molbev/msab166](https://doi.org/10.1093/molbev/msab166).
+
+  - [Source code to produce Supplementary
+    Material](https://github.com/YuLab-SMU/plotting-tree-with-data-using-ggtreeExtra)
 
 <!--
 

@@ -139,8 +139,8 @@ confuse_params <- function(inputp){
 
 ggtreeExtra_citations <- function(){
     paste(
-        "SB Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, G Yu.",
+        "SB Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu.",
         "ggtreeExtra: Compact visualization of richly annotated phylogenetic data.",
-        "Research Square. doi: 10.21203/rs.3.rs-155672/v2, (preprint).\n"
+        "Molecular Biology and Evolution, 2021;, msab166, https://doi.org/10.1093/molbev/msab166\n"
         )
 }

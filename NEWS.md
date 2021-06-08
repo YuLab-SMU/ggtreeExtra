@@ -1,3 +1,7 @@
+# ggtreeExtra 1.3.2
+
++ update reference. (2021-06-08, Tue)
+
 # ggtreeExtra 1.3.1
 
 + `data` argument of `geom_fruit` support function input. (2021-05-20, Thu)
