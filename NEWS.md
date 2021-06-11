@@ -1,6 +1,9 @@
-# ggtreeExtra 1.3.2
+# ggtreeExtra 1.3.3
 
 + update reference. (2021-06-08, Tue)
++ fix vector logical check. (201-06-11, Fri)
+  - c(TRUE, TRUE) && c(TRUE, TRUE) is not allowed in 
+    devel environment of bioconductor 
 
 # ggtreeExtra 1.3.1
 
