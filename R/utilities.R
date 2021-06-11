@@ -89,8 +89,9 @@ parse_list_input <- function(input){
     expr <- get_expr(input)
     env <- get_env(input)
     inputp <- as.list(expr)
-    inputp[[1]] <- NULL
-    inputp <- inputp[unname(unlist(lapply(inputp, function(x)nchar(x)>0 && x!="...")))]
+    inputp <- inputp[nchar(names(inputp)) > 0]
+    #inputp[[1]] <- NULL
+    #inputp <- inputp[unname(unlist(lapply(inputp, function(x)nchar(x)>0 && x!="...")))]
     for (i in seq_len(length(inputp))){
         if (is.symbol(inputp[[i]])){
             values <- as.vector(inputp[[i]], mode="character")
