@@ -1,3 +1,7 @@
+# ggtreeExtra 1.3.3.990
+
++ fix the `compute_aes` to better compatible with `ggplot2` (>=3.3.4) (2021-08-09)
+
 # ggtreeExtra 1.3.3
 
 + update reference. (2021-06-08, Tue)
