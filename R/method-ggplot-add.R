@@ -96,7 +96,8 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                                text=object$axis.params$text,
                                position=object$params$position,
                                axis.params=object$axis.params,
-                               axis.dot.params=object$axis.dot.params)
+                               axis.dot.params=object$axis.dot.params,
+                               y.range = range(plot$data$y))
         obj <- list(obj, obj.axis)
     }
     if (!is.null(object$grid.params)){
@@ -104,7 +105,8 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                                xid=xid,
                                position=object$params$position,
                                grid.params=object$grid.params,
-                               grid.dot.params=object$grid.dot.params)
+                               grid.dot.params=object$grid.dot.params,
+                               y.range = range(plot$data$y))
         obj <- list(obj.grid, obj)
     }
     # because original y is continuous, but y of box plot density plot is discrete

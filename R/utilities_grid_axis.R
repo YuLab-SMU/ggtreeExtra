@@ -1,9 +1,9 @@
 #' @importFrom ggplot2 aes_string geom_segment
 #' @importFrom stats aggregate
 #' @importFrom stats as.formula
-build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
+build_grid <- function(dat, xid, position, grid.params, grid.dot.params, y.range){
     newxid <- paste0("new_", xid)
-    yr <- range(dat$y)
+    yr <- y.range
     daline3 <- dat[,"y",drop=FALSE]
     if(is.numeric(dat[[xid]]) && all(dat[[xid]]>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
         flagrev <- TRUE
@@ -47,9 +47,9 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params){
     return (obj1)
 }
 
-build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params){
+build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y.range){
     newxid <- paste0("new_", xid)
-    yr <- range(dat$y)
+    yr <- y.range
     if(is.numeric(dat[[xid]]) &&all(dat[[xid]]>=0, na.rm=TRUE) && all(dat[[xid]]<0, na.rm=TRUE)){
         flagrev <- TRUE
     }else{
