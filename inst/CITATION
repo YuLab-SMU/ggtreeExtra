@@ -20,13 +20,17 @@ citEntry(
         as.person("Xiaochen Bo"),
         as.person("Guangchuang Yu")
         ),
-    year    = "2021",
     journal = "Molecular Biology and Evolution",
+    volume  = "38",
+    issue   = "9",
+    pages   = "4039-4042",
+    year    = "2021",
+    month   = "06",
     ISSN    = "0737-4038",
     doi     = "10.1093/molbev/msab166",
     PMID    = "34097064",
     url     = "https://academic.oup.com/mbe/advance-article/doi/10.1093/molbev/msab166/6294410",
-    textVersion = paste("SB Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu.",
+    textVersion = paste("S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu.",
                         "ggtreeExtra: Compact visualization of richly annotated phylogenetic data.",
-                        "Molecular Biology and Evolution, 2021;, msab166, https://doi.org/10.1093/molbev/msab166")
+                        "Molecular Biology and Evolution 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166")
 )
