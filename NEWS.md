@@ -1,3 +1,7 @@
+# ggtreeExtra 1.3.5.990
+
++ fix the issue of `gridlines` when some data is removed. (2021-08-25, Wed)
+
 # ggtreeExtra 1.3.5
 
 + update citation of `ggtreeExtra` (2021-08-25, Wed). 
