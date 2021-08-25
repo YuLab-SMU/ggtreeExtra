@@ -1,6 +1,10 @@
+# ggtreeExtra 1.3.5
+
++ update citation of `ggtreeExtra` (2021-08-25, Wed). 
+
 # ggtreeExtra 1.3.4
 
-+ fix the `compute_aes` to better compatible with `ggplot2` (>=3.3.4) (2021-08-09)
++ fix the `compute_aes` to better compatible with `ggplot2` (>=3.3.4) (2021-08-09, Mon)
   - The `ggplot2` (>=3.3.4) introduced `computed_mapping`.
 
 # ggtreeExtra 1.3.3
