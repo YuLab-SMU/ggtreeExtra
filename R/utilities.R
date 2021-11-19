@@ -10,7 +10,6 @@
 #    return(refda)
 #}
 
-#' @importFrom stats var
 normxy <- function(refnum, targetnum, na.rm=TRUE, 
                    keepzero=FALSE, ratio=0.38){
     target_sign <- sign(targetnum)
@@ -32,9 +31,6 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     refnum <- checkref(refnum)
     rmax <- max(refnum, na.rm=na.rm) * ratio
     if (!keepzero){
-        #if (var(targetnum)==0){
-        #    return (rep(rmax, length(targetnum)))
-        #}
         rmin <- min(refnum[refnum!=0], na.rm=na.rm)
     }else{
         rmin <- min(refnum, na.rm=na.rm)
@@ -56,15 +52,11 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     }
 }
 
-checkref <- function(refnum, n=5, step=2000){
+checkref <- function(refnum){
+    ZAP <- .Machine$double.xmin
     rmin <- min(refnum, na.rm=TRUE)
     rmax <- max(refnum, na.rm=TRUE)
-    if (length(refnum)<=500){
-       tmpstep <- (rmax - rmin)/step
-    }else{
-       tmpstep <- (rmax - rmin)/length(refnum)
-    }
-    refnum <- seq(from=rmin, to=rmax, by=tmpstep)
+    refnum <- c(rmin, ZAP, rmax)
     return(refnum)
 }
 
