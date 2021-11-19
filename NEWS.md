@@ -1,3 +1,11 @@
+# ggtreeExtra 1.5.0.990
+
++ update the lower limit of reference range in normalization precess. (2021-11-19, Fri)
+
+# ggtreeExtra 1.4.0
+
++ Bioconductor 3.14 release.
+
 # ggtreeExtra 1.3.6
 
 + fix the issue of `gridlines` when some data is removed. (2021-08-25, Wed)
