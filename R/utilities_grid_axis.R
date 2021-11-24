@@ -47,6 +47,7 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params, y.range
     return (obj1)
 }
 
+#' @importFrom ggplot2 geom_text
 build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y.range){
     newxid <- paste0("new_", xid)
     yr <- y.range
