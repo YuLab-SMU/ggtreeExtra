@@ -6,7 +6,7 @@
 
     citation <- paste0("If you use ", pkgname,
                        " in published research, please cite the paper:\n\n",
-                       ggtreeExtra_citations(), "\n")
+                       ggtreeExtra_citations())
 
-    packageStartupMessage(paste0(msg, citation))
+    packageStartupMessage(paste0(strwrap(pillar::style_subtle(paste0(msg, citation))), collapse="\n"))
 }
