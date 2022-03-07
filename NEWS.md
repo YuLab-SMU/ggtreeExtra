@@ -1,4 +1,4 @@
-# ggtreeExtra 1.5.2.990
+# ggtreeExtra 1.5.3
 
 + update the citation format. (2022-01-28, Fri)
 
