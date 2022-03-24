@@ -130,10 +130,8 @@ confuse_params <- function(inputp){
     return(inputp)
 }
 
-ggtreeExtra_citations <- function(){
-    paste(
-        "S Xu, Z Dai, P Guo, X Fu, S Liu, L Zhou, W Tang, T Feng, M Chen, L Zhan, T Wu, E Hu, Y Jiang, X Bo, G Yu.",
-        "ggtreeExtra: Compact visualization of richly annotated phylogenetic data.",
-        "Molecular Biology and Evolution 2021, 38(9):4039-4042. doi: 10.1093/molbev/msab166\n"
-        )
+check_orientation <- function(x){
+    xx <- do.call(x, list())
+    return('orientation' %in% xx$geom$extra_params)
 }
+

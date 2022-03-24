@@ -1,3 +1,7 @@
+# ggtreeExtra 1.5.3.990
+
++ set `orientation` argument automatically, when it is not be provided and the `geom` has the parameter. (2022-03-24, Thu)
+
 # ggtreeExtra 1.5.3
 
 + update the citation format. (2022-01-28, Fri)
