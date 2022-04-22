@@ -16,7 +16,8 @@ Imports:
     rlang,
     ggnewscale,
     stats,
-    ggtree
+    ggtree,
+    tidytree (>= 0.3.9)
 Suggests:
     treeio,
     ggstar,
@@ -26,8 +27,7 @@ Suggests:
     prettydoc,
     markdown,
     testthat (>= 3.0.0),
-    pillar,
-    tidytree (>= 0.3.9)
+    pillar
 License: GPL (>= 3)
 Encoding: UTF-8
 URL: https://github.com/YuLab-SMU/ggtreeExtra/

@@ -2,9 +2,8 @@
 ##' @export
 ggplot2::ggplot_add
 
-##' @importFrom ggtree ggtree
-##' @export
-ggtree::ggtree
+##' @importFrom tidytree as.treedata
+tidytree::as.treedata
 
 ##' @importFrom ggtree td_unnest
 ##' @export
