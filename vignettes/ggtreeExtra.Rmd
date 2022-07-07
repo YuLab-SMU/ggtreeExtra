@@ -223,11 +223,9 @@ p5 <- p4 +
       new_scale_fill() +
       geom_fruit(
           data=dat1,
-          geom=geom_bar,
+          geom=geom_col,
           mapping=aes(y=ID, x=Abundance, fill=Location),  #The 'Abundance' of 'dat1' will be mapped to x
           pwidth=0.4,
-          stat="identity",
-          orientation="y", # the orientation of axis.
           axis.params=list(
                           axis="x", # add axis text of the layer.
                           text.angle=-45, # the text size of axis.
@@ -269,11 +267,9 @@ p
 # the first ring.
 p1 <- p + 
       geom_fruit(
-          data=dt,
-          geom=geom_bar,
-          mapping=aes(y=id, x=value, fill=group),
-          orientation="y",
-          stat="identity"
+          data = dt,
+          geom = geom_col,
+          mapping = aes(y=id, x=value, fill=group),
       ) + 
       new_scale_fill()
 p1
@@ -283,10 +279,8 @@ p2 <- p1 +
       geom_fruit_list(
           geom_fruit(
               data = df,
-              geom = geom_bar,
+              geom = geom_col,
               mapping = aes(y=id, x=value, fill=group2),
-              orientation = "y",
-              stat = "identity"
           ),
           scale_fill_manual(values=c("blue", "red")), # To map group2
           new_scale_fill(), # To initialize fill scale.
@@ -305,10 +299,9 @@ p2
 # The third ring
 p3 <- p2 + 
       geom_fruit(
-          data=dtf,
-          geom=geom_bar,
+          data = dtf,
+          geom = geom_col,
           mapping = aes(y=id, x=value, fill=group3),
-          orientation = "y",
           stat = "identity"
       ) +
       scale_fill_manual(values=c("#00AED7", "#009E73"))

@@ -14,15 +14,15 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
                    keepzero=FALSE, ratio=0.38){
     target_sign <- sign(targetnum)
     targetnum <- abs(targetnum)
-    if (all(refnum <= 0, na.rm=TRUE)){
+    if (all(refnum <= 0, na.rm = TRUE)){
         refnum <- abs(refnum)
-        if (all(target_sign <=0)){
+        if (all(target_sign <=0, na.rm = TRUE)){
             orientation <- 1
         }else{
             orientation <- -1
         }
     }else{
-        if (all(target_sign <= 0)){
+        if (all(target_sign <= 0, na.rm = TRUE)){
             orientation <- -1
         }else{
             orientation <- 1
@@ -41,9 +41,9 @@ normxy <- function(refnum, targetnum, na.rm=TRUE,
     newnum <- k*(targetnum - tmin) + rmin
     newnum[targetnum==0] <- 0
     newnum <- target_sign * newnum
-    if (all(target_sign <=0 ) && orientation==-1){
+    if (all(target_sign <=0, na.rm = TRUE) && orientation==-1){
         return(newnum)
-    }else if(all(target_sign <= 0) && orientation==1){
+    }else if(all(target_sign <= 0, na.rm = TRUE) && orientation==1){
         newnum <- -1 * newnum
         return(newnum)
     }else{

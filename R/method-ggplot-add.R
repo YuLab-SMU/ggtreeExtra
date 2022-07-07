@@ -277,4 +277,9 @@ check_reverse <- function(plot){
 }
 
 #' @importFrom utils getFromNamespace
-warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
+#warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
+warning_wrap <- function (...) {
+    x = paste0(...)
+    x = paste(strwrap(x), collapse = "\n")
+    warning(x, call. = FALSE)
+}
