@@ -2,6 +2,11 @@
 
 # ggtreeExtra: An R Package To Add Geom Layers On Circular Or Other Layout Tree Of “ggtree”.
 
+[![](https://img.shields.io/badge/release%20version-1.6.0-green.svg)](https://www.bioconductor.org/packages/ggtreeExtra)
+[![](https://img.shields.io/badge/devel%20version-1.7.0.990-green.svg)](https://github.com/YuLab-SMU/ggtreeExtra)
+[![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtreeExtra.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtreeExtra.html#since)
+[![platform](http://www.bioconductor.org/shields/availability/devel/ggtreeExtra.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtreeExtra.html#archives)
+
 ‘ggtreeExtra’ extends the method for mapping and visualizing associated
 data on phylogenetic tree using ‘ggtree’. These associated data can be
 presented on the external panels to circular layout, fan layout, or

@@ -35,6 +35,6 @@ BugReports: https://github.com/YuLab-SMU/ggtreeExtra/issues
 ByteCompile: true
 Roxygen: list(markdown = TRUE)
 biocViews: Software, Visualization, Phylogenetics, Annotation
-RoxygenNote: 7.2.0
+RoxygenNote: 7.2.1
 VignetteBuilder: knitr
 Config/testthat/edition: 3

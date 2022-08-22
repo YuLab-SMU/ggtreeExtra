@@ -13,6 +13,11 @@ html_preview: false
 library(badger)
 ```
 
+`r badge_bioc_release("ggtreeExtra", "green")`
+`r badge_devel("YuLab-SMU/ggtreeExtra", "green")`
+[![Bioc](http://www.bioconductor.org/shields/years-in-bioc/ggtreeExtra.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtreeExtra.html#since)
+[![platform](http://www.bioconductor.org/shields/availability/devel/ggtreeExtra.svg)](https://www.bioconductor.org/packages/devel/bioc/html/ggtreeExtra.html#archives)
+
 ```{r, comment="", echo=FALSE, results='asis'}
 cat(packageDescription('ggtreeExtra')$Description)
 ```

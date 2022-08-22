@@ -22,10 +22,7 @@ resolution of the data.}
 \item{dodge.width}{the amount to dodge in the x direction. Defaults to 0.75,
 the default \code{position_dodge()} width.}
 
-\item{hexpand}{The distance to be shifted vertically or horizontally,
-default is NA.}
-
-\item{vexpand}{The distance to be shifted vertically or horizontally,
+\item{hexpand, vexpand}{The distance to be shifted vertically or horizontally,
 default is NA.}
 
 \item{seed}{A random seed to make the jitter reproducible.

@@ -14,8 +14,8 @@ geom_fruit(
   position = "auto",
   inherit.aes = FALSE,
   grid.params = NULL,
-  axis.params = list(axis = "none", text.angle = 0, text.size = 0.8, text = NULL, title
-    = NULL, title.size = 3, title.height = 0.1, title.angle = 0, title.color = "black",
+  axis.params = list(axis = "none", text.angle = 0, text.size = 0.8, text = NULL, title =
+    NULL, title.size = 3, title.height = 0.1, title.angle = 0, title.color = "black",
     nbreak = 4, line.size = 0.2, line.color = "grey", line.alpha = 1, ...),
   ...
 )

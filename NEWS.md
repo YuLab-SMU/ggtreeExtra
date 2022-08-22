@@ -1,3 +1,11 @@
+# ggtreeExtra 1.7.0.990 
+
++ fix a bug of subset data (when the `value` mapped to `x` aesthetic contains negative value.)
+
+# ggtreeExtra 1.6.0
+
++ Bioconductor 3.15 release and Bioconductor 3.16 (devel) version bump.
+
 # ggtreeExtra 1.5.4
 
 + set `orientation` argument automatically, when it is not be provided and the `geom` has the parameter. (2022-03-24, Thu)
