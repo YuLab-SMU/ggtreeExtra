@@ -44,9 +44,13 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                 dat[[xid]] <- factor(dat[[xid]], levels=sort(unique(as.vector(dat[[xid]]))))
             }
             dat[[paste0(xid,"_bp")]] <- as.numeric(dat[[xid]])
-            dat[[paste0("new_", xid)]] <- orientation * 
-                                          normxy(refnum=plot$data$x, targetnum=dat[[paste0(xid,"_bp")]],
-                                                 keepzero=TRUE, ratio=object$pwidth)
+            if (stats::var(as.numeric(dat[[xid]]), na.rm = TRUE) !=0){
+                dat[[paste0("new_", xid)]] <- orientation * 
+                                              normxy(refnum=plot$data$x, targetnum=dat[[paste0(xid,"_bp")]],
+                                                     keepzero=TRUE, ratio=object$pwidth)
+            }else{
+                dat[[paste0('new_', xid)]] <- 0
+            }
             if (orientation > 0){
                 dat[[paste0("new_", xid)]] <- dat[[paste0("new_", xid)]] + offset
             }
