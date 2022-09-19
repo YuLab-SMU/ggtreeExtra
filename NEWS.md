@@ -1,4 +1,4 @@
-# ggtreeExtra 1.7.0.991 
+# ggtreeExtra 1.7.1 
 
 + fix a bug of subset data (when the `value` mapped to `x` aesthetic contains negative value.)
 + fix a bug when x of mapping in data is only one unique.
