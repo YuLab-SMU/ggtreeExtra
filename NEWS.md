@@ -1,3 +1,10 @@
+# ggtreeExtra 1.9.0 development (2022-11-04, Fri)
+
+
+# ggtreeExtra 1.8.0
+
++ Bioconductor RELEASE_3_16 (2022-11-04, Fri)
+
 # ggtreeExtra 1.7.1 
 
 + fix a bug of subset data (when the `value` mapped to `x` aesthetic contains negative value.)
