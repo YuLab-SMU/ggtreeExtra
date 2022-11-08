@@ -1,4 +1,5 @@
 #' @importFrom utils getFromNamespace
+
 stack_var <- getFromNamespace("stack_var", "ggplot2")
 
 collide <- getFromNamespace("collide", "ggplot2")
@@ -28,3 +29,5 @@ with_seed_null <- function(seed, code) {
         with_seed(seed, code)
     }
 }
+
+##' @import cli

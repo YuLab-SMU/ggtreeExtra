@@ -1,5 +1,6 @@
-# ggtreeExtra 1.9.0 development (2022-11-04, Fri)
+# ggtreeExtra 1.9.1
 
++ import `cli` to avoid warning in checking, which is used by the latest `ggplot2` (2022-11-08, Tue)
 
 # ggtreeExtra 1.8.0
 
