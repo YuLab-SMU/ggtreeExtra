@@ -105,6 +105,7 @@
 ##' The 'p' parameter only work when you use `fruit_plot()`, which is alias of `geom_fruit()`.
 ##' @return ggplot object
 ##' @importFrom rlang enquo
+##' @importFrom cli cli_abort 
 ##' @export
 ##' @author Shuangbin Xu and Guangchuang Yu
 ##' @examples
@@ -190,11 +191,13 @@ geom_fruit <- function(mapping,
                                        ...
                                    ),
                        ...){
-    geomname <- as.character(as.list(match.call())[["geom"]])
-    if (geomname=="geom"){
-        calls <- evalq(match.call(), parent.frame(1))
-        geomname <- as.character(as.list(calls)[["geom"]])
+    geom <- rlang::enquo(geom)
+    if (rlang::quo_is_missing(geom)){
+        cli::cli_abort(c("The {.arg geom} argument is required, you can provide a",
+                        "geometric function defined in {.pkg ggplot2} or other {.pkg ggplot2-extension}",
+                        "according to you needs, such as {.code geom_col}, {.code geom_tile} etc.")) 
     }
+    geomname <- .convert_to_name(geom)
     default.grid.params <- list(color="grey",
                                 size=0.2,
                                 alpha=1,
@@ -242,7 +245,7 @@ geom_fruit <- function(mapping,
     obj <- structure(
              list(
                data = data,
-               geom = geom, 
+               geom = geomname, 
                mapping = mapping,
                params = params,
                offset = offset,
@@ -271,10 +274,11 @@ fruit_plot <- function(p,
                        position="auto",
                        ...){
 
+    geom <- rlang::enquo(geom)
     p <- p + 
          geom_fruit(
              data=data, 
-             geom=geom,
+             geom=!!geom,
              mapping=mapping, 
              offset=offset,
              pwidth=pwidth, 
@@ -351,7 +355,7 @@ fruit_plot <- function(p,
 ##' p3 
 geom_fruit_list <- function(fruit, ...){
     if(!inherits(fruit, "fruit_plot")){
-        stop("The first layers should be 'fruit_plot' class.")
+        cli::cli_abort("The first layers should be {.cls fruit_plot} class created by {.fun geom_fruit}.")
     }
     obj <- structure(list(fruit, ...), class="layer_fruits")
 }

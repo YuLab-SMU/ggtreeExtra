@@ -47,7 +47,7 @@ PositionJitterdodgex <- ggproto("PositionJitterdodgex", Position,
     # Adjust the x transformation based on the number of 'dodge' variables
     dodgecols <- intersect(c("fill", "colour", "linetype", "shape", "size", "alpha"), colnames(data))
     if (length(dodgecols) == 0) {
-      abort("`position_jitterdodge()` requires at least one aesthetic to dodge by")
+        cli::cli_abort("{.fn position_jitterdodgex} requires at least one aesthetic to dodge by")
     }
     # returns NULL for numeric, i.e. non-dodge layers
     ndodge <- lapply(data[dodgecols], levels)  

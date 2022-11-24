@@ -1,3 +1,8 @@
+# ggtreeExtra 1.9.1.990
+
++ using `cli` to replace `warning` or `stop`. (2022-11-24, Thu)
++ using `rlang` to transfer the `geom` argument. (2022-11-24, Thu)
+
 # ggtreeExtra 1.9.1
 
 + import `cli` to avoid warning in checking, which is used by the latest `ggplot2` (2022-11-08, Tue)

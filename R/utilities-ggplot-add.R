@@ -1,7 +1,7 @@
 check_subset_aes <- function(object){
     if (!is.null(object$mapping$subset)){
         object$data <- subset(object$data, eval(parse(text=quo_name(object$mapping$subset))))
-        object$mapping <- object$mapping[names(object$mapping)!="subset"]                                                                                                                                   
+        object$mapping <- object$mapping[names(object$mapping)!="subset"] 
     }
     return(object)
 }

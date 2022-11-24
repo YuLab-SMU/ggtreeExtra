@@ -139,8 +139,8 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
         if (inherits(o, "fruit_plot")){
             offset.i <- get_offset(plot$data$x, o$offset)
             if (offset != offset.i && n != 1){
-                warning_wrap("The 'offset' argument of geom_fruit layers in geom_fruit_list is different. 
-                              Please keep it consistent if you want to display these layers on the same position.")
+                cli::cli_alert_warning(c("The {.arg offset} argument of {.fun geom_fruit} layers in {.fun geom_fruit_list} is different.", 
+                              "Please keep it consistent if you want to display these layers on the same position."))
                 hexpand2 <- max(abs(plot$data$x), na.rm=TRUE) + offset.i
             }
             o[["params"]][["position"]][["hexpand"]] <- hexpand2
@@ -168,7 +168,7 @@ create_text_data <- function(data, origin, newxid, flagrev){
     return (data)
 }
 
-#' @importFrom rlang abort
+#' @importFrom cli cli_abort
 check_plotdata <- function(object, plot){
     if (is.null(object$data)){
         object$mapping <- modifyList(object$mapping, aes_(y=~y))
@@ -179,7 +179,7 @@ check_plotdata <- function(object, plot){
     }else if (is.function(object$data)){
         object$data <- object$data(plot$data)
         if (!is.data.frame(object$data)){
-            abort("Data function must return a data.frame")
+            cli_abort("Data function must return a data.frame")
         }
         object$data <- object$data[object$data$isTip,]
         object$mapping <- modifyList(object$mapping, aes_(y=~y))
@@ -200,9 +200,9 @@ build_new_data <- function(object, plot){
         commonnames <- intersect(colnames(object$data), colnames(origindata)) 
         commonnames <- commonnames[commonnames!=as_name(object$mapping$y)]
         if (length(commonnames) > 0){
-            warning_wrap("The following column names/name: ", paste0(commonnames, collapse=", "),
+            cli::cli_alert_warning(c("The following column names/name: ", paste0(commonnames, collapse=", "),
                          " are/is the same to tree data, the tree data column names are : ",
-                         paste0(colnames(origindata), collapse=", "), ".")
+                         paste0(colnames(origindata), collapse=", "), "."))
         }
         object$data <- merge(origindata, object$data, by.x="label", by.y=as_name(object$mapping$y))
         object$mapping <- modifyList(object$mapping, aes_(y=~y))
@@ -282,8 +282,8 @@ check_reverse <- function(plot){
 
 #' @importFrom utils getFromNamespace
 #warning_wrap <- getFromNamespace("warning_wrap", "ggplot2")
-warning_wrap <- function (...) {
-    x = paste0(...)
-    x = paste(strwrap(x), collapse = "\n")
-    warning(x, call. = FALSE)
-}
+#warning_wrap <- function (...) {
+#    x = paste0(...)
+#    x = paste(strwrap(x), collapse = "\n")
+#    warning(x, call. = FALSE)
+#}

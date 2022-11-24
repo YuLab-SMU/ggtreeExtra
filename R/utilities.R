@@ -135,3 +135,28 @@ check_orientation <- function(x){
     return('orientation' %in% xx$geom$extra_params)
 }
 
+
+#' @importFrom rlang quo_get_expr
+.convert_to_name <- function(x){
+    x <- quo_get_expr(x)
+    if (inherits(x, 'call')){
+        x <- gsub("^\"|\"$", "", rlang::as_label(x))
+    }
+    if (grepl("\\(*.\\)$", x)){
+        x <- gsub("\\(*.\\)", "", x)
+    }else{
+        x <- rlang::as_name(x)
+    }
+    if (!(grepl('^geom_', x) && is.layer(x))){
+        cli::cli_abort(c("The {.arg geom} argument should be a name of geometric function defined in {.pkg ggplot2}",
+                         "or other {.pkg ggplot2-extension}, for example, 
+                         {.code geom = geom_col} or {.code geom = geom_tile} etc."
+                         ))
+    }
+    return(x)
+}
+
+is.layer <- function(x){
+    x <- inherits(do.call(x, list()), 'Layer')
+    return(x)
+}
