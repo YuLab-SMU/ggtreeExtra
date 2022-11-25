@@ -1,7 +1,13 @@
-# ggtreeExtra 1.9.1.990
+# ggtreeExtra 1.9.1.991
 
 + using `cli` to replace `warning` or `stop`. (2022-11-24, Thu)
 + using `rlang` to transfer the `geom` argument. (2022-11-24, Thu)
++ using `pwidth` to replace `width` when `x` only have one unique 
+  value with `geom = geom_tile` and `width` is not provided. (2022-11-25, Fri)
+  - <https://github.com/YuLab-SMU/ggtreeExtra/issues/11#issuecomment-873335702>
+  - <https://github.com/YuLab-SMU/ggtreeExtra/issues/12>
+  - <https://github.com/YuLab-SMU/ggtreeExtra/issues/25>
+
 
 # ggtreeExtra 1.9.1
 

@@ -27,7 +27,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
         hexpand2 <- max(abs(plot$data$x), na.rm=TRUE) + offset
     }
     dat <- object$data
-    if (is.numeric(dat[[xid]]) & !all(dat[[xid]]==0)){
+    if (is.numeric(dat[[xid]]) && !all(dat[[xid]]==0)){
         normres <- get_continuous_norm(refdata=plot$data$x, 
                                        data=dat, 
                                        orientation=orientation,
@@ -50,6 +50,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                                                      keepzero=TRUE, ratio=object$pwidth)
             }else{
                 dat[[paste0('new_', xid)]] <- 0
+                object <- .set_pwidth2width(object)
             }
             if (orientation > 0){
                 dat[[paste0("new_", xid)]] <- dat[[paste0("new_", xid)]] + offset
@@ -63,6 +64,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                 dat[[paste0("new_", xid)]] <- 0
             }
             newxexpand <- 0
+            object <- .set_pwidth2width(object)
         }
     }
     if ("xmaxtmp" %in% colnames(plot$data)){

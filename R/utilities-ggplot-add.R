@@ -61,3 +61,12 @@ set_mapping <- function(object){
     }          
     return (list(object, xid))
 }
+
+.set_pwidth2width <- function(x){
+    if (x$geomname == 'geom_tile' && !'width' %in% names(x$params)){
+        cli::cli_warn(c("The column of {.field x} aesthetic only have one unique value with {.code geom = geom_tile},",
+                        "and the {.arg width} of {.fn geom_tile} is not provided, the {.arg pwidth} will be as {.arg width}."))
+        x$params$width <- x$pwidth
+    }
+    return(x)
+}
