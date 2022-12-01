@@ -1,4 +1,4 @@
-# ggtreeExtra 1.9.1.991
+# ggtreeExtra 1.9.1.992
 
 + using `cli` to replace `warning` or `stop`. (2022-11-24, Thu)
 + using `rlang` to transfer the `geom` argument. (2022-11-24, Thu)
@@ -7,7 +7,9 @@
   - <https://github.com/YuLab-SMU/ggtreeExtra/issues/11#issuecomment-873335702>
   - <https://github.com/YuLab-SMU/ggtreeExtra/issues/12>
   - <https://github.com/YuLab-SMU/ggtreeExtra/issues/25>
-
++ adding the `messages` to show how to adjust the `color` scale when the `color` 
+  aesthetic was use internal with `geom=geom_boxplot` etc. (2022-12-01, Thu)
+  - <https://github.com/YuLab-SMU/ggtree/issues/551>
 
 # ggtreeExtra 1.9.1
 
