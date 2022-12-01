@@ -120,6 +120,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     # or density plot is also a demand, so group should not be mapped, 
     # only left color.
     if (object$geomname %in% c(dodpos, densitypos)){
+        .generate_colour_warning(plot)
         obj <- list(obj, scale_color_manual(values=c(rep("black", length(dat$y))), guide="none"), new_scale_color())
     }
     ggplot_add(obj, plot, object_name)

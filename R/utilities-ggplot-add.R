@@ -70,3 +70,28 @@ set_mapping <- function(object){
     }
     return(x)
 }
+
+.generate_colour_warning <- function(x){
+    index <- which(.get_colour_aes_num(x))
+    if (length(index)>0){
+        message <- vector()
+        for (i in index){
+            old.nm <- names(x$labels)[i]
+            new.nm <- paste0(names(x$labels)[i], '_new')
+            message <- append(message, c("The {.fn new_scale_color} was used in the internal.",
+                            "The aesthetics : {.field {old.nm}} was renamed to {.field {new.nm}},",
+                            "please specify the {.code aesthetics=\"{new.nm}\"} in the {.fn scale_color_manual}",
+                            " or {.fn scale_color_continuous} etc. to adjust the {.code colour}."
+                            ))
+        }
+        cli::cli_inform(message)
+    }
+}
+
+.get_colour_aes_num <- function(x){
+    index <- grepl("colour", names(x$labels))
+    index2 <- grepl("factor\\(eval\\(parse\\(text", x$labels)
+    index[index2] <- FALSE
+    return(index)
+}
+
