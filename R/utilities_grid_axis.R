@@ -132,14 +132,14 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y
 
 #' @importFrom stats aggregate
 #' @importFrom stats as.formula
-get_continuous_norm <- function(refdata, data, orientation, xid, position, geomname, ratio, nbreak){
+get_continuous_norm <- function(refdata, data, orientation, xid, position, geomname, ratio, nbreak, limits = NULL){
     if (inherits(position, "PositionStackx") || geomname %in% stackpos){
         if (inherits(position, "PositionStackx")){
             dat <- aggregate(as.formula(paste0(". ~","label")), data[,c(xid, "label")], sum)
         }else{
             dat <- data[,c(xid, "label")]
         }
-        if (!0 %in% dat[[xid]]){
+        if (!any(dat[[xid]]==0)){
             dabreaks <- pretty(c(0, dat[[xid]]), n=nbreak)
         }else{
             dabreaks <- pretty(dat[[xid]], n=nbreak)
@@ -151,7 +151,25 @@ get_continuous_norm <- function(refdata, data, orientation, xid, position, geomn
     data[[paste0("new_",xid)]] <- tmpdanorm[-seq_len(length(dabreaks))]
     dabreaks <- data.frame(v1=dabreaks, v2=tmpdanorm[seq_len(length(dabreaks))])
     colnames(dabreaks) <- c(xid, paste0("new_",xid))
+    if (is.null(limits)){
+        limits <- max(data[[xid]], na.rm = TRUE)
+    }
+    index.keep <- extract_interval(dabreaks[[xid]], limits)
+    dabreaks <- dabreaks[index.keep,,drop=FALSE]
     attr(data, "axis_breaks") <- dabreaks
     newxexpand <- max(abs(tmpdanorm), na.rm=TRUE)
     return(list(data, newxexpand))
+}
+
+#' @importFrom rlang quo_text 
+extract_interval <- function(x, limits){
+    if (length(limits)>1){
+        limits <- gsub("c\\(","",gsub(")", "", quo_text(limits))) %>%
+            strsplit(split=",") %>% 
+            unlist() %>% 
+            as.numeric()
+        return((x >= min(limits, na.rm = TRUE)) & (x <= max(limits, na.rm = TRUE)))
+    }else{
+        return(x <= max(limits, na.rm = TRUE))
+    }
 }

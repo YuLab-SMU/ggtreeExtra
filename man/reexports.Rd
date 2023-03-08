@@ -3,6 +3,7 @@
 \docType{import}
 \name{reexports}
 \alias{reexports}
+\alias{\%>\%}
 \alias{ggplot_add}
 \alias{as.treedata}
 \alias{td_unnest}
@@ -17,6 +18,8 @@ below to see their documentation.
   \item{ggplot2}{\code{\link[ggplot2]{ggplot_add}}}
 
   \item{ggtree}{\code{\link[ggtree]{td_filter}}, \code{\link[ggtree]{td_unnest}}}
+
+  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
 
   \item{tidytree}{\code{\link[tidytree]{as.treedata}}}
 }}

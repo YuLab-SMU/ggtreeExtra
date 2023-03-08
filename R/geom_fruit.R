@@ -129,29 +129,10 @@
 ##' p2 <- p1 + 
 ##'       geom_fruit(
 ##'           data=dd, 
-##'           geom=geom_bar, 
-##'           mapping=aes(x=value, y=id),
-##'           orientation="y",
-##'           stat="identity"
+##'           geom=geom_col, 
+##'           mapping=aes(x=value, y=id)
 ##'       )  
 ##'
-##' p3 <- fruit_plot(
-##'            p=p, 
-##'            data=dt, 
-##'            geom=geom_star,
-##'            mapping=aes(y=id, fill=group),
-##'            size=2.5, 
-##'            starstroke=0
-##'       )
-##'
-##' p4 <- fruit_plot(
-##'            p=p3,
-##'            data=dd,
-##'            geom=geom_bar,
-##'            mapping=aes(x=value, y=id),
-##'            orientation="y",
-##'            stat="identity"
-##'       )
 ##' p <- p %<+% dd %<+% dt
 ##' p5 <- p + 
 ##'       geom_fruit(
@@ -161,10 +142,19 @@
 ##'           starstroke = 0
 ##'       ) +
 ##'       geom_fruit(
-##'           geom = geom_bar,
+##'           geom = geom_col,
 ##'           mapping = aes(x=value, y=id),
-##'           orientation = "y",
-##'           stat = 'identity'
+##'           pwidth = .3,
+##'           axis.params = list(
+##'                            axis = 'x',
+##'                            text.size = 2,
+##'                            nbreak = 2, 
+##'                            text.angle = -40, 
+##'                            vjust = 1, 
+##'                            hjust = 0,
+##'                            limits = c(0, 2)
+##'                         ), 
+##'           grid.params = list()
 ##'       )
 geom_fruit <- function(mapping, 
                        data=NULL, 
@@ -188,6 +178,7 @@ geom_fruit <- function(mapping,
                                        line.size=0.2,
                                        line.color="grey",
                                        line.alpha=1,
+                                       limits = NULL,
                                        ...
                                    ),
                        ...){
@@ -231,7 +222,8 @@ geom_fruit <- function(mapping,
     axis.dot.params <- extract_dot_params(
                            defaultp=default.axis.params,
                            inputp=axis.params
-                       ) 
+                       )
+    axis.dot.params$limits <- NULL 
     grid.dot.params <- extract_dot_params(
                            defaultp=default.grid.params,
                            inputp=grid.params

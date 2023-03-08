@@ -16,7 +16,7 @@ geom_fruit(
   grid.params = NULL,
   axis.params = list(axis = "none", text.angle = 0, text.size = 0.8, text = NULL, title =
     NULL, title.size = 3, title.height = 0.1, title.angle = 0, title.color = "black",
-    nbreak = 4, line.size = 0.2, line.color = "grey", line.alpha = 1, ...),
+    nbreak = 4, line.size = 0.2, line.color = "grey", line.alpha = 1, limits = NULL, ...),
   ...
 )
 
@@ -168,29 +168,10 @@ p1 <- p +
 p2 <- p1 + 
       geom_fruit(
           data=dd, 
-          geom=geom_bar, 
-          mapping=aes(x=value, y=id),
-          orientation="y",
-          stat="identity"
+          geom=geom_col, 
+          mapping=aes(x=value, y=id)
       )  
 
-p3 <- fruit_plot(
-           p=p, 
-           data=dt, 
-           geom=geom_star,
-           mapping=aes(y=id, fill=group),
-           size=2.5, 
-           starstroke=0
-      )
-
-p4 <- fruit_plot(
-           p=p3,
-           data=dd,
-           geom=geom_bar,
-           mapping=aes(x=value, y=id),
-           orientation="y",
-           stat="identity"
-      )
 p <- p \%<+\% dd \%<+\% dt
 p5 <- p + 
       geom_fruit(
@@ -200,10 +181,19 @@ p5 <- p +
           starstroke = 0
       ) +
       geom_fruit(
-          geom = geom_bar,
+          geom = geom_col,
           mapping = aes(x=value, y=id),
-          orientation = "y",
-          stat = 'identity'
+          pwidth = .3,
+          axis.params = list(
+                           axis = 'x',
+                           text.size = 2,
+                           nbreak = 2, 
+                           text.angle = -40, 
+                           vjust = 1, 
+                           hjust = 0,
+                           limits = c(0, 2)
+                        ), 
+          grid.params = list()
       )
 }
 \author{

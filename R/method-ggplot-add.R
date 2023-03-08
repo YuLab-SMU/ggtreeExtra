@@ -35,7 +35,9 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
                                        position=object$params$position, 
                                        geomname=object$geomname,
                                        ratio=object$pwidth,
-                                       nbreak=object$axis.params$nbreak)
+                                       nbreak=object$axis.params$nbreak, 
+                                       limits = object$axis.params$limits
+                                      )
         dat <- normres[[1]]
         newxexpand <- normres[[2]]
     }else{
