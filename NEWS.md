@@ -1,4 +1,4 @@
-# ggtreeExtra 1.9.1.993
+# ggtreeExtra 1.9.2
 
 + add `limits` parameter in `axis.params` to display the range of x axis. (2023-03-08, Wen)
 + using `cli` to replace `warning` or `stop`. (2022-11-24, Thu)
