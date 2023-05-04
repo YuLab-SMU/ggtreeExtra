@@ -1,3 +1,8 @@
+# ggtreeExtra 1.10.0
+
++ 1.10.0 version released with `Bioconductor 3.17`, and 1.11.0 version was developed 
+  with `Bioconductor devel (3.18)`.  (2023-04-28, Fri)
+
 # ggtreeExtra 1.9.2
 
 + add `limits` parameter in `axis.params` to display the range of x axis. (2023-03-08, Wen)
