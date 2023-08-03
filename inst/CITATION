@@ -1,7 +1,7 @@
 citHeader("To cite ggtreeExtra in publications use:")
 
-citEntry(
-    entry  = "book",
+bibentry(
+    bibtype  = "book",
     title = "Data Integration, Manipulation and Visualization of Phylogenetic Treess",
     author = person("Guangchuang", "Yu"),
 	publisher = "Chapman and Hall/{CRC}",
@@ -14,25 +14,25 @@ citEntry(
 )
 
 
-citEntry(
-    entry  = "article",
+bibentry(
+    bibtype  = "article",
     title  = "ggtreeExtra: Compact visualization of richly annotated phylogenetic data",
     author = personList(
-        as.person("Shuangbin Xu"),
-        as.person("Zehan Dai"),
-        as.person("Pingfan Guo"),
-        as.person("Xiaocong Fu"),
-        as.person("Shanshan Liu"),
-        as.person("Lang Zhou"),
-        as.person("Wenli Tang"),
-        as.person("Tingze Feng"),
-        as.person("Meijun Chen"),
-        as.person("Li Zhan"),
-        as.person("Tianzi Wu"),
-        as.person("Erqiang Hu"),
-        as.person("Yong Jiang"),
-        as.person("Xiaochen Bo"),
-        as.person("Guangchuang Yu")
+        person("Shuangbin", "Xu"),
+        person("Zehan", "Dai"),
+        person("Pingfan", "Guo"),
+        person("Xiaocong", "Fu"),
+        person("Shanshan", "Liu"),
+        person("Lang", "Zhou"),
+        person("Wenli", "Tang"),
+        person("Tingze", "Feng"),
+        person("Meijun", "Chen"),
+        person("Li", "Zhan"),
+        person("Tianzi", "Wu"),
+        person("Erqiang", "Hu"),
+        person("Yong", "Jiang"),
+        person("Xiaochen", "Bo"),
+        person("Guangchuang", "Yu")
         ),
     journal = "Molecular Biology and Evolution",
     volume  = "38",
