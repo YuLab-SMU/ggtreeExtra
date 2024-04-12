@@ -1,11 +1,16 @@
+# ggtreeExtra 1.13.0
+
++ 1.12.0 version released with Bioconductor 3.18 and 1.13.0 version was bumped with 
+  Bioconductor 3.19 (devel) version. (2023-10-25, Wed)
+
 # ggtreeExtra 1.10.0
 
-+ 1.10.0 version released with `Bioconductor 3.17`, and 1.11.0 version was developed 
-  with `Bioconductor devel (3.18)`.  (2023-04-28, Fri)
++ 1.10.0 version released with Bioconductor 3.17, and 1.11.0 version was bumped
+   with Bioconductor devel (3.18).  (2023-04-28, Fri)
 
 # ggtreeExtra 1.9.2
 
-+ add `limits` parameter in `axis.params` to display the range of x axis. (2023-03-08, Wen)
++ add `limits` parameter in `axis.params` to display the range of x axis. (2023-03-08, Wed)
 + using `cli` to replace `warning` or `stop`. (2022-11-24, Thu)
 + using `rlang` to transfer the `geom` argument. (2022-11-24, Thu)
 + using `pwidth` to replace `width` when `x` only have one unique 
