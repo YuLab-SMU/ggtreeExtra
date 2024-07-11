@@ -15,12 +15,12 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     xid <- res[[2]]
     layout <- get_layout(plot)
     flagreverse <- check_reverse(plot=plot)
-    if (layout=="inward_circular" || flagreverse){
+    if (layout %in% c("inward_circular", "dendrogram") || flagreverse){
         orientation <- -1
     }else{
         orientation <- 1
     }
-    offset <- get_offset(plot$data$x, object$offset)
+    offset <- get_offset(plot$data, object$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
         hexpand2 <- max(abs(plot$data$xmaxtmp), na.rm=TRUE) + offset
     }else{
@@ -69,6 +69,9 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
             object <- .set_pwidth2width(object)
         }
     }
+    if (layout == 'dendrogram'){
+        offset <- abs(offset)
+    }
     if ("xmaxtmp" %in% colnames(plot$data)){
         plot$data$xmaxtmp <- plot$data$xmaxtmp + newxexpand + offset
     }else{
@@ -76,7 +79,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     }
     if ("hexpand" %in% names(object$params$position)){
         if (is.na(object$params$position$hexpand)){
-            if (orientation < 0){
+            if (orientation < 0 && layout!='dendrogram'){
                 hexpand2 <- abs(hexpand2)
             }
             object$params$position$hexpand <- hexpand2
@@ -132,7 +135,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
 ##' @author Shuangbin Xu
 ##' @export
 ggplot_add.layer_fruits <- function(object, plot, object_name){
-    offset <- get_offset(plot$data$x, object[[1]]$offset)
+    offset <- get_offset(plot$data, object[[1]]$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
         hexpand2 <- max(abs(plot$data$xmaxtmp), na.rm=TRUE) + offset
     }else{
@@ -142,7 +145,7 @@ ggplot_add.layer_fruits <- function(object, plot, object_name){
     for (o in object){
         n = n + 1
         if (inherits(o, "fruit_plot")){
-            offset.i <- get_offset(plot$data$x, o$offset)
+            offset.i <- get_offset(plot$data, o$offset)
             if (offset != offset.i && n != 1){
                 cli::cli_alert_warning(c("The {.arg offset} argument of {.fun geom_fruit} layers in {.fun geom_fruit_list} is different.", 
                               "Please keep it consistent if you want to display these layers on the same position."))
@@ -195,8 +198,16 @@ check_plotdata <- function(object, plot){
     return (object)
 }
 
-get_offset <- function(vnum, ratio){
-    offset <- ratio*(max(vnum, na.rm=TRUE) - min(vnum, na.rm=TRUE))
+get_offset <- function(da, ratio){
+    vnum <- da$x
+    tmp <- max(vnum, na.rm=TRUE) - min(vnum, na.rm=TRUE)
+    flag <- da[da$isTip, 'x',drop=TRUE] <= 0
+    if (all(flag)){
+        offset <- -tmp - ratio * tmp
+    }else{
+        offset <- ratio * tmp
+    }
+    return(offset)
 }
 
 build_new_data <- function(object, plot){
@@ -281,6 +292,8 @@ check_reverse <- function(plot){
                           }))
     if (!all(flag)){return(FALSE)}
     flag <- plot$scales$scales[[which(flag)]]$trans$name=="reverse" && inherits(plot$coordinates, "CoordPolar")
+    #flag2 <- inherits(plot$coordinates, "CoordPolar") || inherits(plot$coordinates, "CoordFlip")
+    #flag <- flag1 && flag2
     if (is.na(flag)){return(FALSE)}
     return(flag)
 }
