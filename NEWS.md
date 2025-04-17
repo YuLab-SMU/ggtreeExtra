@@ -1,3 +1,7 @@
+# ggtreeExtra 1.18.0
+
++ Bioconductor 3.21 released, and Bioconductor 3.22 bump. (2025-04-17, Thu)
+
 # ggtreeExtra 1.17.0
 
 + Bioconductor 3.20 released, and Bioconductor 3.21 version bump version. (2024-10-31, Thu)
