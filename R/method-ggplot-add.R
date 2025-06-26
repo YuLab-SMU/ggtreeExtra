@@ -5,7 +5,7 @@
 ##' @importFrom ggnewscale new_scale_color
 ##' @author Shuangbin Xu
 ##' @export
-ggplot_add.fruit_plot <- function(object, plot, object_name){
+ggplot_add.fruit_plot <- function(object, plot, object_name, ...){
     object <- check_plotdata(object=object, plot=plot)
     object <- check_subset_aes(object=object)
     object <- build_new_data(object=object, plot=plot)
@@ -128,13 +128,13 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
         .generate_colour_warning(plot)
         obj <- list(obj, scale_color_manual(values=c(rep("black", length(dat$y))), guide="none"), new_scale_color())
     }
-    ggplot_add(obj, plot, object_name)
+    ggplot_add(obj, plot, object_name, ...)
 }
 
 ##' @method ggplot_add layer_fruits
 ##' @author Shuangbin Xu
 ##' @export
-ggplot_add.layer_fruits <- function(object, plot, object_name){
+ggplot_add.layer_fruits <- function(object, plot, object_name, ...){
     offset <- get_offset(plot$data, object[[1]]$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
         hexpand2 <- max(abs(plot$data$xmaxtmp), na.rm=TRUE) + offset
