@@ -40,7 +40,7 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params, y.range
                  linejoin=grid.params$linejoin,
                  inherit.aes=grid.params$inherit.aes)
     obj1$data <- daline1
-    obj1$mapping <- aes_string(x="x", xend="xend", y="y", yend="yend")
+    obj1$mapping <- aes(x=!!sym("x"), xend=!!sym("xend"), y=!!sym("y"), yend=!!sym("yend"))
     obj1$position <- position_identityx(hexpand=position$hexpand)
     obj1 <- c(obj1, grid.dot.params)
     obj1 <- do.call("geom_segment", obj1)
@@ -67,7 +67,7 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y
     }
     obj <- list(size=axis.params$text.size, angle=axis.params$text.angle, inherit.aes=axis.params$inherit.aes)
     obj$data <- dat
-    obj$mapping <- aes_string(x=newxid, y=0, label=xid)
+    obj$mapping <- aes(x=!!sym(newxid), y=0, label=!!sym(xid))
     obj$position <- position_identityx(hexpand=position$hexpand)
     obj <- c(obj, axis.dot.params)
     obj <- do.call("geom_text", obj)
@@ -77,7 +77,7 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y
         titleobj <- list(size=axis.params$title.size, angle=axis.params$title.angle, 
                          color=axis.params$title.color, inherit.aes=axis.params$inherit.aes)
         titleobj$data <- titledat
-        titleobj$mapping <- aes_(x=~x, y=~y, label=~label)
+        titleobj$mapping <- aes(x=!!sym("x"), y=!!sym("y"), label=!!sym("label"))
         titleobj$position <- position_identityx(hexpand=position$hexpand)
         titleobj <- do.call("geom_text", titleobj)
         obj <- list(obj, titleobj)
@@ -96,7 +96,7 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y
             )
     dat2$y <- yr[1]/10
     dat2$yend <- yr[1]/10
-    obj2$mapping <- aes_string(x="x",xend="xend",y="y", yend="yend")
+    obj2$mapping <- aes(x=!!sym("x"),xend=!!sym("xend"),y=!!sym("y"), yend=!!sym("yend"))
     obj2$position <- position_identityx(hexpand=position$hexpand)
     if (nrow(dat)==1){
         dat3 <- data.frame(x=c(dat[[newxid]]-yr[1]/8, dat[[newxid]], dat[[newxid]]+yr[1]/8),

@@ -28,7 +28,7 @@ compute_aes <- function(object, plot){
         }
         data_after_cal <- suppressWarnings(geomobj$compute_aesthetics(data=object$data, plot=plot))
         object$data[["x"]] <- data_after_cal[["x"]]
-        object$mapping <- modifyList(object$mapping, aes_string(x="x"))
+        object$mapping <- modifyList(object$mapping, aes(x=!!sym("x")))
 	}
     return (object)
 }
@@ -52,12 +52,12 @@ set_mapping <- function(object){
         if (xid == "x"){
             object$data[["xtmp"]] <- object$data$x
             xid <- "xtmp"
-            object$mapping <- modifyList(object$mapping,aes_string(x=xid))
+            object$mapping <- modifyList(object$mapping,aes(x=!!sym(xid)))
         }      
     }else{     
         object$data$xtmp <- 0
         xid <- "xtmp"
-        object$mapping <- modifyList(object$mapping,aes_string(x=xid))
+        object$mapping <- modifyList(object$mapping,aes(x=!!sym(xid)))
     }          
     return (list(object, xid))
 }

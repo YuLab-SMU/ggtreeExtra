@@ -5,7 +5,7 @@
 ##' @importFrom ggnewscale new_scale_color
 ##' @author Shuangbin Xu
 ##' @export
-ggplot_add.fruit_plot <- function(object, plot, object_name){
+ggplot_add.fruit_plot <- function(object, plot, object_name, ...){
     object <- check_plotdata(object=object, plot=plot)
     object <- check_subset_aes(object=object)
     object <- build_new_data(object=object, plot=plot)
@@ -88,17 +88,17 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
     tmpangle <- dat$angle
     if (object$geomname=="geom_star"){
         dat$angle <- adjust_angle(layout=layout, angle=tmpangle)
-        object$mapping = modifyList(object$mapping, aes_(angle=~angle))
+        object$mapping = modifyList(object$mapping, aes(angle=!!sym("angle")))
     }
     if (object$geomname=="geom_text"){
         dat$angle <- adjust_text_angle(layout=layout, angle=tmpangle)
-        object$mapping = modifyList(object$mapping, aes_(angle=~angle))
+        object$mapping = modifyList(object$mapping, aes(angle=!!sym("angle")))
     }
     if (object$geomname %in% c(dodpos, densitypos)){
-        object$mapping = modifyList(object$mapping, aes(color=factor(eval(parse(text="y")))))
+        object$mapping = modifyList(object$mapping, aes(color=factor(!!sym("y"))))
         plot <- plot + new_scale_color()
     }
-    object$mapping = modifyList(object$mapping, aes_string(x=paste0("new_",xid)))
+    object$mapping = modifyList(object$mapping, aes(x=!!sym(paste0("new_",xid))))
     params <- c(list(data=dat, mapping=object$mapping, inherit.aes=object$inherit.aes), object$params)
     obj <- do.call(object$geom, params)
     if (object$axis.params$axis != "none"){
@@ -128,13 +128,13 @@ ggplot_add.fruit_plot <- function(object, plot, object_name){
         .generate_colour_warning(plot)
         obj <- list(obj, scale_color_manual(values=c(rep("black", length(dat$y))), guide="none"), new_scale_color())
     }
-    ggplot_add(obj, plot, object_name)
+    ggplot_add(obj, plot, object_name, ...)
 }
 
 ##' @method ggplot_add layer_fruits
 ##' @author Shuangbin Xu
 ##' @export
-ggplot_add.layer_fruits <- function(object, plot, object_name){
+ggplot_add.layer_fruits <- function(object, plot, object_name, ...){
     offset <- get_offset(plot$data, object[[1]]$offset)
     if ("xmaxtmp" %in% colnames(plot$data)){
         hexpand2 <- max(abs(plot$data$xmaxtmp), na.rm=TRUE) + offset
@@ -179,7 +179,7 @@ create_text_data <- function(data, origin, newxid, flagrev){
 #' @importFrom cli cli_abort
 check_plotdata <- function(object, plot){
     if (is.null(object$data)){
-        object$mapping <- modifyList(object$mapping, aes_(y=~y))
+        object$mapping <- modifyList(object$mapping, aes(y=!!sym("y")))
         object$data <- plot$data[plot$data$isTip,]
                                  #!colnames(plot$data) %in% c("parent", "node", "branch.length", "isTip", "x", "branch"), 
                                  #drop=FALSE]
@@ -190,7 +190,7 @@ check_plotdata <- function(object, plot){
             cli_abort("Data function must return a data.frame")
         }
         object$data <- object$data[object$data$isTip,]
-        object$mapping <- modifyList(object$mapping, aes_(y=~y))
+        object$mapping <- modifyList(object$mapping, aes(y=!!sym("y")))
         object$datanull <- TRUE
     }else{
         object$datanull <- FALSE
@@ -221,7 +221,7 @@ build_new_data <- function(object, plot){
                          paste0(colnames(origindata), collapse=", "), "."))
         }
         object$data <- merge(origindata, object$data, by.x="label", by.y=as_name(object$mapping$y))
-        object$mapping <- modifyList(object$mapping, aes_(y=~y))
+        object$mapping <- modifyList(object$mapping, aes(y=!!sym("y")))
     }
     object$datanull <- NULL
     return(object)

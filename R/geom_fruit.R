@@ -105,7 +105,7 @@
 ##'
 ##' The 'p' parameter only work when you use `fruit_plot()`, which is alias of `geom_fruit()`.
 ##' @return ggplot object
-##' @importFrom rlang enquo
+##' @importFrom rlang enquo sym 
 ##' @importFrom cli cli_abort 
 ##' @export
 ##' @author Shuangbin Xu and Guangchuang Yu
@@ -232,7 +232,7 @@ geom_fruit <- function(mapping,
     # for MSA
     if (geomname == "geom_msa"){
         if (missing(mapping)){
-            mapping <- aes_(x = ~position, y = ~name, fill = ~I(color))
+            mapping <- aes(x = !!sym("position"), y = !!sym("name"), fill = I(!!sym("color")))
         }
     }
     obj <- structure(
