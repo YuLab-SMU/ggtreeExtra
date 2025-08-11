@@ -301,8 +301,7 @@ p3 <- p2 +
       geom_fruit(
           data = dtf,
           geom = geom_col,
-          mapping = aes(y=id, x=value, fill=group3),
-          stat = "identity"
+          mapping = aes(y=id, x=value, fill=group3)
       ) +
       scale_fill_manual(values=c("#00AED7", "#009E73"))
 p3

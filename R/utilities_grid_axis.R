@@ -1,4 +1,4 @@
-#' @importFrom ggplot2 aes_string geom_segment
+#' @importFrom ggplot2 geom_segment
 #' @importFrom stats aggregate
 #' @importFrom stats as.formula
 build_grid <- function(dat, xid, position, grid.params, grid.dot.params, y.range){
@@ -135,9 +135,11 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y
 get_continuous_norm <- function(refdata, data, orientation, xid, position, geomname, ratio, nbreak, limits = NULL){
     if (inherits(position, "PositionStackx") || geomname %in% stackpos){
         if (inherits(position, "PositionStackx")){
-            dat <- aggregate(as.formula(paste0(". ~","label")), data[,c(xid, "label")], sum)
+            #dat <- aggregate(as.formula(paste0(". ~","label")), data[,c(xid, "label")], sum)
+            dat <- aggregate(as.formula(paste0(". ~", "y")), data[,c(xid, "y")], sum)
         }else{
-            dat <- data[,c(xid, "label")]
+            #dat <- data[,c(xid, "label")]
+            dat <- data[,c(xid, "y")]
         }
         if (!any(dat[[xid]]==0)){
             dabreaks <- pretty(c(0, dat[[xid]]), n=nbreak)

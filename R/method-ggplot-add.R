@@ -1,6 +1,6 @@
 ##' @method ggplot_add fruit_plot
 ##' @importFrom utils modifyList
-##' @importFrom ggplot2 aes aes_ aes_string scale_color_manual
+##' @importFrom ggplot2 aes scale_color_manual
 ##' @importFrom rlang as_name quo_name
 ##' @importFrom ggnewscale new_scale_color
 ##' @author Shuangbin Xu
@@ -61,7 +61,7 @@ ggplot_add.fruit_plot <- function(object, plot, object_name, ...){
             newxexpand <- max(abs(dat[[paste0("new_", xid)]]), na.rm=TRUE)
         }else{
             if (!"hexpand" %in% names(object$params$position)){
-                dat[[paste0("new_", xid)]] <- data.frame(plot$data, check.names=FALSE)[match(dat$label,plot$data$label),"x"]
+                dat[[paste0("new_", xid)]] <- data.frame(plot$data, check.names=FALSE)[match(dat$y,plot$data$y),"x"]
             }else{
                 dat[[paste0("new_", xid)]] <- 0
             }
@@ -220,7 +220,8 @@ build_new_data <- function(object, plot){
                          " are/is the same to tree data, the tree data column names are : ",
                          paste0(colnames(origindata), collapse=", "), "."))
         }
-        object$data <- merge(origindata, object$data, by.x="label", by.y=as_name(object$mapping$y))
+        #object$data <- merge(origindata, object$data, by.x="label", by.y=as_name(object$mapping$y))
+        object$data <- merge(object$data, origindata, by.x=as_name(object$mapping$y), by.y="label")
         object$mapping <- modifyList(object$mapping, aes(y=!!sym("y")))
     }
     object$datanull <- NULL
@@ -284,6 +285,11 @@ idepos <- c("geom_dots", "geom_dotsinterval", "geom_pointinterval",
 stackpos <- c("geom_bar", "geom_barh", "geom_bar_pattern", "geom_col", "geom_colh", "geom_col_pattern")
 
 densitypos <- c("geom_density_ridges", "geom_density_ridges2", "geom_density_ridges_gradient")
+
+dodpos <- c(dodpos, paste0(dodpos, "_interactive"))
+idepos <- c(idepos, paste0(idepos, "_interactive"))
+stackpos <- c(stackpos, paste0(stackpos, "_interactive"))
+densitypos <- c(densitypos, paste0(densitypos, "_interactive"))
 
 check_reverse <- function(plot){
     flag <- unlist(lapply(plot$scales$scales, 
