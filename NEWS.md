@@ -1,4 +1,4 @@
-# ggtreeExtra 1.19.990
+# ggtreeExtra 1.19.1
 
 + supporting the ggplot2_v4. (2025-08-08, Fri)
 
