@@ -1,3 +1,7 @@
+# ggtreeExtra 1.21.0
+
++ Bioconductor 3.22 released, and Bioconductor 3.23 (devel) bump. (2025-10-31, Fri)
+
 # ggtreeExtra 1.19.1
 
 + supporting the ggplot2_v4. (2025-08-08, Fri)
