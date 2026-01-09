@@ -19,7 +19,8 @@ Imports:
     ggtree,
     tidytree (>= 0.3.9),
     cli,
-    magrittr
+    magrittr,
+    yulab.utils
 Suggests:
     treeio,
     ggstar,
