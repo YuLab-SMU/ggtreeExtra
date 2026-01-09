@@ -33,7 +33,7 @@ number is used as seed for jittering only.}
 \description{
 This is a position adjustment specifically for 'geom_density_ridges()' and related geoms. It
 only jitters the points drawn by these geoms, if any. If no points are present, the plot
-remains unchanged. The effect is similar to \code{\link[=position_jitter]{position_jitter()}}: points are randomly shifted up and down
+remains unchanged. The effect is similar to \code{\link[ggplot2:position_jitter]{ggplot2::position_jitter()}}: points are randomly shifted up and down
 and/or left and right. It add 'hexpand' that can control shift horizontally.
 }
 \seealso{
