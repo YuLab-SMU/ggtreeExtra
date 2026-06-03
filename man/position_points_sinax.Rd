@@ -32,9 +32,9 @@ This is a position adjustment specifically for 'geom_density_ridges()', but it
 add 'hexpand' that can control shift horizontally.
 }
 \seealso{
-Other position adjustments: 
-\code{\link{position_dodgex}()},
-\code{\link{position_identityx}()}
+Other position adjustments:
+\code{\link[=position_dodgex]{position_dodgex()}},
+\code{\link[=position_identityx]{position_identityx()}}
 }
 \author{
 Shuangbin Xu

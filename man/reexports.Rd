@@ -15,12 +15,12 @@ These objects are imported from other packages. Follow the links
 below to see their documentation.
 
 \describe{
-  \item{ggplot2}{\code{\link[ggplot2:update_ggplot]{ggplot_add}}}
+  \item{ggplot2}{\code{\link[ggplot2:ggplot_add]{ggplot_add()}}}
 
-  \item{ggtree}{\code{\link[ggtree:reexports]{td_filter}}, \code{\link[ggtree:reexports]{td_unnest}}}
+  \item{ggtree}{\code{\link[ggtree:td_filter]{td_filter}}, \code{\link[ggtree:td_unnest]{td_unnest}}}
 
-  \item{magrittr}{\code{\link[magrittr:pipe]{\%>\%}}}
+  \item{magrittr}{\code{\link[magrittr:\%>\%]{\%>\%}}}
 
-  \item{tidytree}{\code{\link[tidytree]{as.treedata}}}
+  \item{tidytree}{\code{\link[tidytree:as.treedata]{as.treedata()}}}
 }}
 

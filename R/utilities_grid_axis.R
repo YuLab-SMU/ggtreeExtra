@@ -33,7 +33,7 @@ build_grid <- function(dat, xid, position, grid.params, grid.dot.params, y.range
         daline3$yend <- daline3$y
         daline1 <- rbind(daline1, daline3)
     }
-    obj1 <- list(size=grid.params$size,
+    obj1 <- list(linewidth=grid.params$size,
                  colour=grid.params$color,
                  alpha=grid.params$alpha,
                  lineend=grid.params$lineend,
@@ -68,6 +68,9 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y
     obj <- list(size=axis.params$text.size, angle=axis.params$text.angle, inherit.aes=axis.params$inherit.aes)
     obj$data <- dat
     obj$mapping <- aes(x=!!sym(newxid), y=0, label=!!sym(xid))
+    if (!is.null(axis.params$text.height)){
+        obj$mapping <- aes(x=!!sym(newxid), y=yr[2]*(1 + axis.params$text.height), label=!!sym(xid))
+    }
     obj$position <- position_identityx(hexpand=position$hexpand)
     obj <- c(obj, axis.dot.params)
     obj <- do.call("geom_text", obj)
@@ -79,6 +82,7 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y
         titleobj$data <- titledat
         titleobj$mapping <- aes(x=!!sym("x"), y=!!sym("y"), label=!!sym("label"))
         titleobj$position <- position_identityx(hexpand=position$hexpand)
+	titleobj <- c(titleobj, axis.dot.params[!names(axis.dot.params) %in% c("vjust", "hjust")])
         titleobj <- do.call("geom_text", titleobj)
         obj <- list(obj, titleobj)
     }
@@ -89,7 +93,7 @@ build_axis <- function(dat, xid, text, position, axis.params, axis.dot.params, y
                            xend=max(dat[[newxid]]))
     }
     obj2 <- list(
-                size=axis.params$line.size, 
+                linewidth =axis.params$line.size, 
                 colour=axis.params$line.color,
                 alpha=axis.params$line.alpha,
                 inherit.aes=axis.params$inherit.aes

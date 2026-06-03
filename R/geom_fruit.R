@@ -50,6 +50,8 @@
 ##'         \item \code{hjust} numeric, A numeric specifying horizontal justification, default is 0.5.
 ##'         \item \code{text.angle} numeric, the angle of axis text, default is 0.
 ##'         \item \code{text.size} numeric, the size of axis text, default is 0.8.
+##'         \item \code{text.height} numeric, the height of axis text position more than tree, default is NULL,
+##'          it is relative to height of tree.
 ##'         \item \code{title} character, the title of panel or x-axis label, default is NULL, it is only
 ##'          valid when "x" axis exists.
 ##'         \item \code{title.size} numeric, the size of title text, default is 3.
@@ -169,6 +171,7 @@ geom_fruit <- function(mapping,
                                        axis="none",
                                        text.angle=0,
                                        text.size=0.8,
+                                       text.height = NULL,
                                        text=NULL,
                                        title = NULL,
                                        title.size = 3,
@@ -191,7 +194,7 @@ geom_fruit <- function(mapping,
     }
     geomname <- .convert_to_name(geom)
     default.grid.params <- list(color="grey",
-                                size=0.2,
+                                linewidth=0.2,
                                 alpha=1,
                                 lineend="butt",
                                 linejoin="round",
@@ -200,6 +203,7 @@ geom_fruit <- function(mapping,
     default.axis.params <- list(axis="none",
                                 text.angle=0, 
                                 text.size=0.8,
+                                text.height = NULL,
                                 text=NULL, 
                                 title = NULL,
                                 title.size = 3,

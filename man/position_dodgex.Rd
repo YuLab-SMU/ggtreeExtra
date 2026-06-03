@@ -70,8 +70,8 @@ p8 <- p5 + p6 + p7
 p8
 }
 \seealso{
-Other position adjustments: 
-\code{\link{position_identityx}()},
-\code{\link{position_points_sinax}()}
+Other position adjustments:
+\code{\link[=position_identityx]{position_identityx()}},
+\code{\link[=position_points_sinax]{position_points_sinax()}}
 }
 \concept{position adjustments}
