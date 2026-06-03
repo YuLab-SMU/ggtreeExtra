@@ -14,9 +14,10 @@ geom_fruit(
   position = "auto",
   inherit.aes = FALSE,
   grid.params = NULL,
-  axis.params = list(axis = "none", text.angle = 0, text.size = 0.8, text = NULL, title =
-    NULL, title.size = 3, title.height = 0.1, title.angle = 0, title.color = "black",
-    nbreak = 4, line.size = 0.2, line.color = "grey", line.alpha = 1, limits = NULL, ...),
+  axis.params = list(axis = "none", text.angle = 0, text.size = 0.8, text.height = NULL,
+    text = NULL, title = NULL, title.size = 3, title.height = 0.1, title.angle = 0,
+    title.color = "black", nbreak = 4, line.size = 0.2, line.color = "grey", line.alpha =
+    1, limits = NULL, ...),
   ...
 )
 
@@ -81,6 +82,8 @@ the text of axis is single and x is discrete.
 \item \code{hjust} numeric, A numeric specifying horizontal justification, default is 0.5.
 \item \code{text.angle} numeric, the angle of axis text, default is 0.
 \item \code{text.size} numeric, the size of axis text, default is 0.8.
+\item \code{text.height} numeric, the height of axis text position more than tree, default is NULL,
+it is relative to height of tree.
 \item \code{title} character, the title of panel or x-axis label, default is NULL, it is only
 valid when "x" axis exists.
 \item \code{title.size} numeric, the size of title text, default is 3.
