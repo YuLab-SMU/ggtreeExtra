@@ -35,9 +35,9 @@ p4 <- p1 + p2 + p3
 p4
 }
 \seealso{
-Other position adjustments: 
-\code{\link{position_dodgex}()},
-\code{\link{position_points_sinax}()}
+Other position adjustments:
+\code{\link[=position_dodgex]{position_dodgex()}},
+\code{\link[=position_points_sinax]{position_points_sinax()}}
 }
 \author{
 Shuangbin Xu

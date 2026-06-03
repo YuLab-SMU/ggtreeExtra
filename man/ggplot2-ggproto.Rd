@@ -2,7 +2,6 @@
 % Please edit documentation in R/position_dodgex.r, R/position_dodgex2.r,
 %   R/position_identityx.r, R/position_points_jitterx.R,
 %   R/position_points_sinax.R, R/position_stackx.R
-\docType{data}
 \name{PositionDodgex}
 \alias{PositionDodgex}
 \alias{PositionDodgex2}
@@ -30,4 +29,3 @@ PositionStackx
 \author{
 Shuangbin Xu
 }
-\keyword{datasets}
