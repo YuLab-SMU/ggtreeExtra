@@ -1,3 +1,7 @@
+# ggtreeExtra 1.23.1
+
++ introduce `text.height` in `axis.params` parameter in `geom_fruit`. (2026-06-04, Thu)
+
 # ggtreeExtra 1.23.0
 
 + Bioconductor 3.23 released, and Bioconductor 3.24 (devel) bump. (2025-04-29, Wed)
